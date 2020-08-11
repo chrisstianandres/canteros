@@ -7,12 +7,12 @@
         <th>Area (m <sup>2</sup>)</th>
         <th>Estado</th>
         <th hidden="hidden"></th>
-        <th class="text-center"><em class="fa fa-cog"></em></th>
+        <th class="text-center" scope="col" style="width: 10%"><em class="fa fa-cog"></em></th>
     </tr>
     </thead>
     <tbody>
-    {% if list %}
-        {% for dato in list %}
+    {% if object_list %}
+        {% for dato in object_list %}
             <tr>
                 <td>{{ dato.id }}</td>
                 <td>{{ dato.nombre }}</td>

@@ -11,16 +11,18 @@ opc_icono = 'fa fa-tractor'
 opc_entidad = 'Canteros'
 crud = '/cantero/crear'
 
+class lista(ListView):
+    model = Cantero
+    template_name = 'front-end/cantero/cantero_list.html'
 
-def lista(request):
-    data = {
-        'icono': opc_icono, 'entidad': opc_entidad,
-        'boton': 'Nuevo Cantero', 'titulo': 'Listado de Cantero',
-        'nuevo': '/cantero/nuevo'
-    }
-    list = Cantero.objects.all()
-    data['list'] = list
-    return render(request, "front-end/cantero/cantero_list.html", data)
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['icono'] = opc_icono
+        data['entidad'] = opc_entidad
+        data['boton'] = 'Nuevo Cantero'
+        data['titulo'] = 'Listado de Canteros'
+        data['nuevo'] = '/cantero/nuevo'
+        return data
 
 def nuevo(request):
     data = {
