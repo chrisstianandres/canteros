@@ -1,0 +1,67 @@
+{% load static from staticfiles %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>{{ titulo }}</title>
+    <script src="https://code.jquery.com/jquery-2.2.4.js"
+            integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+            crossorigin="anonymous"></script>
+    <!-- HTML5 Shim and Respond.js IE11 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 11]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+    <![endif]-->
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="description" content=""/>
+    <meta name="keywords" content="">
+    <meta name="author" content="Phoenixcoded"/>
+    <!-- Favicon icon -->
+    <link rel="icon" href="{% static 'dist/assets/images/favicon.ico' %}" type="image/x-icon">
+    <!-- vendor css -->
+    <link rel="stylesheet" href="{% static 'dist/assets/css/style.css' %}">
+
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+
+</head>
+<body class="">
+<!-- [ Pre-loader ] start -->
+<div class="loader-bg">
+    <div class="loader-track">
+        <div class="loader-fill"></div>
+    </div>
+</div>
+<!-- [ Pre-loader ] End -->
+<!-- [ navigation menu ] start -->
+{% include "front-end/sidebar.html" %}
+<!-- [ navigation menu ] end -->
+<!-- [ Header ] start -->
+{% include "front-end/header.html" %}
+<!-- [ Header ] end -->
+<!-- [ Main Content ] start -->
+{% block content %}
+
+{% endblock %}
+<!-- [ Main Content ] end -->
+<!-- Warning Section start -->
+<!-- Older IE warning message -->
+<!-- Warning Section Ends -->
+ <!-- Required Js -->
+    <script src="{% static 'dist/assets/js/vendor-all.min.js' %}"></script>
+    <script src="{% static 'dist/assets/js/plugins/bootstrap.min.js' %}"></script>
+    <script src="{% static 'dist/assets/js/ripple.js' %}"></script>
+    <script src="{% static 'dist/assets/js/pcoded.min.js' %}"></script>
+    <!-- Apex Chart -->
+    <script src="{% static 'dist/assets/js/plugins/apexcharts.min.js' %}"></script>
+    <!-- custom-chart js -->
+    <script src="{% static 'dist/assets/js/pages/dashboard-main.js' %}"></script>
+
+
+    <script src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>
