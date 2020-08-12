@@ -6,7 +6,7 @@ from django.shortcuts import render
 from apps.trabajador.forms import TrabajadorForm
 from apps.trabajador.models import Trabajador
 
-opc_icono = 'fab fa-pied-piper-alt'
+opc_icono = 'fas fa-people-carry'
 opc_entidad = 'Trabajador'
 crud = '/trabajador/crear'
 

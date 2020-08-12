@@ -32,4 +32,6 @@ urlpatterns = [
     path('trabajador/', include('apps.trabajador.urls', namespace='trabajador')),
     path('cantero/', include('apps.cantero.urls', namespace='cantero')),
     path('producto/', include('apps.producto.urls', namespace='producto')),
+    path('categoria/', include('apps.categoria.urls', namespace='categoria')),
+    path('presentacion/', include('apps.presentacion.urls', namespace='presentacion')),
 ]
