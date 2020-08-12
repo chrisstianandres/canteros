@@ -23,11 +23,13 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-
+    # empresa
+    path('empresa/', include('apps.configuracion.urls', namespace='empresa')),
     path('', backEnd.menu, name='menu'),
     path('cliente/', include('apps.cliente.urls', namespace='cliente')),
     path('proveedor/', include('apps.proveedor.urls', namespace='proveedor')),
     path('insumo/', include('apps.insumo.urls', namespace='insumo')),
     path('trabajador/', include('apps.trabajador.urls', namespace='trabajador')),
     path('cantero/', include('apps.cantero.urls', namespace='cantero')),
+    path('producto/', include('apps.producto.urls', namespace='producto')),
 ]

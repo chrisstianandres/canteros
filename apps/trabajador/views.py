@@ -1,13 +1,12 @@
-from django.shortcuts import render, redirect
-from django.views.generic import *
-from django.http import HttpResponse
+import json
+
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
+
 from apps.trabajador.forms import TrabajadorForm
 from apps.trabajador.models import Trabajador
-from django.http import HttpResponseRedirect
-import json
-from django.db.models import Q
 
-opc_icono = 'feather icon-users'
+opc_icono = 'fab fa-pied-piper-alt'
 opc_entidad = 'Trabajador'
 crud = '/trabajador/crear'
 

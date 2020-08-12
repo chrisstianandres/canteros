@@ -1,15 +1,16 @@
 {% extends 'front-end/list.html' %}
+{% load static from staticfiles %}
 {% block table %}
     <thead>
     <tr>
-        <th>Id</th>
-        <th>Nombres</th>
+        <th scope="col" style="width: 5%">Id</th>
+        <th scope="col" style="width: 10%">Nombres</th>
         <th>Tipo</th>
         <th>N° Documento</th>
         <th>Correo</th>
         <th>Direccion</th>
         <th>Telefono</th>
-        <th class="text-center"><em class="fa fa-cog"></em></th>
+        <th class="text-center" scope="col" style="width: 10%"><em class="fa fa-cog"></em></th>
     </tr>
     </thead>
     <tbody>
@@ -40,7 +41,7 @@
                 responsive: true,
                 autoWidth: false,
                 language: {
-                    "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+                    "url": '{% static 'lib/datatables-1.10.20/spanish.txt' %}'
                 },
 
             });

@@ -1,0 +1,109 @@
+{% extends 'front-end/base.html' %}
+{% load static from staticfiles %}
+{% block head %}
+
+    {% block form_head %}
+
+    {% endblock %}
+{% endblock %}
+{% block content %}
+    <div class="pcoded-main-container">
+        <div class="pcoded-content">
+            <!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10"><i class="{{ icono }}" aria-hidden="true"></i> {{ entidad }}</h5>
+                                <input type="hidden" value="{{ index }}" id="index">
+                            </div>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#"><i class="feather icon-home"></i></a></li>
+                                <li class="breadcrumb-item"><a href="#!">{{ entidad }}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [ breadcrumb ] end -->
+            <!-- [ Main Content ] start -->
+            <div class="row">
+                <div class="card col-md-12 col-lg-12">
+                    <div class="card-header">
+                        <h5>{{ titulo }}</h5>
+                    </div>
+                    <div class="card-body table-border-style">
+                        <form id="form" method="POST" action="{% url 'empresa:editar' %}">
+                            <input type="hidden" id="action" name="action" value="{{ action }}">
+                            {% for hidden in form.hidden_fields %}
+                                {{ hidden }}
+                            {% endfor %}
+                            {% if form.errors %}
+                                {% for field in form %}
+                                    {% for error in field.errors %}
+                                        <div class="form-group col-md-6 fill">
+                                            <span class="badge badge-danger">{{ error }}</span>
+                                        </div>
+                                    {% endfor %}
+                                {% endfor %}
+                            {% endif %}
+                            {% for field in form.visible_fields %}
+                                <div class="form-group col-md-6 col-lg-12 fill">
+                                    <label style="font-size: 13px;"
+                                           class="col-lg-3 control-label"><strong>{{ field.label }}:</strong></label>
+                                    <div class="col-lg-10">
+                                        {% csrf_token %}
+                                        {{ form.media }}
+                                        {{ field }}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            <button type="submit" class="btn btn-success has-ripple" style="display: none" id="guardar"><i
+                                    class="feather mr-2 icon-save"></i>Guardar<span class="ripple ripple-animate"
+                                                                                        style="height: 115px; width: 115px; animation-duration: 0.7s; animation-timing-function: linear; background: rgb(255, 255, 255); opacity: 0.4; top: -47.875px; left: -23.5px;"></span>
+                                <button type="button" class="btn btn-primary has-ripple" id="editar"><i
+                                        class="feather mr-2 icon-edit"></i>{{ boton }}<span
+                                        class="ripple ripple-animate"
+                                        style="height: 115px; width: 115px; animation-duration: 0.7s; animation-timing-function: linear; background: rgb(255, 255, 255); opacity: 0.4; top: -47.875px; left: -23.5px;"></span>
+                                </button>
+                                <button type="button" onclick=" window.history.back();"
+                                        class="btn btn-danger has-ripple"><i
+                                        class="feather mr-2 icon-slash"></i>Cancelar<span class="ripple ripple-animate"
+                                                                                          style="height: 111px; width: 111px; animation-duration: 0.7s; animation-timing-function: linear; background: rgb(255, 255, 255); opacity: 0.4; top: -34.875px; left: -14.5px;"></span>
+                                </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script>
+        $(document).ready(function () {
+            $('#id_nombre').attr('readonly', true);
+            $('#id_ruc').attr('readonly', true);
+            $('#id_correo').attr('readonly', true);
+            $('#id_direccion').attr('readonly', true);
+            $('#id_iva').attr('readonly', true);
+            $('#id_telefono').attr('readonly', true);
+            $('#editar').on("click", editar);
+
+        });
+
+        function editar() {
+            $('#guardar').show();
+            $('#editar').hide();
+            $('#id_nombre').attr('readonly', false);
+            $('#id_ruc').attr('readonly', false);
+            $('#id_correo').attr('readonly', false);
+            $('#id_direccion').attr('readonly', false);
+            $('#id_iva').attr('readonly', false);
+            $('#id_telefono').attr('readonly', false);
+
+
+        }
+    </script>
+{% endblock %}
+

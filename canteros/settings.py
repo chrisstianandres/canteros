@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     #sistema
     'apps.asignar',
     'apps.cliente',
+    'apps.configuracion',
     'apps.insumo',
     'apps.pago_jornada',
     'apps.produccion',

@@ -1,5 +1,5 @@
 {% load static from staticfiles %}
-<nav class="pcoded-navbar menu-light ">
+<nav class="pcoded-navbar menu-light navbar-collapsed">
 		<div class="navbar-wrapper  ">
 			<div class="navbar-content scroll-div " >
 
@@ -26,7 +26,7 @@
 					    <a href="{% url 'menu' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Menu Principal</span></a>
 					</li>
                     	<li class="nav-item">
-					    <a href="#" class="nav-link "><span class="pcoded-micon"><i class="feather icon-settings m-r-5"></i></span><span class="pcoded-mtext">Configuracion</span></a>
+					    <a href="{% url 'empresa:editar'%}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-settings m-r-5"></i></span><span class="pcoded-mtext">Configuracion</span></a>
 					</li>
 					<li class="nav-item pcoded-menu-caption">
 					    <label>Ventas</label>
@@ -41,7 +41,7 @@
 					    <label>Produccion</label>
 					</li>
                     <li class="nav-item">
-					    <a href="{% url 'trabajador:lista' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-users"></i></span><span class="pcoded-mtext">Trabajadores</span></a>
+					    <a href="{% url 'trabajador:lista' %}" class="nav-link "><span class="pcoded-micon"><i class="fab fa-pied-piper-alt"></i></span><span class="pcoded-mtext">Trabajadores</span></a>
 					</li>
 					<li class="nav-item">
 					    <a href="{% url 'cantero:lista' %}" class="nav-link "><span class="pcoded-micon"><i class="fa fa-tractor"></i></span><span class="pcoded-mtext">Canteros</span></a>

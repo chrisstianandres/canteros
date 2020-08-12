@@ -1,0 +1,97 @@
+{% extends 'front-end/base.html' %}
+{% load static from staticfiles %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'lib/datatables-1.10.20/css/dataTables.bootstrap4.min.css' %}"/>
+    <link rel="stylesheet"
+          href="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/css/responsive.bootstrap4.min.css' %}"/>
+
+{% endblock %}
+{% block content %}
+    <div class="pcoded-main-container">
+        <div class="pcoded-content">
+            <!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10"><i class="{{ icono }}" aria-hidden="true"></i> {{ entidad }}</h5>
+                            </div>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{% url 'menu' %}"><i class="feather icon-home"></i></a>
+                                </li>
+                                <li class="breadcrumb-item"><a href="#!">{{ entidad }}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [ breadcrumb ] end -->
+            <!-- [ Main Content ] start -->
+            <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fab fa-amazon"></i> Detalle de Productos</h5>
+                    </div>
+                    <div class="card-body table-border-style">
+                        <div class="form-group">
+                            <label>Buscar Productos:</label>
+
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table" id="datatable">
+                               <thead>
+                               <tr>
+                                   <th>h</th>
+                               </tr>
+                               </thead>
+                                <tbody>
+                                <tr><td>1</td></tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <div class="col-md-4">
+                    <div class="card ">
+                    <div class="card-header">
+                        <h5><i class="fab fa-cc-visa"></i> Datos de la venta</h5>
+                    </div>
+                    <div class="card-body table-border-style">
+                        <div class="table-responsive">
+                            <table class="table" id="datatable">
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block script %}
+    <script src="{% static 'lib/datatables-1.10.20/js/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'lib/datatables-1.10.20/js/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/responsive.bootstrap4.min.js' %}"></script>
+
+     <script>
+        $(function () {
+            $("#datatable").DataTable({
+                responsive: true,
+                autoWidth: false,
+                language: {
+                    "url": '{% static 'lib/datatables-1.10.20/spanish.txt' %}'
+                },
+
+            });
+        });
+    </script>
+{% endblock %}
+

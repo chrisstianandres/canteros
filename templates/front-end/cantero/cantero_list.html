@@ -1,4 +1,5 @@
 {% extends 'front-end/list.html' %}
+{% load static from staticfiles %}
 {% block table %}
     <thead>
     <tr>
@@ -36,8 +37,9 @@
                 responsive: true,
                 autoWidth: false,
                 language: {
-                    "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+                    "url": '{% static 'lib/datatables-1.10.20/spanish.txt' %}'
                 },
+
                 createdRow: function (row, data, dataIndex) {
                     if (data[4] === 'ACTIVO') {
                         $('td', row).eq(3).addClass('badge badge-primary');

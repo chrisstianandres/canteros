@@ -3,9 +3,6 @@
 <html lang="es">
 <head>
     <title>{{ titulo }}</title>
-    <script src="https://code.jquery.com/jquery-2.2.4.js"
-            integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
-            crossorigin="anonymous"></script>
     <!-- HTML5 Shim and Respond.js IE11 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 11]>
@@ -24,6 +21,8 @@
     <link rel="icon" href="{% static 'dist/assets/images/favicon.ico' %}" type="image/x-icon">
     <!-- vendor css -->
     <link rel="stylesheet" href="{% static 'dist/assets/css/style.css' %}">
+    <link href="{% static 'lib/fontawesome-free-5.14.0-web/css/all.css' %}" rel="stylesheet"> <!--load all styles -->
+    <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
     {% block head %}
 
     {% endblock %}
@@ -53,6 +52,7 @@
 <!-- Older IE warning message -->
 <!-- Warning Section Ends -->
 <!-- Required Js -->
+{% include "front-end/footer.html" %}
 <script src="{% static 'dist/assets/js/vendor-all.min.js' %}"></script>
 <script src="{% static 'dist/assets/js/plugins/bootstrap.min.js' %}"></script>
 <script src="{% static 'dist/assets/js/ripple.js' %}"></script>
@@ -61,9 +61,11 @@
 <script src="{% static 'dist/assets/js/plugins/apexcharts.min.js' %}"></script>
 <!-- custom-chart js -->
 <script src="{% static 'dist/assets/js/pages/dashboard-main.js' %}"></script>
+{% block script %}
 
+{% endblock %}
 
-<script src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+{#<script src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>#}
 </body>
 
 </html>

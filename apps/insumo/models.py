@@ -1,9 +1,5 @@
 from django.db import models
 
-tipo = (
-    (1, 'CEDULA'),
-    (0, 'RUC'),
-)
 
 class Insumo(models.Model):
     nombre = models.CharField(max_length=50)
