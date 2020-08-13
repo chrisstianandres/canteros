@@ -9,7 +9,7 @@ class Insumo(models.Model):
     descripcion = models.CharField(max_length=50)
 
     def __str__(self):
-        return '%s' % self.nombre, self.categoria
+        return '%s' % (self.nombre)
 
     class Meta:
         db_table = 'insumo'

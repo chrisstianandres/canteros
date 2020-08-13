@@ -22,6 +22,7 @@ def lista(request):
     data['list'] = list
     return render(request, "front-end/insumo/insumo_list.html", data)
 
+
 def nuevo(request):
     data = {
         'icono': opc_icono, 'entidad': opc_entidad, 'crud': crud,
@@ -30,6 +31,7 @@ def nuevo(request):
     if request.method == 'GET':
         data['form'] = InsumoForm()
     return render(request, 'front-end/insumo/insumo_form.html', data)
+
 
 def crear(request):
     f = InsumoForm(request.POST)

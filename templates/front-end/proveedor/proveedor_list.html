@@ -34,6 +34,8 @@
         {% endfor %}
     {% endif %}
     </tbody>
+{% endblock %}
+{% block javascript %}
     <script>
         $(function () {
             $("#datatable").DataTable({
@@ -46,5 +48,4 @@
             });
         });
     </script>
-
 {% endblock %}

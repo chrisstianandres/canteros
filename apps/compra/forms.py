@@ -1,41 +1,87 @@
 from django import forms
 from datetime import *
-from django.forms import SelectDateWidget, TextInput, NumberInput, EmailInput
-
-from .models import Cantero
+from .models import Compra, Detalle_compra
 
 
-class CanteroForm(forms.ModelForm):
+class CompraForm(forms.ModelForm):
     # constructor
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        this_year = datetime.now().year
-        years = range(this_year - 15, this_year - 3)
         for field in self.Meta.fields:
             self.fields[field].widget.attrs.update({
                 'class': 'form-control'
             })
-
-            self.fields['nombre'].widget = TextInput(
-                attrs={'placeholder': 'Ingrese el nombre del cantero', 'class': 'form-control form-rounded'})
-            self.fields['valor_dim'].widget = TextInput(
-                attrs={'placeholder': 'Ingrese numero la dimesion', 'class': 'form-control form-rounded'})
+            self.fields['fecha_compra'].widget.attrs = {
+                'readonly': True,
+                'class': 'form-control'
+            }
+            self.fields['proveedor'].widget.attrs = {
+                'class': 'form-control selectpicker',
+                'data-live-search': "true"
+            }
+            self.fields['subtotal'].widget.attrs = {
+                'value': '0.00',
+                'class': 'form-control',
+                'readonly': True
+            }
+            self.fields['iva'].widget.attrs = {
+                'value': '0.00',
+                'class': 'form-control',
+                'readonly': True
+            }
+            self.fields['total'].widget.attrs = {
+                'value': '0.00',
+                'class': 'form-control',
+                'readonly': True
+            }
 
         # habilitar, desabilitar, y mas
 
     class Meta:
-        model = Cantero
-        fields = ['nombre',
-                  'dimesion',
-                  'valor_dim'
-                  ]
+        model = Compra
+        fields = [
+            'fecha_compra',
+            'proveedor',
+            'subtotal',
+            'iva',
+            'total'
+        ]
         labels = {
-            'nombre': 'Nombre',
-            'dimesion': 'Tipo de Medida',
-            'valor_dim': 'Dimension'
+            'fecha_compra': 'Fecha de Compra',
+            'proveedor': 'Proveedor',
+            'subtotal': 'Subtotal',
+            'iva': 'I.V.A.',
+            'total': 'TOTAL'
         }
         widgets = {
-            'nombre': forms.TextInput(),
-            'dimesion': forms.Select(attrs={'class': 'selectpicker', 'data-width': 'fit'}),
-            'valor_dim': forms.TextInput()
+            'fecha_compra': forms.DateInput(
+                format='%Y-%m-%d',
+                attrs={
+                    'value': datetime.now().strftime('%Y-%m-%d')
+                }
+            ),
+            'subtotal': forms.TextInput(),
+            'iva': forms.TextInput(),
+            'total': forms.TextInput(),
         }
+
+
+class Detalle_CompraForm(forms.ModelForm):
+    # constructor
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.Meta.fields:
+            self.fields[field].widget.attrs.update({
+                'class': 'form-control'
+            })
+            self.fields['insumo'].widget.attrs = {
+                'class': 'form-control selectpicker',
+                'data-live-search': "true"
+            }
+        # habilitar, desabilitar, y mas
+
+    class Meta:
+        model = Detalle_compra
+        fields = [
+            'insumo'
+        ]

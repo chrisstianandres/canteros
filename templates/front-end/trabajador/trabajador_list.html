@@ -36,7 +36,9 @@
         {% endfor %}
     {% endif %}
     </tbody>
-    <script>
+{% endblock %}
+{% block javascript %}
+<script>
         $(function () {
             $("#datatable").DataTable({
                 responsive: true,
