@@ -20,41 +20,27 @@
                 <td>$ {{ dato.total }}</td>
                 <td>{{ dato.id }}</td>
                 <td><span>{{ dato.get_estado_display }}</span></td>
-                <td><a type="button" class="btn btn-success btn-sm" data-toggle="tooltip"
+                <td><a type="button" class="btn btn-primary btn-sm" data-toggle="tooltip"
                        title="Editar Datos"
                        href="#"><i class="fa fa-edit"></i></a>
-                    <button type="button" class="btn btn-primary btn-sm estado"
+                    <a type="button" class="btn btn-success btn-sm" data-toggle="tooltip"
+                       title="Detalle de Productos"
+                       href="#"><i class="fa fa-search"></i></a>
+                    <button type="button" class="btn btn-warning btn-sm estado"
                             data-toggle="tooltip"
-                            title="Gestionar Estado" name="btnestado">
-                        <i class="fa fa-cogs"></i></button>
+                            title="Finalizar" name="btnestado">
+                        <i class="fa fa-check"></i></button>
+                    <a type="button" class="btn btn-danger btn-sm" data-toggle="tooltip"
+                       title="Eliminar compra"
+                       href="#"><i class="fa fa-trash-alt"></i></a>
             </tr>
         {% endfor %}
     {% endif %}
     </tbody>
 {% endblock %}
+{% block extra %}
+<script src="{% static 'apps/compra/compra_list.js' %}"></script>
+{% endblock %}
 {% block javascript %}
-    <script>
-        $(function () {
-            $("#datatable").DataTable({
-                responsive: true,
-                autoWidth: false,
-                language: {
-                    "url": '{% static 'lib/datatables-1.10.20/spanish.txt' %}'
-                },
 
-                createdRow: function (row, data, dataIndex) {
-                    console.log(data[4]);
-                    if (data[4] === '<span>FINALIZADA<span>') {
-                        $('td', row).eq(4).addClass('badge badge-pill badge-success');
-                    } else if (data[4] === '<span>PENDIENTE</span>') {
-                        $('td', row).eq(4).find('span').addClass('badge badge-pill badge-warning');
-                        //console.log($('td', row).eq(4).find('span').addClass('badge badge-pill badge-success'));
-                        //$('td', row).eq(4).addClass('badge badge-pill badge-danger');
-                    }
-
-                }
-
-            });
-        });
-    </script>
 {% endblock %}

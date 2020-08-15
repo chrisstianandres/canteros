@@ -1,11 +1,11 @@
 import json
 
-from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
+from django.db import transaction
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import *
 
-from apps.categoria.models import Categoria
 from apps.compra.forms import CompraForm, Detalle_CompraForm
 from apps.compra.models import Compra, Detalle_compra
 from apps.configuracion.models import Empresa
@@ -47,20 +47,21 @@ def crear(request):
     if request.method == 'POST':
         datos = json.loads(request.POST['compras'])
         if datos:
-            c = Compra()
-            c.fecha_compra = datos['fecha_compra']
-            c.proveedor_id = datos['proveedor']
-            c.subtotal = float(datos['subtotal'])
-            c.iva = float(datos['iva'])
-            c.total = float(datos['total'])
-            c.save()
-            for i in datos['insumos']:
-                dv = Detalle_compra()
-                dv.compra_id = c.id
-                dv.insumo_id = i['id']
-                dv.cantidad = int(i['cantidad'])
-                dv.save()
-                data['resp'] = True
+            with transaction.atomic():
+                c = Compra()
+                c.fecha_compra = datos['fecha_compra']
+                c.proveedor_id = datos['proveedor']
+                c.subtotal = float(datos['subtotal'])
+                c.iva = float(datos['iva'])
+                c.total = float(datos['total'])
+                c.save()
+                for i in datos['insumos']:
+                    dv = Detalle_compra()
+                    dv.compra_id = c.id
+                    dv.insumo_id = i['id']
+                    dv.cantidad = int(i['cantidad'])
+                    dv.save()
+                    data['resp'] = True
         else:
             data['resp'] = False
             data['error'] = "Datos Incompletos"

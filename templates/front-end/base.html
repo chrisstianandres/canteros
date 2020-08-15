@@ -16,29 +16,15 @@
     <meta name="author" content="Phoenixcoded"/>
     <!-- Favicon icon -->
     <link rel="icon" href="{% static 'dist/assets/images/favicon.ico' %}" type="image/x-icon">
+
     <!-- vendor css -->
     <link rel="stylesheet" href="{% static 'dist/assets/css/style.css' %}">
     <link href="{% static 'lib/fontawesome-free-5.14.0-web/css/all.css' %}" rel="stylesheet"> <!--load all styles -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="{% static 'dist/assets/js/vendor-all.js' %}"></script>
-{#    <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>#}
-    <script src="{% static 'dist/assets/js/plugins/bootstrap.min.js' %}"></script>
-    <script src="{% static 'dist/assets/js/ripple.js' %}"></script>
-    <script src="{% static 'dist/assets/js/pcoded.min.js' %}"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
-
-
-    <!-- Apex Chart -->
-
-    <!-- custom-chart js -->
-
 
     {% block head %}
 
     {% endblock %}
-
-
 </head>
 <body class="">
 <!-- [ Pre-loader ] start -->
@@ -56,28 +42,28 @@
 <!-- [ Header ] end -->
 <!-- [ Main Content ] start -->
 <div class="pcoded-main-container">
-        <div class="pcoded-content">
-            <!-- [ breadcrumb ] start -->
-            <div class="page-header">
-                <div class="page-block">
-                    <div class="row align-items-center">
-                        <div class="col-md-12">
-                            <div class="page-header-title">
-                                <h5 class="m-b-10"><i class="{{ icono }}" aria-hidden="true"></i> {{ entidad }}</h5>
-                            </div>
-                            <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{% url 'menu' %}"><i class="feather icon-home"></i></a>
-                                </li>
-                                <li class="breadcrumb-item"><a href="#!">{{ entidad }}</a></li>
-                            </ul>
+    <div class="pcoded-content">
+        <!-- [ breadcrumb ] start -->
+        <div class="page-header">
+            <div class="page-block">
+                <div class="row align-items-center">
+                    <div class="col-md-12">
+                        <div class="page-header-title">
+                            <h5 class="m-b-10"><i class="{{ icono }}" aria-hidden="true"></i> {{ entidad }}</h5>
                         </div>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{% url 'menu' %}"><i class="feather icon-home"></i></a>
+                            </li>
+                            <li class="breadcrumb-item"><a href="#!">{{ entidad }}</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
-{% block content %}
-
-{% endblock %}
         </div>
+        {% block content %}
+
+        {% endblock %}
+    </div>
 </div>
 <!-- [ Main Content ] end -->
 <!-- Warning Section start -->
@@ -85,7 +71,17 @@
 <!-- Warning Section Ends -->
 <!-- Required Js -->
 {#{% include "front-end/footer.html" %}#}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{% static 'dist/assets/js/vendor-all.js' %}"></script>
+{#    <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>#}
+<script src="{% static 'dist/assets/js/plugins/bootstrap.min.js' %}"></script>
+<script src="{% static 'dist/assets/js/ripple.js' %}"></script>
+<script src="{% static 'dist/assets/js/pcoded.min.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 {% block script %}
+
+{% endblock %}
+{% block extra %}
 
 {% endblock %}
 {% block javascript %}

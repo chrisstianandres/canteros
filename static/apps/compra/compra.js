@@ -159,6 +159,8 @@ $(function () {
             });
     })
 
+    compras.list();
+
 });
 
 function borrar_todo_alert(title, content, callback) {
