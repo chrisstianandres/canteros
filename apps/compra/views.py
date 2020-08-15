@@ -1,8 +1,15 @@
-from django.http import HttpResponseRedirect
+import json
+
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import *
+
+from apps.categoria.models import Categoria
 from apps.compra.forms import CompraForm, Detalle_CompraForm
-from apps.compra.models import Compra
+from apps.compra.models import Compra, Detalle_compra
+from apps.configuracion.models import Empresa
+from apps.insumo.models import Insumo
 
 opc_icono = 'fa fa-tractor'
 opc_entidad = 'Compras'
@@ -22,6 +29,7 @@ class lista(ListView):
         data['nuevo'] = '/compra/nuevo'
         return data
 
+
 def nuevo(request):
     data = {
         'icono': opc_icono, 'entidad': opc_entidad, 'crud': crud,
@@ -31,21 +39,51 @@ def nuevo(request):
         data['form'] = CompraForm()
         data['form2'] = Detalle_CompraForm()
     return render(request, 'front-end/compra/compra_form.html', data)
-#
-# def crear(request):
-#     f = CanteroForm(request.POST)
-#     data = {
-#         'icono': opc_icono, 'entidad': opc_entidad, 'crud': crud,
-#         'boton': 'Guardar Cantero', 'action': 'add', 'titulo': 'Nuevo Registro de un Cantero'
-#     }
-#     action = request.POST['action']
-#     data['action'] = action
-#     if request.method == 'POST' and 'action' in request.POST:
-#         if action == 'add':
-#             f = CanteroForm(request.POST)
-#             if f.is_valid():
-#                 f.save()
-#             else:
-#                 data['form'] = f
-#                 return render(request, 'front-end/cantero/cantero_form.html', data)
-#             return HttpResponseRedirect('/cantero/lista')
+
+
+@csrf_exempt
+def crear(request):
+    data = {}
+    if request.method == 'POST':
+        datos = json.loads(request.POST['compras'])
+        if datos:
+            c = Compra()
+            c.fecha_compra = datos['fecha_compra']
+            c.proveedor_id = datos['proveedor']
+            c.subtotal = float(datos['subtotal'])
+            c.iva = float(datos['iva'])
+            c.total = float(datos['total'])
+            c.save()
+            for i in datos['insumos']:
+                dv = Detalle_compra()
+                dv.compra_id = c.id
+                dv.insumo_id = i['id']
+                dv.cantidad = int(i['cantidad'])
+                dv.save()
+                data['resp'] = True
+        else:
+            data['resp'] = False
+            data['error'] = "Datos Incompletos"
+    return HttpResponse(json.dumps(data), content_type="application/json")
+
+
+@csrf_exempt
+def get_insumo(request):
+    data = {}
+    try:
+        id = request.POST['id']
+        if id:
+            insumo = Insumo.objects.filter(pk=id)
+            iva_emp = Empresa.objects.get(pk=1)
+            data = []
+            for i in insumo:
+                item = i.toJSON()
+                item['cantidad'] = 1
+                item['subtotal'] = 0.00
+                item['iva_emp'] = iva_emp.iva
+                data.append(item)
+        else:
+            data['error'] = 'No ha selecionado ningun Insumo'
+    except Exception as e:
+        data['error'] = str(e)
+    return JsonResponse(data, safe=False)

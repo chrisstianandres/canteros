@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import model_to_dict
 
 
 class Presentacion(models.Model):
@@ -8,6 +9,10 @@ class Presentacion(models.Model):
 
     def __str__(self):
         return '%s' % self.nombre, self.abreviatura
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
 
     class Meta:
         db_table = 'presnetacion'

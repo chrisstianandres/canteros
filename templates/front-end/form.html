@@ -11,28 +11,6 @@
     {% endblock %}
 {% endblock %}
 {% block content %}
-    <div class="pcoded-main-container">
-        <div class="pcoded-content">
-            <!-- [ breadcrumb ] start -->
-            <div class="page-header">
-                <div class="page-block">
-                    <div class="row align-items-center">
-                        <div class="col-md-12">
-                            <div class="page-header-title">
-                                <h5 class="m-b-10"><i class="{{ icono }}" aria-hidden="true"></i> {{ entidad }} / Nuevo
-                                </h5>
-                            </div>
-                            <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a>
-                                </li>
-                                <li class="breadcrumb-item"><a href="#!">{{ entidad }} / Nuevo</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- [ breadcrumb ] end -->
-            <!-- [ Main Content ] start -->
             <div class="row">
                 <div class="card col-md-12 col-lg-12">
                     <div class="card-header">
@@ -65,7 +43,8 @@
                                 </div>
                             {% endfor %}
                             <button type="submit" class="btn btn-primary has-ripple"><i
-                                    class="feather mr-2 icon-save"></i>{{ boton }}<span class="ripple ripple-animate"
+                                    class="feather mr-2 icon-save"></i>{{ boton }}
+                                <span class="ripple ripple-animate"
                                                                                         style="height: 115px; width: 115px; animation-duration: 0.7s; animation-timing-function: linear; background: rgb(255, 255, 255); opacity: 0.4; top: -47.875px; left: -23.5px;"></span>
                             </button>
                             <button type="button" onclick=" window.history.back();" class="btn btn-danger has-ripple"><i
@@ -76,8 +55,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+
 {% endblock %}
 
 {% block script %}

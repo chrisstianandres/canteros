@@ -2,55 +2,33 @@
 {% load static from staticfiles %}
 {% block head %}
 
-        <link rel="stylesheet" href="{% static 'lib/datatables-1.10.20/css/dataTables.bootstrap4.min.css' %}"/>
-    <link rel="stylesheet" href="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/css/responsive.bootstrap4.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'lib/datatables-1.10.20/css/dataTables.bootstrap4.min.css' %}"/>
+    <link rel="stylesheet"
+          href="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/css/responsive.bootstrap4.min.css' %}"/>
 
 {% endblock %}
 
 {% block content %}
-    <div class="pcoded-main-container">
-    <div class="pcoded-content">
-    <!-- [ breadcrumb ] start -->
-    <div class="page-header">
-        <div class="page-block">
-            <div class="row align-items-center">
-                <div class="col-md-12">
-                    <div class="page-header-title">
-                        <h5 class="m-b-10"><i class="{{ icono }}" aria-hidden="true"></i> {{ entidad }}</h5>
-                    </div>
-                    <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{% url 'menu' %}"><i class="feather icon-home"></i></a></li>
-                        <li class="breadcrumb-item"><a href="#!">{{ entidad }}</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- [ breadcrumb ] end -->
-    <!-- [ Main Content ] start -->
     <div class="row">
         <div class="card col-md-12 col-lg-12">
             <div class="card-header">
-               <a type="button" class="btn btn-primary btn-sm" href="{{ nuevo }}">
-                <i class="fa fa-plus" aria-hidden="true"></i> {{boton}}
-            </a>
+                <a type="button" class="btn btn-primary btn-sm" href="{{ nuevo }}">
+                    <i class="fa fa-plus" aria-hidden="true"></i> {{ boton }}
+                </a>
             </div>
             <div class="card-body table-border-style">
                 <div class="table-responsive">
                     <table class="table" id="datatable">
                         {% block table %}
-                            {% endblock %}
+                        {% endblock %}
                     </table>
                 </div>
             </div>
         </div>
     </div>
-	</div>
-</div>
-
 {% endblock %}
 {% block script %}
- <script src="{% static 'lib/datatables-1.10.20/js/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'lib/datatables-1.10.20/js/jquery.dataTables.js' %}"></script>
     <script src="{% static 'lib/datatables-1.10.20/js/dataTables.bootstrap4.min.js' %}"></script>
     <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/dataTables.responsive.min.js' %}"></script>
     <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/responsive.bootstrap4.min.js' %}"></script>

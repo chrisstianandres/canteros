@@ -1,6 +1,7 @@
 from django import forms
 from datetime import *
 from .models import Compra, Detalle_compra
+from tempus_dominus.widgets import DatePicker
 
 
 class CompraForm(forms.ModelForm):
@@ -56,9 +57,7 @@ class CompraForm(forms.ModelForm):
         widgets = {
             'fecha_compra': forms.DateInput(
                 format='%Y-%m-%d',
-                attrs={
-                    'value': datetime.now().strftime('%Y-%m-%d')
-                }
+                attrs={'value': datetime.now().strftime('%Y-%m-%d')},
             ),
             'subtotal': forms.TextInput(),
             'iva': forms.TextInput(),
