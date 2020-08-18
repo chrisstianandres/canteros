@@ -1,9 +1,12 @@
 from django.db import models
+from django.forms import model_to_dict
 
 TIPO = (
     (0, 'CEDULA'),
     (1, 'RUC')
 )
+
+
 class Proveedor(models.Model):
     nombres = models.CharField(max_length=50)
     documento = models.IntegerField(choices=TIPO, default=0)
@@ -14,6 +17,10 @@ class Proveedor(models.Model):
 
     def __str__(self):
         return '%s %s' % (self.nombres, self.direccion)
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
 
     class Meta:
         db_table = 'proveedor'

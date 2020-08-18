@@ -6,31 +6,17 @@
         <th>Nombre</th>
         <th>Categoria</th>
         <th>Descripcion</th>
+        <th>Presentacion</th>
+        <th>Stock</th>
         <th class="text-center"><em class="fa fa-cog"></em></th>
     </tr>
     </thead>
     <tbody>
-    {% if list %}
-        {% for dato in list %}
-            <tr>
-                <td>{{ dato.id }}</td>
-                <td>{{ dato.nombre }}</td>
-                <td>{{ dato.categoria.nombre }}</td>
-                <td>{{ dato.descripcion }}</td>
-                <td><a type="button" class="btn btn-success btn-sm" data-toggle="tooltip"
-                       title="Editar Datos"
-                       href="#"><i class="fa fa-edit"></i></a>
-                    <button type="button" class="btn btn-primary btn-sm estado"
-                            data-toggle="tooltip"
-                            title="Gestionar Estado" name="btnestado">
-                        <i class="fa fa-cogs"></i></button>
-            </tr>
-        {% endfor %}
-    {% endif %}
     </tbody>
 {% endblock %}
 {% block javascript %}
     <script>
+
         $(function () {
             $("#datatable").DataTable({
                 responsive: true,
@@ -38,6 +24,43 @@
                 language: {
                     "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
                 },
+                ajax: {
+                    url: '/insumo/ajax',
+                    type: 'POST',
+                    data: {csrfmiddlewaretoken: "{{ csrf_token }}"},
+                    dataSrc: "",
+                },
+                 columnDefs: [
+                {
+                    targets: [-1],
+                    class: 'text-center',
+                    orderable: false,
+                    render: function (data, type, row) {
+                        var edit='<a rel="edit" type="button" class="btn btn-primary btn-sm btn-flat" style="color: white" data-toggle="tooltip" title="Editar Insumo"><i class="fa fa-edit"></i></a>'+' ';
+                        var del= '<a rel="del" type="button" class="btn btn-danger btn-sm btn-flat" style="color: white" data-toggle="tooltip" title="Eliminar Insumo"><i class="fa fa-trash-alt"></i></a>';
+                        return edit + del;
+                    }
+                },
+                     {
+                    targets: [-2],
+                    class: 'text-center',
+                    orderable: false,
+                    render: function (data, type, row) {
+                        return '<span>' +data+ '</span>';
+                    }
+                },
+                 ],
+                createdRow: function (row, data, dataIndex) {
+                    if (data[5] <= 0) {
+                        $('td', row).eq(5).find('span').addClass('badge badge-pill badge-danger');
+                        {#$('td', row).eq(5).append(('<span class="badge badge-pill badge-danger">25</span>'));#}
+                    } else if (data[5] < 50) {
+                        $('td', row).eq(5).find('span').addClass('badge badge-pill badge-warning');
+                    } else if (data[5] >= 21) {
+                        $('td', row).eq(5).find('span').addClass('badge badge-pill badge-success');
+                    }
+
+                }
 
             });
         });

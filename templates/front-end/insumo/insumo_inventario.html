@@ -1,0 +1,45 @@
+{% extends 'front-end/list.html' %}
+{% block table %}
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Nombre</th>
+        <th>Categoria</th>
+        <th>Cantidad</th>
+        <th class="text-center"><em class="fa fa-cog"></em></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if list %}
+        {% for dato in list %}
+            <tr>
+                <td>{{ dato.insumo.id }}</td>
+                <td>{{ dato.insumo.nombre }}</td>
+                <td>{{ dato.insumo.categoria }}</td>
+                <td>{{ dato.cantidad }}</td>
+                <td><a type="button" class="btn btn-success btn-sm" data-toggle="tooltip"
+                       title="Editar Datos"
+                       href="#"><i class="fa fa-edit"></i></a>
+                    <button type="button" class="btn btn-primary btn-sm estado"
+                            data-toggle="tooltip"
+                            title="Gestionar Estado" name="btnestado">
+                        <i class="fa fa-cogs"></i></button>
+            </tr>
+        {% endfor %}
+    {% endif %}
+    </tbody>
+{% endblock %}
+{% block javascript %}
+    <script>
+        $(function () {
+            $("#datatable").DataTable({
+                responsive: true,
+                autoWidth: false,
+                language: {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+                },
+
+            });
+        });
+    </script>
+{% endblock %}

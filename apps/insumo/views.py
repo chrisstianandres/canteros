@@ -1,11 +1,14 @@
 from django.shortcuts import render, redirect
 from django.views.generic import *
 from django.http import HttpResponse
+
+
+from apps.compra.models import Compra, Detalle_compra
 from apps.insumo.forms import InsumoForm
 from apps.insumo.models import Insumo
 from django.http import HttpResponseRedirect
 import json
-from django.db.models import Q
+from django.db.models import Q, Sum
 
 opc_icono = 'fa fa-tags'
 opc_entidad = 'Insumos'
@@ -16,11 +19,14 @@ def lista(request):
     data = {
         'icono': opc_icono, 'entidad': opc_entidad,
         'boton': 'Nuevo Insumo', 'titulo': 'Listado de Insumos',
-        'nuevo': '/insumo/nuevo'
-    }
-    list = Insumo.objects.all()
-    data['list'] = list
+        'nuevo': '/insumo/nuevo'}
     return render(request, "front-end/insumo/insumo_list.html", data)
+
+
+def ajax(request):
+    data = [[i.id, i.nombre, i.categoria.nombre, i.descripcion, i.presentacion.nombre, i.stock, i.id]
+            for i in Insumo.objects.all()]
+    return HttpResponse(json.dumps(data), content_type="application/json")
 
 
 def nuevo(request):

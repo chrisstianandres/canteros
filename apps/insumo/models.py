@@ -11,6 +11,7 @@ class Insumo(models.Model):
     presentacion = models.ForeignKey(Presentacion, on_delete=models.CASCADE, null=True, blank=True)
     descripcion = models.CharField(max_length=50)
     pvp = models.DecimalField(default=0.00, max_digits=9, decimal_places=2, null=True, blank=True)
+    stock = models.IntegerField(default=0, null=True, blank=True)
 
     def __str__(self):
 
@@ -20,6 +21,7 @@ class Insumo(models.Model):
         item = model_to_dict(self)
         item['categoria'] = self.categoria.toJSON()
         item['presentacion'] = self.presentacion.toJSON()
+        item['pvp'] = format(self.pvp, '.2f')
         return item
 
     class Meta:

@@ -1,23 +1,106 @@
+var datatable;
 $(function () {
-            $("#datatable").DataTable({
-                responsive: true,
-                autoWidth: false,
-                // language: {
-                //     "url": '../static/lib/datatables-1.10.20/spanish.txt'
-                // },
 
-                createdRow: function (row, data, dataIndex) {
-                    console.log(data[4]);
-                    if (data[4] === '<span>FINALIZADA</span>') {
-                        $('td', row).eq(4).find('span').addClass('badge badge-pill badge-success');
-                        $('td', row).eq(5).find('button[name="btnestado"]').prop('disabled', true);
-                    } else if (data[4] === '<span>PENDIENTE</span>') {
-                        $('td', row).eq(4).find('span').addClass('badge badge-pill badge-warning');
-                        //console.log($('td', row).eq(4).find('span').addClass('badge badge-pill badge-success'));
-                        //$('td', row).eq(4).addClass('badge badge-pill badge-danger');
-                    }
+    datatable = $("#datatable").DataTable({
+        // responsive: true,
+        destroy: true,
+        "scrollX": true,
+        autoWidth: false,
+        language: {
+            "url": '../static/lib/datatables-1.10.20/spanish.txt'
+        },
+        columnDefs: [
+            {
+                targets: '_all',
+                class: 'text-center',
 
-                }
+            },
+            {
+                targets: [-1],
+                class: 'text-center',
+                width: "10%",
+            }
+        ],
+        createdRow: function (row, data, dataIndex) {
+            if (data[4] === '<span>FINALIZADA</span>') {
+                $('td', row).eq(4).find('span').addClass('badge badge-pill badge-success');
+                $('td', row).eq(5).find('a[rel="estado"]').hide();
+                $('td', row).eq(5).find('a[rel="edit"]').hide();
+            } else if (data[4] === '<span>PENDIENTE</span>') {
+                $('td', row).eq(4).find('span').addClass('badge badge-pill badge-warning');
+            }
 
+        }
+    });
+
+    $('#datatable tbody').on('click', 'a[rel="estado"]', function () {
+        $('.tooltip').remove();
+        var tr = datatable.cell($(this).closest('td, li')).index();
+        var data = datatable.row(tr.row).data();
+        var parametros = {'id': data['3']};
+        save_estado('Alerta' + ' ' + '<i class="fas fa-exclamation-triangle"></i>',
+            '/compra/estado', 'Esta seguro que desea finalizar esta compra?', parametros,
+            function () {
+                menssaje_ok('Exito!', 'Exito al finalizar la compra', 'far fa-smile-wink', function () {
+                    location.reload();
+                })
             });
+
+    }).on('click', 'a[rel="borrar"]', function () {
+        $('.tooltip').remove();
+        var tr = datatable.cell($(this).closest('td, li')).index();
+        var data = datatable.row(tr.row).data();
+        var parametros = {'id': data['3']};
+        save_estado('Alerta' + ' ' + '<i class="fas fa-exclamation-triangle"></i>',
+            '/compra/eliminar', 'Esta seguro que desea eliminar esta compra?', parametros,
+            function () {
+                menssaje_ok('Exito!', 'Exito al Eliminar la compra', 'far fa-smile-wink')
+            });
+
+    }).on('click', 'a[rel="detalle"]', function () {
+        $('.tooltip').remove();
+        var tr = datatable.cell($(this).closest('td, li')).index();
+        var data = datatable.row(tr.row).data();
+        $('#Modal').modal('show');
+        $("#tbldetalle_insumos").DataTable({
+            responsive: true,
+            autoWidth: false,
+            language: {
+                "url": '../static/lib/datatables-1.10.20/spanish.txt'
+            },
+            destroy: true,
+            ajax: {
+                url: '/compra/get_detalle',
+                type: 'Post',
+                data: {
+                    'id': data['3']
+                },
+                dataSrc: ""
+            },
+            columns: [
+                {data: 'insumo.nombre'},
+                {data: 'insumo.categoria.nombre'},
+                {data: 'insumo.presentacion.nombre'},
+                {data: 'cantidad'},
+                {data: 'insumo.pvp'},
+                {data: 'compra.subtotal'}
+            ],
+            columnDefs: [
+                {
+                    targets: [3],
+                    class: 'text-center'
+                },
+                {
+                    targets: [-1, -2],
+                    class: 'text-center',
+                    orderable: false,
+                    render: function (data, type, row) {
+                        return '$' + parseFloat(data).toFixed(2);
+                    }
+                },
+            ],
         });
+
+    });
+
+});

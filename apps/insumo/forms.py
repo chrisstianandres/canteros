@@ -22,24 +22,36 @@ class InsumoForm(forms.ModelForm):
                 attrs={'placeholder': 'Ingrese una descripcion', 'class': 'form-control form-rounded'})
             self.fields['categoria'].widget.attrs = {
                 'class': 'form-control selectpicker',
-                'data-live-search': 'true'
+                'data-live-search': 'true'}
+            self.fields['presentacion'].widget.attrs = {
+                'class': 'form-control selectpicker',
+                'data-live-search': 'true'}
+            self.fields['pvp'].widget.attrs = {
+                'class': 'form-control form-control-sm input-sm',
             }
-
+        # form - control
+        # form - control - sm
+        # input - sm
         # habilitar, desabilitar, y mas
 
     class Meta:
         model = Insumo
         fields = ['nombre',
                   'categoria',
+                  'presentacion',
+                  'pvp',
                   'descripcion'
                   ]
         labels = {
             'nombre': 'Nombre',
             'categoria': 'Categoria',
+            'presentacion': 'Presentacion',
+            'pvp': 'P.V.P.',
             'descripcion': 'Descripcion'
         }
         widgets = {
             'nombre': forms.TextInput(),
             'categoria': forms.Select(),
+            'pvp': forms.TextInput(),
             'descripcion': forms.TextInput(),
         }

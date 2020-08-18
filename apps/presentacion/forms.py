@@ -30,7 +30,7 @@ class PresentacionForm(forms.ModelForm):
                   ]
         labels = {
             'nombre': 'Nombre',
-            'abreviatura': 'abreviatura',
+            'abreviatura': 'Abreviatura',
             'descripcion': 'Descripcion'
         }
         widgets = {

@@ -8,7 +8,7 @@ class Presentacion(models.Model):
     descripcion = models.CharField(max_length=50)
 
     def __str__(self):
-        return '%s' % self.nombre, self.abreviatura
+        return '%s %s %s' % (self.nombre, ' / ', self.abreviatura)
 
     def toJSON(self):
         item = model_to_dict(self)

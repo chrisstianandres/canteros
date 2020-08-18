@@ -24,8 +24,17 @@
                     </table>
                 </div>
             </div>
+            <div class="card-footer">
+                <button type="button" onclick=" location.reload();" class="btn btn-success has-ripple">
+                    <i class="fas fa-sync"></i> Actualizar<span class="ripple ripple-animate"
+                                                                          style="height: 111px; width: 111px; animation-duration: 0.7s; animation-timing-function: linear; background: rgb(255, 255, 255); opacity: 0.4; top: -34.875px; left: -14.5px;"></span>
+                </button>
+            </div>
         </div>
     </div>
+    {% block modal %}
+
+    {% endblock %}
 {% endblock %}
 {% block script %}
     <script src="{% static 'lib/datatables-1.10.20/js/jquery.dataTables.js' %}"></script>

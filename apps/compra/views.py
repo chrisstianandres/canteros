@@ -3,6 +3,7 @@ import json
 from django.db import transaction
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import *
 
@@ -11,7 +12,7 @@ from apps.compra.models import Compra, Detalle_compra
 from apps.configuracion.models import Empresa
 from apps.insumo.models import Insumo
 
-opc_icono = 'fa fa-tractor'
+opc_icono = 'fa fa-shopping-bag'
 opc_entidad = 'Compras'
 crud = '/compra/crear'
 
@@ -32,12 +33,14 @@ class lista(ListView):
 
 def nuevo(request):
     data = {
-        'icono': opc_icono, 'entidad': opc_entidad, 'crud': crud,
+        'icono': opc_icono, 'entidad': opc_entidad, 'crud': '../compra/get_insumo',
         'boton': 'Guardar Compra', 'action': 'add', 'titulo': 'Nuevo Registro de una Compra',
+        'key': ''
     }
     if request.method == 'GET':
         data['form'] = CompraForm()
         data['form2'] = Detalle_CompraForm()
+        data['detalle'] = []
     return render(request, 'front-end/compra/compra_form.html', data)
 
 
@@ -61,11 +64,71 @@ def crear(request):
                     dv.insumo_id = i['id']
                     dv.cantidad = int(i['cantidad'])
                     dv.save()
+                    x = Insumo.objects.get(pk=i['id'])
+                    x.stock = x.stock + int(i['cantidad'])
+                    x.save()
                     data['resp'] = True
         else:
             data['resp'] = False
             data['error'] = "Datos Incompletos"
     return HttpResponse(json.dumps(data), content_type="application/json")
+
+
+def editar(request, id):
+    data = {
+        'icono': opc_icono, 'entidad': opc_entidad, 'crud': '../../compra/get_insumo',
+        'boton': 'Editar Compra', 'action': 'edit', 'titulo': 'Editar Registro de una Compra',
+        'key': id
+    }
+    compra = Compra.objects.get(id=id)
+    if request.method == 'GET':
+        data['form'] = CompraForm(instance=compra)
+        data['form2'] = Detalle_CompraForm()
+        data['detalle'] = json.dumps(get_detalle_productos(id))
+    return render(request, 'front-end/compra/compra_form.html', data)
+
+
+@csrf_exempt
+def editar_save(request):
+    data = {}
+    datos = json.loads(request.POST['compras'])
+    if request.POST['action'] == 'edit':
+
+        with transaction.atomic():
+            # c = Compra.objects.get(pk=self.get_object().id)
+            c = Compra.objects.get(pk=request.POST['key'])
+            c.fecha_compra = datos['fecha_compra']
+            c.proveedor_id = datos['proveedor']
+            c.subtotal = float(datos['subtotal'])
+            c.iva = float(datos['iva'])
+            c.total = float(datos['total'])
+            c.save()
+            c.detalle_compra_set.all().delete()
+            for i in datos['insumos']:
+                dv = Detalle_compra()
+                dv.compra_id = c.id
+                dv.insumo_id = i['id']
+                dv.cantidad = int(i['cantidad'])
+                dv.save()
+                data['resp'] = True
+    else:
+        data['resp'] = False
+        data['error'] = "Datos Incompletos"
+    return HttpResponse(json.dumps(data), content_type="application/json")
+
+
+def get_detalle_productos(id):
+    data = []
+    try:
+        for i in Detalle_compra.objects.filter(compra_id=id):
+            iva_emp = Empresa.objects.get(pk=1)
+            item = i.insumo.toJSON()
+            item['cantidad'] = i.cantidad
+            item['iva_emp'] = format(iva_emp.iva, '.2f')
+            data.append(item)
+    except:
+        pass
+    return data
 
 
 @csrf_exempt
@@ -86,5 +149,52 @@ def get_insumo(request):
         else:
             data['error'] = 'No ha selecionado ningun Insumo'
     except Exception as e:
+        data['error'] = 'Ha ocurrido un error'
+    return JsonResponse(data, safe=False)
+
+
+@csrf_exempt
+def get_detalle(request):
+    data = {}
+    try:
+        id = request.POST['id']
+        if id:
+            data = []
+            for p in Detalle_compra.objects.filter(compra_id=id):
+                data.append(p.toJSON())
+        else:
+            data['error'] = 'Ha ocurrido un error'
+    except Exception as e:
         data['error'] = str(e)
     return JsonResponse(data, safe=False)
+
+
+@csrf_exempt
+def estado(request):
+    data = {}
+    try:
+        id = request.POST['id']
+        if id:
+            es = Compra.objects.get(id=id)
+            es.estado = 0
+            es.save()
+        else:
+            data['error'] = 'Ha ocurrido un error'
+    except Exception as e:
+        data['error'] = str(e)
+    return JsonResponse(data)
+
+
+@csrf_exempt
+def eliminar(request):
+    data = {}
+    try:
+        id = request.POST['id']
+        if id:
+            es = Compra.objects.get(id=id)
+            es.delete()
+        else:
+            data['error'] = 'Ha ocurrido un error'
+    except Exception as e:
+        data['error'] = str(e)
+    return JsonResponse(data)
