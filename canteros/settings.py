@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'apps.apps.AppsConfig',
     'tempus_dominus',
     # sistema
-    'apps.asignar',
+    'apps.asignar_insumo',
+    'apps.asignar_labor',
     'apps.categoria',
     'apps.cliente',
     'apps.compra',
@@ -50,6 +51,7 @@ INSTALLED_APPS = [
     'apps.proveedor',
     'apps.trabajador',
     'apps.venta',
+    'apps.periodo',
 
 ]
 

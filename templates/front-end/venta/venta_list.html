@@ -1,0 +1,81 @@
+{% extends 'front-end/list.html' %}
+{% load static from staticfiles %}
+{% block table %}
+    <thead>
+    <tr>
+        <th>Fecha</th>
+        <th>Cliente</th>
+        <th>Subtotal</th>
+        <th>Iva</th>
+        <th>Total</th>
+        <th>N° Factura</th>
+        <th>Estado</th>
+        <th class="text-center" scope="col" style="width: 10%"><em class="fa fa-cog"></em></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if object_list %}
+        {% for dato in object_list %}
+            <tr>
+                <td>{{ dato.fecha_venta }}</td>
+                <td>{{ dato.cliente.nombres }}</td>
+                <td>{{ dato.subtotal }}</td>
+                <td>{{ dato.iva }}</td>
+                <td>{{ dato.total }}</td>
+                <td>{{ dato.id }}</td>
+                <td><span>{{ dato.get_estado_display }}</span></td>
+                <td><a type="button" rel="edit" class="btn btn-primary btn-sm" data-toggle="tooltip"
+                       title="Editar Compra"
+                       href="{% url 'venta:editar' dato.id %}"><i class="fa fa-edit"></i></a>
+                    <a type="button" rel="detalle" class="btn btn-success btn-sm" data-toggle="tooltip"
+                       title="Detalle de Productos"
+                       href="#"><i class="fa fa-search"></i></a>
+                    <a type="button" rel="estado" class="btn btn-warning btn-sm" style="color: white"
+                       data-toggle="tooltip" title="Finalizar"><i class="fa fa-check"></i></a>
+                    <a type="button" rel="borrar" class="btn btn-danger btn-sm" data-toggle="tooltip" style="color: white"
+                       title="Eliminar venta"><i class="fa fa-trash-alt"></i></a>
+            </tr>
+        {% endfor %}
+    {% endif %}
+    </tbody>
+{% endblock %}
+{% block modal %}
+    <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle"><i class="fas fa-cart-arrow-down"></i> Detalle de
+                        Productos </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table" id="tbldetalle_productos">
+                        <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Categoria</th>
+                            <th>Presentacion</th>
+                            <th>Cantidad</th>
+                            <th>Pvp</th>
+                            <th>Subtotal</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra %}
+<script src="{% static 'apps/venta/venta_list.js' %}"></script>
+<script src="{% static 'apps/funtions.js' %}"></script>
+{% endblock %}
+{% block javascript %}
+
+{% endblock %}

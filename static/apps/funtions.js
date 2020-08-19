@@ -24,8 +24,10 @@ function borrar_todo_alert(title, content, callback, callback2) {
 
 function save_with_ajax(title, url, content, parametros, callback) {
     $.confirm({
-        theme: 'material',
+        theme: 'modern',
+        icon: 'fas fa-exclamation-circle',
         title: title,
+        type: 'blue',
         content: content,
         columnClass: 'small',
         draggable: true,
@@ -67,7 +69,9 @@ function save_with_ajax(title, url, content, parametros, callback) {
 
 function save_estado(title, url, content, parametros, callback) {
     $.confirm({
-        theme: 'material',
+        theme: 'modern',
+        type: 'blue',
+        icon: 'fas fa-exclamation-circle',
         title: title,
         content: content,
         columnClass: 'small',
@@ -111,8 +115,9 @@ function menssaje_error(title, content, icon) {
         theme: 'modern',
         icon: icon,
         title: title,
+        type: 'red',
         content: content,
-        columnClass: 'small',
+        // columnClass: 'small',
         draggable: true,
         buttons: {
             info: {

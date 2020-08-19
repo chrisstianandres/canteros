@@ -9,13 +9,21 @@ $(function () {
         language: {
             "url": '../static/lib/datatables-1.10.20/spanish.txt'
         },
-        order: [[ 3, "desc" ]],
+        order: [[ 5, "desc" ]],
         columnDefs: [
             {
                 targets: '_all',
                 class: 'text-center',
 
             },
+            {
+                    targets: [2, 3, 4],
+                    class: 'text-center',
+                    orderable: false,
+                    render: function (data, type, row) {
+                        return '$' + parseFloat(data).toFixed(2);
+                    }
+                },
             {
                 targets: [-1],
                 class: 'text-center',
@@ -29,12 +37,12 @@ $(function () {
             }
         ],
         createdRow: function (row, data, dataIndex) {
-            if (data[4] === '<span>FINALIZADA</span>') {
-                $('td', row).eq(4).find('span').addClass('badge badge-pill badge-success');
-                $('td', row).eq(5).find('a[rel="estado"]').hide();
-                $('td', row).eq(5).find('a[rel="edit"]').hide();
-            } else if (data[4] === '<span>PENDIENTE</span>') {
-                $('td', row).eq(4).find('span').addClass('badge badge-pill badge-warning');
+            if (data[6] === '<span>FINALIZADA</span>') {
+                $('td', row).eq(6).find('span').addClass('badge badge-pill badge-success');
+                $('td', row).eq(7).find('a[rel="estado"]').hide();
+                $('td', row).eq(7).find('a[rel="edit"]').hide();
+            } else if (data[6] === '<span>PENDIENTE</span>') {
+                $('td', row).eq(6).find('span').addClass('badge badge-pill badge-warning');
             }
 
         }
@@ -44,11 +52,11 @@ $(function () {
         $('.tooltip').remove();
         var tr = datatable.cell($(this).closest('td, li')).index();
         var data = datatable.row(tr.row).data();
-        var parametros = {'id': data['3']};
-        save_estado('Alerta' + ' ' + '<i class="fas fa-exclamation-triangle"></i>',
-            '/compra/estado', 'Esta seguro que desea finalizar esta compra?', parametros,
+        var parametros = {'id': data['5']};
+        save_estado('Alerta',
+            '/venta/estado', 'Esta seguro que desea finalizar esta venta?', parametros,
             function () {
-                menssaje_ok('Exito!', 'Exito al finalizar la compra', 'far fa-smile-wink', function () {
+                menssaje_ok('Exito!', 'Exito al finalizar la venta', 'far fa-smile-wink', function () {
                     location.reload();
                 })
             });
@@ -57,19 +65,18 @@ $(function () {
         $('.tooltip').remove();
         var tr = datatable.cell($(this).closest('td, li')).index();
         var data = datatable.row(tr.row).data();
-        var parametros = {'id': data['3']};
-        save_estado('Alerta' + ' ' + '<i class="fas fa-exclamation-triangle"></i>',
-            '/compra/eliminar', 'Esta seguro que desea eliminar esta compra?', parametros,
+        var parametros = {'id': data['5']};
+        save_estado('Alerta',
+            '/venta/eliminar', 'Esta seguro que desea eliminar esta venta?', parametros,
             function () {
-                menssaje_ok('Exito!', 'Exito al Eliminar la compra', 'far fa-smile-wink')
+                menssaje_ok('Exito!', 'Exito al Eliminar la venta', 'far fa-smile-wink')
             });
-
     }).on('click', 'a[rel="detalle"]', function () {
         $('.tooltip').remove();
         var tr = datatable.cell($(this).closest('td, li')).index();
         var data = datatable.row(tr.row).data();
         $('#Modal').modal('show');
-        $("#tbldetalle_insumos").DataTable({
+        $("#tbldetalle_productos").DataTable({
             responsive: true,
             autoWidth: false,
             language: {
@@ -77,24 +84,24 @@ $(function () {
             },
             destroy: true,
             ajax: {
-                url: '/compra/get_detalle',
+                url: '/venta/get_detalle',
                 type: 'Post',
                 data: {
-                    'id': data['3']
+                    'id': data['5']
                 },
                 dataSrc: ""
             },
             columns: [
-                {data: 'insumo.nombre'},
-                {data: 'insumo.categoria.nombre'},
-                {data: 'insumo.presentacion.nombre'},
+                {data: 'producto.nombre'},
+                {data: 'producto.categoria.nombre'},
+                {data: 'producto.presentacion.nombre'},
                 {data: 'cantidad'},
-                {data: 'insumo.pvp'},
-                {data: 'compra.subtotal'}
+                {data: 'producto.pvp'},
+                {data: 'venta.subtotal'}
             ],
             columnDefs: [
                 {
-                    targets: [3],
+                    targets: [5],
                     class: 'text-center'
                 },
                 {

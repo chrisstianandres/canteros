@@ -21,6 +21,9 @@ class lista(ListView):
     model = Compra
     template_name = 'front-end/compra/compra_list.html'
 
+    def get_queryset(self):
+        return Compra.objects.order_by('-id')
+
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
         data['icono'] = opc_icono

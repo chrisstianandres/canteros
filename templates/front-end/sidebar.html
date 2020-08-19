@@ -35,7 +35,7 @@
 					    <a href="{% url 'cliente:lista' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-user"></i></span><span class="pcoded-mtext">Clientes</span></a>
 					</li>
                     <li class="nav-item">
-					    <a href="#" class="nav-link "><span class="pcoded-micon"><i class="fa fa-shopping-basket "></i></span><span class="pcoded-mtext">Ventas</span></a>
+					    <a href="{% url 'venta:lista' %}" class="nav-link "><span class="pcoded-micon"><i class="fa fa-shopping-basket "></i></span><span class="pcoded-mtext">Ventas</span></a>
 					</li>
 					<li class="nav-item pcoded-menu-caption">
 					    <label>Produccion</label>
@@ -46,12 +46,17 @@
 					<li class="nav-item">
 					    <a href="{% url 'cantero:lista' %}" class="nav-link "><span class="pcoded-micon"><i class="fa fa-tractor"></i></span><span class="pcoded-mtext">Canteros</span></a>
 					</li>
+                    <li class="nav-item">
+                         <a href="#" class="nav-link "><span class="pcoded-micon"><i class="fab fa-pagelines"></i></span><span class="pcoded-mtext">Productos</span></a>
+                    </li>
 					<li class="nav-item">
 					    <a href="{% url 'insumo:lista' %}" class="nav-link "><span class="pcoded-micon"><i class="fa fa-tags"></i></span><span class="pcoded-mtext">Insumos</span></a>
 					</li>
+
                     <li class="nav-item">
                          <a href="#" class="nav-link "><span class="pcoded-micon"><i class="feather icon-check-circle"></i></span><span class="pcoded-mtext">Asignacion de Insumos</span></a>
                     </li>
+
 					<li class="nav-item pcoded-menu-caption">
 					    <label>Compras</label>
 					</li>
