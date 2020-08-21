@@ -3,6 +3,8 @@ from datetime import *
 from .models import Venta, Detalle_venta
 from tempus_dominus.widgets import DatePicker
 
+from ..producto.models import Producto
+
 
 class VentaForm(forms.ModelForm):
     # constructor
@@ -77,6 +79,7 @@ class Detalle_VentaForm(forms.ModelForm):
                 'class': 'form-control selectpicker',
                 'data-live-search': "true"
             }
+            self.fields["producto"].queryset = Producto.objects.filter(stock__gte=1)
         # habilitar, desabilitar, y mas
 
     class Meta:

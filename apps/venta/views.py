@@ -65,7 +65,7 @@ def crear(request):
                     dv.cantidad = int(i['cantidad'])
                     dv.save()
                     x = Producto.objects.get(pk=i['id'])
-                    x.stock = x.stock + int(i['cantidad'])
+                    x.stock = x.stock - int(i['cantidad'])
                     x.save()
                     data['resp'] = True
         else:

@@ -37,4 +37,5 @@ urlpatterns = [
     path('compra/', include('apps.compra.urls', namespace='compra')),
     path('venta/', include('apps.venta.urls', namespace='venta')),
     path('periodo/', include('apps.periodo.urls', namespace='periodo')),
+    path('asig_insumo/', include('apps.asignar_insumo.urls', namespace='asig_insumo')),
 ]

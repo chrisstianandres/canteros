@@ -81,7 +81,7 @@ var ventas = {
             rowCallback: function (row, data) {
                 $(row).find('input[name="cantidad"]').TouchSpin({
                     min: 1,
-                    max: 100000000,
+                    max: data['stock'],
                     step: 1
                 });
             }

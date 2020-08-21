@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import model_to_dict
 
 area = (
     (1, 'METROS'),
@@ -8,6 +9,8 @@ estado = (
     (0, 'ACTIVO'),
     (1, 'INACTIVO')
 )
+
+
 class Cantero(models.Model):
     nombre = models.CharField(max_length=50)
     dimesion = models.IntegerField(choices=area, default=1)
@@ -22,6 +25,10 @@ class Cantero(models.Model):
             Area = (self.valor_dim*1000)
             return Area
     area_total = property(_area_total)
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
 
     def __str__(self):
         return '%s %s' % (self.nombre, self.valor_dim)
