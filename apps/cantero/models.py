@@ -10,6 +10,7 @@ estado = (
     (1, 'INACTIVO')
 )
 
+SUP = str.maketrans("0123456789", "⁰¹²³⁴⁵⁶⁷⁸⁹")
 
 class Cantero(models.Model):
     nombre = models.CharField(max_length=50)
@@ -31,7 +32,7 @@ class Cantero(models.Model):
         return item
 
     def __str__(self):
-        return '%s %s' % (self.nombre, self.valor_dim)
+        return '%s %s %s %s' % (self.nombre, ' / ', self.area_total, '(m2)'.translate(SUP))
 
     class Meta:
         db_table = 'cantero'

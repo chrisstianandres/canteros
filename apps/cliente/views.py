@@ -12,15 +12,15 @@ opc_entidad = 'Clientes'
 crud = '/cliente/crear'
 
 
-def cliente_lista(request):
+def lista(request):
     data = {
         'icono': opc_icono, 'entidad': opc_entidad,
         'boton': 'Nuevo Cliente', 'titulo': 'Listado de Clientes',
-        'nuevo': '/cliente/nuevo'
-    }
-    list = Cliente.objects.all()
-    data['list'] = list
+        'nuevo': '/cliente/nuevo'}
+    lista= Cliente.objects.all()
+    data['lista'] = lista
     return render(request, "front-end/cliente/cliente_list.html", data)
+
 
 def nuevo(request):
     data = {

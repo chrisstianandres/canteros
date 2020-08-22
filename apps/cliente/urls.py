@@ -6,7 +6,8 @@ from django.contrib.auth.decorators import login_required
 app_name = 'Clientes'
 
 urlpatterns = [
-    path('lista', login_required(views.cliente_lista), name='lista'),
+    path('lista', login_required(views.lista), name='lista'),
+   # path('tabla_json', login_required(views.cliente_json), name='tabla_json'),
     path('nuevo', login_required(views.nuevo), name='nuevo'),
     path('crear', login_required(views.crear), name='crear'),
     #path('editar/<int:id_alumno>', login_required(views.editar), name='editar'),

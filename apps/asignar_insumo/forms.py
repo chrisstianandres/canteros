@@ -5,6 +5,7 @@ from tempus_dominus.widgets import DatePicker
 
 from ..insumo.models import Insumo
 from ..periodo.models import Periodo
+SUP = str.maketrans("0123456789", "⁰¹²³⁴⁵⁶⁷⁸⁹")
 
 
 class Asig_InsumoForm(forms.ModelForm):
@@ -41,7 +42,7 @@ class Asig_InsumoForm(forms.ModelForm):
         labels = {
             'fecha_asig': 'Fecha de Asignacion',
             'periodo': 'Periodo',
-            'cantero': 'Cantero'
+            'cantero': 'Cantero / Area (m2)'.translate(SUP)
         }
         widgets = {
             'fecha_asig': forms.DateInput(

@@ -3,7 +3,6 @@
 {% block table %}
     <thead>
     <tr>
-        <th scope="col" style="width: 5%">Id</th>
         <th scope="col" style="width: 10%">Nombres</th>
         <th>Tipo</th>
         <th>N° Documento</th>
@@ -14,37 +13,26 @@
     </tr>
     </thead>
     <tbody>
-    {% if list %}
-        {% for dato in list %}
-            <tr>
-                <td>{{ dato.id }}</td>
-                <td>{{ dato.nombres }}</td>
-                <td> {{ dato.get_tipo_doc_display }}  </td>
-                <td> {{ dato.numero_doc }} </td>
-                <td> {{ dato.correo }} </td>
-                <td>{{ dato.direccion }}</td>
-                <td style="font-weight:bold">{{ dato.telefono }}</td>
-                <td><a type="button" class="btn btn-success btn-sm" data-toggle="tooltip"
-                       title="Editar Datos"
-                       href="#"><i class="fa fa-edit"></i></a>
-                    <button type="button" class="btn btn-primary btn-sm estado"
-                            data-toggle="tooltip"
-                            title="Gestionar Estado" name="btnestado">
-                        <i class="fa fa-cogs"></i></button>
-            </tr>
-        {% endfor %}
-    {% endif %}
+    {% for dato in lista %}
+        <tr>
+       <td>{{ dato.nombres }} </td>
+       <td>{{ dato.get_tipo_doc_display }} </td>
+       <td>{{ dato.numero_doc }} </td>
+       <td>{{ dato.correo }} </td>
+       <td>{{ dato.direccion }} </td>
+       <td>{{ dato.telefono }} </td>
+        <td></td>
+        </tr>
+
+    {% endfor %}
     </tbody>
 {% endblock %}
 {% block javascript %}
- <script>
+    <script>
         $(function () {
-            $("#datatable").DataTable({
-                responsive: true,
-                autoWidth: false,
-                language: {
-                    "url": '{% static 'lib/datatables-1.10.20/spanish.txt' %}'
-                },
+            var table = $("#datatable").DataTable({
+                {#responsive: true,#}
+
 
             });
         });
