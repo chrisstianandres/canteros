@@ -31,7 +31,7 @@ def nuevo(request):
     }
     if request.method == 'GET':
         data['form'] = CanteroForm()
-    return render(request, 'front-end/venta/venta.html', data)
+    return render(request, 'front-end/cantero/cantero_form.html', data)
 
 def crear(request):
     f = CanteroForm(request.POST)

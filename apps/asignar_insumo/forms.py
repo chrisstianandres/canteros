@@ -25,7 +25,7 @@ class Asig_InsumoForm(forms.ModelForm):
                 # 'value': Periodo.objects.get(estado=0),
                 'disabled': True,
             }
-            self.initial['periodo'] = Periodo.objects.get(estado=0)
+            self.initial['periodo'] = Periodo.objects.get(estado=1)
             self.fields['cantero'].widget.attrs = {
                 'class': 'form-control selectpicker',
                 'data-live-search': "true"

@@ -1,83 +1,201 @@
 {% load static from staticfiles %}
 <!DOCTYPE html>
 <html lang="es">
+
+<!-- Mirrored from flatable.phoenixcoded.net/default/sample-page.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 10 Jan 2019 12:22:56 GMT -->
 <head>
-    {#    <script src="https://code.jquery.com/jquery-2.2.4.js"#}
-    {#            integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>#}
     <title>{{ titulo }}</title>
-    <!-- HTML5 Shim and Respond.js IE11 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!-- Meta -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="description" content=""/>
-    <meta name="keywords" content="">
-    <meta name="author" content="Phoenixcoded"/>
-    <!-- Favicon icon -->
-    <link rel="icon" href="{% static 'dist/assets/images/favicon.ico' %}" type="image/x-icon">
+    <meta name="description" content="Phoenixcoded">
+    <meta name="keywords"
+          content="flat ui, admin , Flat ui, Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
+    <meta name="author" content="Phoenixcoded">
 
-    <!-- vendor css -->
-    <link rel="stylesheet" href="{% static 'dist/assets/css/style.css' %}">
-    <link href="{% static 'lib/fontawesome-free-5.14.0-web/css/all.min.css' %}" rel="stylesheet"> <!--load all styles -->
+    <link rel="icon" href="{% static 'assets/images/favicon.ico' %}" type="image/x-icon">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'bower_components/bootstrap/dist/css/bootstrap.min.css' %}">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/icon/themify-icons/themify-icons.css' %}">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/icon/icofont/css/icofont.css' %}">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/pages/flag-icon/flag-icon.min.css' %}">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/pages/menu-search/css/component.css' %}">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/style.css' %}">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/color/color-1.css' %} " id="colo1">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/linearicons.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/simple-line-icons.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/ionicons.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/jquery.mCustomScrollbar.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'lib/fontawesome-free-5.14.0-web/css/all.min.css' %}">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
-
     {% block head %}
 
     {% endblock %}
 </head>
-<body class="">
-<!-- [ Pre-loader ] start -->
-<div class="loader-bg">
-    <div class="loader-track">
-        <div class="loader-fill"></div>
+<body>
+
+<div class="theme-loader">
+    <div class="ball-scale">
+        <div></div>
     </div>
 </div>
-<!-- [ Pre-loader ] End -->
-<!-- [ navigation menu ] start -->
-{% include "front-end/sidebar.html" %}
-<!-- [ navigation menu ] end -->
-<!-- [ Header ] start -->
-{% include "front-end/header.html" %}
-<!-- [ Header ] end -->
-<!-- [ Main Content ] start -->
-<div class="pcoded-main-container">
-    <div class="pcoded-content">
-        <!-- [ breadcrumb ] start -->
-        <div class="page-header">
-            <div class="page-block">
-                <div class="row align-items-center">
-                    <div class="col-md-12">
-                        <div class="page-header-title">
-                            <h5 class="m-b-10"><i class="{{ icono }}" aria-hidden="true"></i> {{ entidad }}</h5>
-                        </div>
-                        <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{% url 'menu' %}"><i class="feather icon-home"></i></a>
+
+<div id="pcoded" class="pcoded">
+    <div class="pcoded-overlay-box"></div>
+    <div class="pcoded-container navbar-wrapper">
+        <nav class="navbar header-navbar pcoded-header" header-theme="theme4">
+            <div class="navbar-wrapper">
+                <div class="navbar-logo">
+                    <a class="mobile-menu" id="mobile-collapse" href="#!">
+                        <i class="ti-menu"></i>
+                    </a>
+                    <a class="mobile-search morphsearch-search" href="#">
+                        <i class="ti-search"></i>
+                    </a>
+                    <a href="#">
+                        <img class="img-fluid" src="{% static 'assets/images/logo.png' %}" alt="Theme-Logo"/>
+                    </a>
+                    <a class="mobile-options">
+                        <i class="ti-more"></i>
+                    </a>
+                </div>
+                <div class="navbar-container container-fluid">
+                    <div>
+                        <ul class="nav-left">
+                            <li>
+                                <div class="sidebar_toggle"><a><i class="ti-menu"></i></a>
+                                </div>
                             </li>
-                            <li class="breadcrumb-item"><a href="#!">{{ entidad }}</a></li>
+                        </ul>
+                        <ul class="nav-right">
+                            <li class="user-profile header-notification">
+                                <a href="#!">
+                                    <img src="{% static 'assets/images/user.png' %}" alt="User-Profile-Image">
+                                    <span>John Doe</span>
+                                    <i class="ti-angle-down"></i>
+                                </a>
+                                <ul class="show-notification profile-notification">
+                                    <li>
+                                        <a href="#!">
+                                            <i class="ti-settings"></i> Settings
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="ti-user"></i> Profile
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="ti-email"></i> My Messages
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="ti-lock"></i> Lock Screen
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#!">
+                                            <i class="ti-layout-sidebar-left"></i> Logout
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
-        </div>
-        {% block content %}
+        </nav>
+        <div class="pcoded-main-container">
+            <div class="pcoded-wrapper">
+                <nav class="pcoded-navbar" pcoded-header-position="relative">
+                    <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
+                    {% include "front-end/sidebar.html" %}
+                </nav>
+                <div class="pcoded-content">
+                    <div class="pcoded-inner-content">
+                        <div class="main-body">
+                            <div class="page-wrapper">
+                                <div class="page-header">
+                                    <div class="page-header-title">
+                                        <h5><i class="{{ icono }}" aria-hidden="true"></i> {{ entidad }}</h5>
+                                    </div>
+                                    <div class="page-header-breadcrumb">
+                                        <ul class="breadcrumb-title">
+                                            <li class="breadcrumb-item">
+                                                <a href="{% url 'menu' %}"><i class="feather icon-home"></i></a>
+                                            </li>
+                                            <li class="breadcrumb-item"><a href="#!">{{ entidad }}</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="page-body">
+                                    {% block content %}
 
-        {% endblock %}
+                                    {% endblock %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-<!-- [ Main Content ] end -->
-<!-- Warning Section start -->
-<!-- Older IE warning message -->
-<!-- Warning Section Ends -->
-<!-- Required Js -->
-{#{% include "front-end/footer.html" %}#}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="{% static 'dist/assets/js/vendor-all.js' %}"></script>
-{#    <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>#}
-<script src="{% static 'dist/assets/js/plugins/bootstrap.min.js' %}"></script>
-<script src="{% static 'dist/assets/js/ripple.js' %}"></script>
-<script src="{% static 'dist/assets/js/pcoded.min.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'bower_components/jquery/dist/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'bower_components/jquery-ui/jquery-ui.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'bower_components/tether/dist/js/tether.min.js' %}"></script>
+<script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+
+<script type="text/javascript" src="{% static 'bower_components/jquery-slimscroll/jquery.slimscroll.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'bower_components/modernizr/modernizr.js' %}"></script>
+<script type="text/javascript"
+        src="{% static 'bower_components/modernizr/feature-detects/css-scrollbars.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'bower_components/classie/classie.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'bower_components/i18next/i18next.min.js' %}"></script>
+<script type="text/javascript"
+        src="{% static 'bower_components/i18next-xhr-backend/i18nextXHRBackend.min.js' %}"></script>
+<script type="text/javascript"
+        src="{% static 'bower_components/i18next-browser-languagedetector/i18nextBrowserLanguageDetector.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'bower_components/jquery-i18next/jquery-i18next.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'bower_components/select2/dist/js/select2.full.min.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'bower_components/bootstrap-multiselect/dist/js/bootstrap-multiselect.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'bower_components/multiselect/js/jquery.multi-select.js' %}"></script>
+<script type="text/javascript" src="{% static 'assets/js/jquery.quicksearch.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'assets/pages/advance-elements/select2-custom.js' %}"></script>
+<script type="text/javascript" src="{% static 'assets/js/script.js' %}"></script>
+<script src="{% static 'assets/js/pcoded.min.js' %}"></script>
+<script src="{% static 'assets/js/demo-12.js' %}"></script>
+<script src="{% static 'assets/js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery.mousewheel.min.js' %}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+
 {% block script %}
 
 {% endblock %}
@@ -88,5 +206,12 @@
 
 {% endblock %}
 </body>
+<script>
+$(document).ready(function () {
+    $('#pcoded').attr("vertical-nav-type", "collapsed");
 
+});
+</script>
+
+<!-- Mirrored from flatable.phoenixcoded.net/default/sample-page.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 10 Jan 2019 12:22:56 GMT -->
 </html>

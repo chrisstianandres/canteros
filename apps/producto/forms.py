@@ -18,17 +18,27 @@ class ProductoForm(forms.ModelForm):
                 attrs={'placeholder': 'Ingrese el nombre del producto', 'class': 'form-control form-rounded'})
             self.fields['descripcion'].widget = TextInput(
                 attrs={'placeholder': 'Ingrese una descripcion del producto', 'class': 'form-control form-rounded'})
+            self.fields['categoria'].widget.attrs = {
+                'class': 'form-control selectpicker',
+                'data-live-search': 'true'}
+            self.fields['presentacion'].widget.attrs = {
+                'class': 'form-control selectpicker',
+                'data-live-search': 'true'}
 
         # habilitar, desabilitar, y mas
 
     class Meta:
         model = Producto
         fields = ['nombre',
-                  'descripcion'
+                  'descripcion',
+                  'categoria',
+                  'presentacion',
                   ]
         labels = {
             'nombre': 'Nombre',
-            'descripcion': 'Decripcion'
+            'descripcion': 'Decripcion',
+            'categoria': 'Categoria',
+            'presentacion': 'Presentacion',
         }
         widgets = {
             'nombre': forms.TextInput(),

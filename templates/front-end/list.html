@@ -12,26 +12,26 @@
 
 {% block content %}
     <div class="row">
-        <div class="card col-md-12 col-lg-12">
+        <div class="card col-md-12">
             <div class="card-header">
                 <a type="button" class="btn btn-primary btn-sm" href="{{ nuevo }}">
                     <i class="fa fa-plus" aria-hidden="true"></i> {{ boton }}
                 </a>
             </div>
-            <div class="card-body table-border-style">
-                <div class="table-responsive">
+            <div class="card-block">
+                <div class="dt-responsive table-responsive">
                     <table class="table" id="datatable">
                         {% block table %}
                         {% endblock %}
                     </table>
                 </div>
             </div>
-            <div class="card-footer">
-                <button type="button" onclick=" location.reload();" class="btn btn-success has-ripple">
-                    <i class="fas fa-sync"></i> Actualizar<span class="ripple ripple-animate"
-                                                                style="height: 111px; width: 111px; animation-duration: 0.7s; animation-timing-function: linear; background: rgb(255, 255, 255); opacity: 0.4; top: -34.875px; left: -14.5px;"></span>
+        <div class="card-footer">
+            <button type="button" class="btn btn-warning btn-sm btn-flat"
+                        onclick="location.reload();">
+                    <i class="fas fa-sync"></i> Actualizar
                 </button>
-            </div>
+        </div>
         </div>
     </div>
     {% block modal %}

@@ -38,4 +38,6 @@ urlpatterns = [
     path('venta/', include('apps.venta.urls', namespace='venta')),
     path('periodo/', include('apps.periodo.urls', namespace='periodo')),
     path('asig_insumo/', include('apps.asignar_insumo.urls', namespace='asig_insumo')),
+    path('asig_labor/', include('apps.asignar_labor.urls', namespace='asig_labor')),
+    path('labor/', include('apps.labor.urls', namespace='labor')),
 ]

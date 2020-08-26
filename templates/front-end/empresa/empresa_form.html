@@ -9,10 +9,11 @@
 {% block content %}
 
     <div class="row">
-        <div class="card col-md-12 col-lg-12">
+        <div class="card counter-card-2 col-md-12 col-lg-12">
             <div class="card-header">
                 <h5>{{ titulo }}</h5>
             </div>
+            <br>
             <div class="card-body table-border-style">
                 <form id="form" method="POST" action="{% url 'empresa:editar' %}">
                     <input type="hidden" id="action" name="action" value="{{ action }}">
@@ -39,22 +40,25 @@
                             </div>
                         </div>
                     {% endfor %}
-                    <button type="submit" class="btn btn-success has-ripple" style="display: none" id="guardar"><i
-                            class="feather mr-2 icon-save"></i>Guardar<span class="ripple ripple-animate"
-                                                                            style="height: 115px; width: 115px; animation-duration: 0.7s;
+                    <br>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-success has-ripple" style="display: none" id="guardar"><i
+                                class="fa fa-save"></i>Guardar<span class="ripple ripple-animate"
+                                                                    style="height: 115px; width: 115px; animation-duration: 0.7s;
                                                                             animation-timing-function: linear; background: rgb(255, 255, 255);
                                                                             opacity: 0.4; top: -47.875px; left: -23.5px;"></span>
-                    </button>
-                    <button type="button" class="btn btn-primary has-ripple" id="editar"><i
-                            class="feather mr-2 icon-edit"></i>{{ boton }}<span
-                            class="ripple ripple-animate"
-                            style="height: 115px; width: 115px; animation-duration: 0.7s; animation-timing-function: linear; background: rgb(255, 255, 255); opacity: 0.4; top: -47.875px; left: -23.5px;"></span>
-                    </button>
-                    <button type="button" onclick=" window.history.back();"
-                            class="btn btn-danger has-ripple"><i
-                            class="feather mr-2 icon-slash"></i>Cancelar<span class="ripple ripple-animate"
-                                                                              style="height: 111px; width: 111px; animation-duration: 0.7s; animation-timing-function: linear; background: rgb(255, 255, 255); opacity: 0.4; top: -34.875px; left: -14.5px;"></span>
-                    </button>
+                        </button>
+                        <button type="button" class="btn btn-primary has-ripple" id="editar"><i
+                                class="fa fa-edit"></i>{{ boton }}<span
+                                class="ripple ripple-animate"
+                                style="height: 115px; width: 115px; animation-duration: 0.7s; animation-timing-function: linear; background: rgb(255, 255, 255); opacity: 0.4; top: -47.875px; left: -23.5px;"></span>
+                        </button>
+                        <button type="button" onclick=" window.history.back();"
+                                class="btn btn-danger has-ripple"><i
+                                class="fa fa-times"></i>Cancelar<span class="ripple ripple-animate"
+                                                                      style="height: 111px; width: 111px; animation-duration: 0.7s; animation-timing-function: linear; background: rgb(255, 255, 255); opacity: 0.4; top: -34.875px; left: -14.5px;"></span>
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>

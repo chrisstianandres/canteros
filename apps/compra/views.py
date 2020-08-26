@@ -96,9 +96,7 @@ def editar_save(request):
     data = {}
     datos = json.loads(request.POST['compras'])
     if request.POST['action'] == 'edit':
-
         with transaction.atomic():
-            # c = Compra.objects.get(pk=self.get_object().id)
             c = Compra.objects.get(pk=request.POST['key'])
             c.fecha_compra = datos['fecha_compra']
             c.proveedor_id = datos['proveedor']

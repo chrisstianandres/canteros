@@ -1,85 +1,133 @@
 {% load static from staticfiles %}
-<nav class="pcoded-navbar menu-light navbar-collapsed">
-		<div class="navbar-wrapper  ">
-			<div class="navbar-content scroll-div " >
-
-				<div class="">
-					<div class="main-menu-header">
-						<img class="img-radius" src="{% static 'dist/assets/images/user/avatar-2.jpg' %}" alt="User-Profile-Image">
-						<div class="user-details">
-							<div id="more-details">{{ user.get_full_name }} <i class="fa fa-caret-down"></i></div>
-						</div>
-					</div>
-					<div class="collapse" id="nav-user-link">
-						<ul class="list-unstyled">
-							<li class="list-group-item"><a href="#"><i class="feather icon-user m-r-5"></i>Perfil</a></li>
-							<li class="list-group-item"><a href="#"><i class="feather icon-log-out m-r-5"></i>Salir</a></li>
-						</ul>
-					</div>
-				</div>
-
-				<ul class="nav pcoded-inner-navbar ">
-					<li class="nav-item pcoded-menu-caption">
-					    <label>Navegacion</label>
-					</li>
-					<li class="nav-item">
-					    <a href="{% url 'menu' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Menu Principal</span></a>
-					</li>
-                    	<li class="nav-item">
-					    <a href="{% url 'empresa:editar'%}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-settings m-r-5"></i></span><span class="pcoded-mtext">Configuracion</span></a>
-					</li>
-					<li class="nav-item pcoded-menu-caption">
-					    <label>Ventas</label>
-					</li>
-					<li class="nav-item">
-					    <a href="{% url 'cliente:lista' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-user"></i></span><span class="pcoded-mtext">Clientes</span></a>
-					</li>
-                    <li class="nav-item">
-					    <a href="{% url 'venta:lista' %}" class="nav-link "><span class="pcoded-micon"><i class="fa fa-shopping-basket "></i></span><span class="pcoded-mtext">Ventas</span></a>
-					</li>
-					<li class="nav-item pcoded-menu-caption">
-					    <label>Produccion</label>
-					</li>
-                    <li class="nav-item">
-					    <a href="{% url 'trabajador:lista' %}" class="nav-link "><span class="pcoded-micon"><i class="fas fa-people-carry"></i></span><span class="pcoded-mtext">Trabajadores</span></a>
-					</li>
-					<li class="nav-item">
-					    <a href="{% url 'cantero:lista' %}" class="nav-link "><span class="pcoded-micon"><i class="fa fa-tractor"></i></span><span class="pcoded-mtext">Canteros</span></a>
-					</li>
-                    <li class="nav-item">
-                         <a href="#" class="nav-link "><span class="pcoded-micon"><i class="fab fa-pagelines"></i></span><span class="pcoded-mtext">Productos</span></a>
-                    </li>
-					<li class="nav-item">
-					    <a href="{% url 'insumo:lista' %}" class="nav-link "><span class="pcoded-micon"><i class="fa fa-tags"></i></span><span class="pcoded-mtext">Insumos</span></a>
-					</li>
-
-                    <li class="nav-item">
-                         <a href="{% url 'asig_insumo:lista' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-check-circle"></i></span><span class="pcoded-mtext">Asignacion de Insumos</span></a>
-                    </li>
-                    <li class="nav-item">
-                         <a href="#" class="nav-link "><span class="pcoded-micon"><i class="fas fa-briefcase"></i></span><span class="pcoded-mtext">Asignacion de Tareas</span></a>
-                    </li>
-
-					<li class="nav-item pcoded-menu-caption">
-					    <label>Compras</label>
-					</li>
-					<li class="nav-item">
-					    <a href="{% url 'compra:lista' %}" class="nav-link "><span class="pcoded-micon"><i class="fa fa-shopping-bag"></i></span><span class="pcoded-mtext">Compras</span></a>
-					</li>
-					<li class="nav-item">
-					    <a href="{% url 'proveedor:lista' %}" class="nav-link "><span class="pcoded-micon"><i class="fa fa-truck"></i></span><span class="pcoded-mtext">Proveedores</span></a>
-					</li>
-                    <li class="nav-item pcoded-menu-caption">
-					    <label>Extras</label>
-					</li>
-					<li class="nav-item">
-					    <a href="{% url 'Categoria:lista' %}" class="nav-link "><span class="pcoded-micon"><i class="fas fa-boxes"></i></span><span class="pcoded-mtext">Categoria</span></a>
-					</li>
-                    <li class="nav-item">
-					    <a href="{% url 'Presentacion:lista' %}" class="nav-link "><span class="pcoded-micon"><i class="fas fa-box-open"></i></span><span class="pcoded-mtext">Presentacion</span></a>
-					</li>
-
-				</ul>
-			</div>
-		</div>
-	</nav>
+<div class="pcoded-inner-navbar main-menu">
+    <div class="">
+        <div class="main-menu-header">
+            <img class="img-40" src="{% static 'assets/images/user.png' %}" alt="User-Profile-Image">
+            <div class="user-details">
+                <span>{{ user.get_full_name }}</span>
+                <span id="more-details">Detalles<i class="ti-angle-down"></i></span>
+            </div>
+        </div>
+        <div class="main-menu-content">
+            <ul>
+                <li class="more-details">
+                    <a href="#"><i class="ti-user"></i>Perfil</a>
+                    <a href="#!"><i class="ti-layout-sidebar-left"></i>Salir</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="pcoded-navigatio-lavel" menu-title-theme="theme5">Navegacion
+    </div>
+    <ul class="pcoded-item pcoded-left-item">
+        <li class="">
+            <a href="{% url 'menu' %}">
+                <span class="pcoded-micon"><i class="feather icon-home"></i></span>
+                <span class="pcoded-mtext">Menu Principal</span>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'empresa:editar' %}">
+                <span class="pcoded-micon"><i class="feather icon-settings m-r-5"></i></span>
+                <span class="pcoded-mtext">Configuracion</span>
+                <span class="pcoded-mcaret"></span>
+            </a>
+        </li>
+    </ul>
+    <div class="pcoded-navigatio-lavel" menu-title-theme="theme5">Ventas</div>
+    <ul class="pcoded-item pcoded-left-item">
+        <li class="">
+            <a href="{% url 'cliente:lista' %}">
+                <span class="pcoded-micon"><i class="fa fa-user"></i></span>
+                <span class="pcoded-mtext"> Clientes</span>
+                <span class="pcoded-mcaret"></span>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'venta:lista' %}">
+                <span class="pcoded-micon"><i class="fa fa-shopping-basket"></i></span>
+                <span class="pcoded-mtext"> Ventas</span>
+                <span class="pcoded-mcaret"></span>
+            </a>
+        </li>
+    </ul>
+    <div class="pcoded-navigatio-lavel" menu-title-theme="theme5">Produccion</div>
+    <ul class="pcoded-item pcoded-left-item">
+        <li>
+            <a href="{% url 'trabajador:lista' %}">
+                <span class="pcoded-micon"><i class="fas fa-people-carry"></i></span>
+                <span class="pcoded-mtext"> Trabajador</span>
+                <span class="pcoded-mcaret"></span>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'cantero:lista' %}">
+                <span class="pcoded-micon"><i class="fa fa-tractor"></i></span>
+                <span class="pcoded-mtext"> Cantero</span>
+                <span class="pcoded-mcaret"></span>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'producto:lista' %}">
+                <span class="pcoded-micon"><i class="fab fa-pagelines"></i></span>
+                <span class="pcoded-mtext"> Producto</span>
+                <span class="pcoded-mcaret"></span>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'insumo:lista' %}">
+                <span class="pcoded-micon"><i class="fa fa-tags"></i></span>
+                <span class="pcoded-mtext"> Insumo</span>
+                <span class="pcoded-mcaret"></span>
+            </a>
+        </li>
+            <li>
+                <a href="{% url 'asig_insumo:lista' %}">
+                <span class="pcoded-micon"><i class="fas fa-check-circle"></i></span>
+                <span class="pcoded-mtext"> Asignar Insumo</span>
+                <span class="pcoded-mcaret"></span>
+            </a>
+            </li>
+            <li>
+                <a href="{% url 'asig_labor:lista' %}">
+                <span class="pcoded-micon"><i class="fas fa-briefcase"></i></span>
+                <span class="pcoded-mtext"> Asignar Tarea</span>
+                <span class="pcoded-mcaret"></span>
+            </a>
+            </li>
+    </ul>
+    <div class="pcoded-navigatio-lavel" menu-title-theme="theme5">Compras</div>
+    <ul class="pcoded-item pcoded-left-item">
+        <li>
+            <a href="{% url 'compra:lista' %}">
+                <span class="pcoded-micon"><i class="fa fa-shopping-bag"></i></span>
+                <span class="pcoded-mtext"> Compras</span>
+                <span class="pcoded-mcaret"></span>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'proveedor:lista' %}">
+                <span class="pcoded-micon"><i class="fa fa-truck"></i></span>
+                <span class="pcoded-mtext"> Proveedor</span>
+                <span class="pcoded-mcaret"></span>
+            </a>
+        </li>
+    </ul>
+    <div class="pcoded-navigatio-lavel" menu-title-theme="theme5">Extras</div>
+    <ul class="pcoded-item pcoded-left-item">
+        <li>
+            <a href="{% url 'Categoria:lista' %}">
+                <span class="pcoded-micon"><i class="fas fa-boxes"></i></span>
+                <span class="pcoded-mtext"> Categoria</span>
+                <span class="pcoded-mcaret"></span>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'Presentacion:lista' %}">
+                <span class="pcoded-micon"><i class="fas fa-box-open"></i></span>
+                <span class="pcoded-mtext"> Presentacion</span>
+                <span class="pcoded-mcaret"></span>
+            </a>
+        </li>
+    </ul>
+</div>

@@ -9,84 +9,87 @@
         <link rel="stylesheet"
               href="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/css/responsive.bootstrap4.min.css' %}"/>
         {#        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>#}
-        <link rel="stylesheet"
-              href="{% static 'lib/bootstrap-datepicker-1.9.0-dist/css/bootstrap-datepicker.min.css' %}"/>
         <link rel="stylesheet" href="{% static 'lib/bootstrap-touchspin-4.3.0/jquery.bootstrap-touchspin.css' %}"/>
     {% endblock %}
 {% endblock %}
 {% block content %}
-    <div class="card">
-    <input type="hidden" id="action" name="action" value="{{ action }}">
-    <input type="hidden" name="crud" value="{{ crud }}">
-    <input type="hidden" name="key" value="{{ key }}">
-        {{ form.media }}
-        <div class="card-header">
-            <h5>{{ titulo }}</h5>
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="card">
-                        <div class="card-header">
-                            <h5><i class="fab fa-amazon"></i> Detalle de Productos</h5>
-                        </div>
-                        <div class="card-body table-border-style">
-                            <div class="form-group">
-                                <label>Buscar Productos:</label>
-                                {{ form2.producto }}
+    <div class="row">
+        <div class="card col-md-12">
+            <input type="hidden" id="action" name="action" value="{{ action }}">
+            <input type="hidden" name="crud" value="{{ crud }}">
+            <input type="hidden" name="key" value="{{ key }}">
+            {{ form.media }}
+            <div class="card-header">
+                <h5>{{ titulo }}</h5>
+                <br>
+            </div>
+            <div class="card-body">
+                <br>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card counter-card-2">
+                            <div class="card-header">
+                                <h5><i class="fab fa-amazon"></i> Detalle de Productos</h5>
                             </div>
-                            <hr>
-                            <button type="button" class="btn btn-danger btn-sm btn-flat btnRemoveall">
-                                <i class="far fa-trash-alt"></i> Eliminar todos los Productos
-                            </button>
-                            <hr>
-                            <div class="table-responsive">
-                                <table class="table" id="tblproductos">
-                                    <thead>
-                                    <tr>
-                                        <th><em class="fas fa-trash-alt"></em></th>
-                                        <th>Producto</th>
-                                        <th>Cat</th>
-                                        <th>Present</th>
-                                        <th>Stock</th>
-                                        <th>Cant</th>
-                                        <th>Pvp</th>
-                                        <th>Sub</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
+                            <div class="card-block">
+                                <div class="form-group">
+                                    <label>Buscar Productos:</label>
+                                    {{ form2.producto }}
+                                </div>
+                                <hr>
+                                <button type="button" class="btn btn-danger btn-sm btn-flat btnRemoveall">
+                                    <i class="far fa-trash-alt"></i> Eliminar todos los Productos
+                                </button>
+                                <hr>
+                                <div class="table-responsive">
+                                    <table class="table" id="tblproductos">
+                                        <thead>
+                                        <tr>
+                                            <th><em class="fas fa-trash-alt"></em></th>
+                                            <th>Producto</th>
+                                            <th>Categoria</th>
+                                            <th>Presentacion</th>
+                                            <th>Stock</th>
+                                            <th>Cantidad</th>
+                                            <th>Pvp</th>
+                                            <th>Subtotal</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card ">
-                        <div class="card-header">
-                            <h5><i class="fab fa-cc-visa"></i> Datos de la venta</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="form-group">
-                                {{ form.as_p }}
+                    <div class="col-md-4">
+                        <div class="card counter-card-2">
+                            <div class="card-header">
+                                <h5><i class="fab fa-cc-visa"></i> Datos de la venta</h5>
+                            </div>
+                            <div class="card-block">
+                                <div class="form-group">
+                                    {{ form.as_p }}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="card-footer">
-            <button type="submit" class="btn btn-primary btn-sm btn-flat" id="save">
-                <i class="far fa-save"></i> {{ boton }}
-                <span class="ripple ripple-animate"
-                      style="height: 115px; width: 115px; animation-duration: 0.7s; animation-timing-function: linear; background: rgb(255, 255, 255); opacity: 0.4; top: -47.875px; left: -23.5px;"></span>
-            </button>
-            <button type="button" class="btn btn-danger btn-sm btn-flat"
-                    onclick="window.history.back();">
-                <i class="fas fa-times"></i> Cancelar
-            </button>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary btn-sm btn-flat" id="save">
+                    <i class="far fa-save"></i> {{ boton }}
+                    <span class="ripple ripple-animate"
+                          style="height: 115px; width: 115px; animation-duration: 0.7s; animation-timing-function: linear; background: rgb(255, 255, 255); opacity: 0.4; top: -47.875px; left: -23.5px;"></span>
+                </button>
+                <button type="button" class="btn btn-danger btn-sm btn-flat"
+                        onclick="window.history.back();">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+            </div>
         </div>
     </div>
+
 {% endblock %}
 {% block script %}
     <!-- Latest compiled and minified JavaScript -->
@@ -95,13 +98,12 @@
     <script src="{% static 'lib/datatables-1.10.20/js/dataTables.bootstrap4.min.js' %}"></script>
     <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/dataTables.responsive.min.js' %}"></script>
     <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/responsive.bootstrap4.min.js' %}"></script>
-    <script src="{% static 'lib/bootstrap-datepicker-1.9.0-dist/js/bootstrap-datepicker.min.js' %}"></script>
     <script src="{% static 'lib/bootstrap-touchspin-4.3.0/jquery.bootstrap-touchspin.js' %}"></script>
     <script src="{% static 'apps/venta/venta.js' %}"></script>
     <script src="{% static 'apps/funtions.js' %}"></script>
     <script>
-    ventas.items.productos = {{ detalle|safe }};
-    ventas.list();
+        ventas.items.productos = {{ detalle|safe }};
+        ventas.list();
     </script>
 {% endblock %}
 {% block javascript %}

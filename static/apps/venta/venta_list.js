@@ -71,7 +71,8 @@ $(function () {
             function () {
                 menssaje_ok('Exito!', 'Exito al Eliminar la venta', 'far fa-smile-wink')
             });
-    }).on('click', 'a[rel="detalle"]', function () {
+    })
+        .on('click', 'a[rel="detalle"]', function () {
         $('.tooltip').remove();
         var tr = datatable.cell($(this).closest('td, li')).index();
         var data = datatable.row(tr.row).data();
