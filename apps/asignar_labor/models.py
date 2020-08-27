@@ -6,6 +6,10 @@ from apps.labor.models import Labor
 from apps.periodo.models import Periodo
 from apps.trabajador.models import Trabajador
 
+estado = (
+    (0, 'PENDIENTE'),
+    (1, 'PAGADO')
+)
 
 class Asig_labor(models.Model):
     fecha_asig = models.DateField(default=datetime.now)
@@ -14,6 +18,11 @@ class Asig_labor(models.Model):
     labor = models.ForeignKey(Labor, on_delete=models.CASCADE)
     desde = models.DateField(default=datetime.now)
     hasta = models.DateField(default=datetime.now)
+    total_dias = models.IntegerField(default=0)
+    estado = models.IntegerField(choices=estado, default=0)
+    valor_a_pag = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
+    saldo = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
+    valor_pag = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
 
     def __str__(self):
         return '%s %s' % (self.fecha_asig, self.trabajador.nombres)
@@ -23,6 +32,7 @@ class Asig_labor(models.Model):
         item['trabajador'] = self.trabajador.toJSON()
         item['labor'] = self.labor.toJSON()
         item['periodo'] = self.periodo.toJSON()
+        item['estado'] = self.get_estado_display()
         return item
 
     class Meta:

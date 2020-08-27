@@ -121,7 +121,7 @@ $(function () {
             'Esta seguro que desea eliminar este producto de tu detalle?', function () {
                 var p = ventas.items.productos[tr.row];
                 ventas.items.productos.splice(tr.row, 1);
-                $('#id_producto').append('<option value="'+p.id+'">'+p.nombre+'</option>');
+                $('#id_producto').append('<option value="' + p.id + '">' + p.nombre + '</option>');
                 $('#id_producto').selectpicker('refresh');
 
                 menssaje_ok('Confirmacion!', 'Producto eliminado', 'far fa-smile-wink', function () {

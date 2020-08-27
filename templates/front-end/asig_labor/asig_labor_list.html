@@ -3,9 +3,8 @@
 {% block table %}
     <thead>
     <tr>
-        <th>Fecha</th>
-        <th>Periodo</th>
-        <th>Cantero</th>
+        <th>ID</th>
+        <th>Trabajador</th>
         <th class="text-center" scope="col" style="width: 10%"><em class="fa fa-cog"></em></th>
     </tr>
     </thead>
@@ -13,19 +12,11 @@
     {% if object_list %}
         {% for dato in object_list %}
             <tr>
-                <td>{{ dato.fecha_asig }}</td>
-                <td>{{ dato.periodo.nombre }}</td>
-                <td>{{ dato.cantero.nombre }}</td>
-                <td><a type="button" rel="edit" class="btn btn-primary btn-sm" data-toggle="tooltip"
-                       title="Editar Compra"
-                       href="{% url 'compra:editar' dato.id %}"><i class="fa fa-edit"></i></a>
-                    <a type="button" rel="detalle" class="btn btn-success btn-sm" data-toggle="tooltip"
-                       title="Detalle de Productos"
-                       href="#"><i class="fa fa-search"></i></a>
-                    <a type="button" rel="estado" class="btn btn-warning btn-sm" style="color: white"
-                       data-toggle="tooltip" title="Finalizar"><i class="fa fa-check"></i></a>
-                    <a type="button" rel="borrar" class="btn btn-danger btn-sm" data-toggle="tooltip" style="color: white"
-                       title="Eliminar compra"><i class="fa fa-trash-alt"></i></a>
+                <td>{{ dato.id }}</td>
+                <td>{{ dato.nombres }}&nbsp;{{ dato.apellidos }}</td>
+                <td><a type="button" rel="detalle" style="color: white" class="btn btn-primary btn-sm"
+                       data-toggle="tooltip"
+                       title="Dettales de Labores"><i class="fas fa-server"></i></a></td>
             </tr>
         {% endfor %}
     {% endif %}
@@ -34,25 +25,30 @@
 {% block modal %}
     <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
          aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle"><i class="fas fa-cart-arrow-down"></i> Detalle de
-                        Productos </h5>
+                        Asignaciones</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <table class="table" id="tbldetalle_insumos">
+                    <table class="table" id="tbldetalle_asig" style="width: 100%">
                         <thead>
                         <tr>
-                            <th>Producto</th>
-                            <th>Categoria</th>
-                            <th>Presentacion</th>
-                            <th>Cantidad</th>
-                            <th>Pvp</th>
-                            <th>Subtotal</th>
+                            <th>Fecha</th>
+                            <th>Periodo</th>
+                            <th>Desde</th>
+                            <th>Hasta</th>
+                            <th>Labor</th>
+                            <th>Dias</th>
+                            <th>Valor</th>
+                            <th>Saldo</th>
+                            <th>Valor pg</th>
+                            <th>Estado</th>
+                            <th>Pagar</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -62,11 +58,19 @@
             </div>
         </div>
     </div>
+    <style>
+        @media (min-width: 768px) {
+            .modal-xl {
+                width: 90%;
+                max-width: 1200px;
+            }
+        }
+    </style>
 {% endblock %}
 
 {% block extra %}
-<script src="{% static 'apps/compra/compra_list.js' %}"></script>
-<script src="{% static 'apps/funtions.js' %}"></script>
+    <script src="{% static 'apps/asig_labor/asig_labor_list.js' %}"></script>
+    <script src="{% static 'apps/funtions.js' %}"></script>
 {% endblock %}
 {% block javascript %}
 

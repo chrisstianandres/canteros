@@ -21,18 +21,24 @@ class LaborForm(forms.ModelForm):
                 attrs={'placeholder': 'Ingrese el nombre del insumo', 'class': 'form-control', 'autofocus': True})
             self.fields['descripcion'].widget = TextInput(
                 attrs={'placeholder': 'Ingrese una descripcion', 'class': 'form-control form-rounded'})
+            self.fields['valor_dia'].widget.attrs = {
+                'class': 'form-control form-control-sm input-sm',
+            }
         # habilitar, desabilitar, y mas
 
     class Meta:
         model = Labor
         fields = ['nombre',
-                  'descripcion'
+                  'descripcion',
+                  'valor_dia'
                   ]
         labels = {
             'nombre': 'Nombre',
-            'descripcion': 'Descripcion'
+            'descripcion': 'Descripcion',
+            'valor_dia': 'Varlor por día de trabajo',
         }
         widgets = {
             'nombre': forms.TextInput(),
-            'descripcion': forms.TextInput()
+            'descripcion': forms.TextInput(),
+            'valor_dia': forms.TextInput()
         }
