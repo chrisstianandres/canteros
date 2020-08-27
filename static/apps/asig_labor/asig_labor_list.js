@@ -52,6 +52,7 @@ $(function () {
                 {data: 'id'},
 
             ],
+            order: [[ 9, "desc" ]],
             columnDefs: [
                 {
                     targets: [3],
@@ -85,7 +86,7 @@ $(function () {
              createdRow: function (row, data, dataIndex) {
             if (data.estado === 'PAGADO') {
                 $('td', row).eq(9).find('span').addClass('badge badge-pill badge-success');
-                $('td', row).eq(10).find('a[rel="pagr"]').hide();
+                $('td', row).eq(10).find('a[rel="pagar"]').hide();
             } else if (data.estado === 'PENDIENTE') {
                 $('td', row).eq(9).find('span').addClass('badge badge-pill badge-warning');
             }

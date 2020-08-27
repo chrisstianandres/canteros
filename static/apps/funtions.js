@@ -46,14 +46,10 @@ function save_with_ajax(title, url, content, parametros, callback) {
                             callback();
                             return false;
                         }
-                        menssaje_error(data.error);
+                        menssaje_error('Error', data.error, 'fas fa-exclamation-circle');
                     }).fail(function (jqXHR, textStatus, errorThrown) {
                         alert(textStatus + ': ' + errorThrown);
-                    }).always(function (data) {
-
                     });
-                    //
-
                 }
             },
             no: {

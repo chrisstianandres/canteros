@@ -33,29 +33,29 @@ def editar(request):
     data['form'] = f
     return render(request, 'front-end/empresa/empresa_form.html', data)
 
+
 def nuevo(request):
-    config = Empresa.objects.get(id=1)
     data = {
         'icono': opc_icono, 'crud': crud, 'entidad': opc_entidad,
-        'boton': 'Editar', 'titulo': 'Configuracion', 'form': EmpresaForm(instance=config)
+        'boton': 'Editar', 'titulo': 'Configuracion', 'form': EmpresaForm(instance=Empresa.objects.get(id=1))
     }
     return render(request, 'front-end/empresa/empresa_form.html', data)
 
 
-def crear(request):
-    f = CanteroForm(request.POST)
-    data = {
-        'icono': opc_icono, 'entidad': opc_entidad, 'crud': crud,
-        'boton': 'Guardar Cantero', 'action': 'add', 'titulo': 'Nuevo Registro de un Cantero'
-    }
-    action = request.POST['action']
-    data['action'] = action
-    if request.method == 'POST' and 'action' in request.POST:
-        if action == 'add':
-            f = CanteroForm(request.POST)
-            if f.is_valid():
-                f.save()
-            else:
-                data['form'] = f
-                return render(request, 'front-end/cantero/cantero_form.html', data)
-            return HttpResponseRedirect('/cantero/lista')
+# def crear(request):
+#     f = CanteroForm(request.POST)
+#     data = {
+#         'icono': opc_icono, 'entidad': opc_entidad, 'crud': crud,
+#         'boton': 'Guardar Cantero', 'action': 'add', 'titulo': 'Nuevo Registro de un Cantero'
+#     }
+#     action = request.POST['action']
+#     data['action'] = action
+#     if request.method == 'POST' and 'action' in request.POST:
+#         if action == 'add':
+#             f = CanteroForm(request.POST)
+#             if f.is_valid():
+#                 f.save()
+#             else:
+#                 data['form'] = f
+#                 return render(request, 'front-end/cantero/cantero_form.html', data)
+#             return HttpResponseRedirect('/cantero/lista')

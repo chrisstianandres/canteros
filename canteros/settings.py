@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'apps.trabajador',
     'apps.venta',
     'apps.periodo',
+    'apps.historial_pagos',
 
 ]
 

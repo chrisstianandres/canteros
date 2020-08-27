@@ -60,70 +60,7 @@
 <div id="pcoded" class="pcoded">
     <div class="pcoded-overlay-box"></div>
     <div class="pcoded-container navbar-wrapper">
-        <nav class="navbar header-navbar pcoded-header" header-theme="theme4">
-            <div class="navbar-wrapper">
-                <div class="navbar-logo">
-                    <a class="mobile-menu" id="mobile-collapse" href="#!">
-                        <i class="ti-menu"></i>
-                    </a>
-                    <a class="mobile-search morphsearch-search" href="#">
-                        <i class="ti-search"></i>
-                    </a>
-                    <a href="#">
-                        <img class="img-fluid" src="{% static 'assets/images/logo.png' %}" alt="Theme-Logo"/>
-                    </a>
-                    <a class="mobile-options">
-                        <i class="ti-more"></i>
-                    </a>
-                </div>
-                <div class="navbar-container container-fluid">
-                    <div>
-                        <ul class="nav-left">
-                            <li>
-                                <div class="sidebar_toggle"><a><i class="ti-menu"></i></a>
-                                </div>
-                            </li>
-                        </ul>
-                        <ul class="nav-right">
-                            <li class="user-profile header-notification">
-                                <a href="#!">
-                                    <img src="{% static 'assets/images/user.png' %}" alt="User-Profile-Image">
-                                    <span>John Doe</span>
-                                    <i class="ti-angle-down"></i>
-                                </a>
-                                <ul class="show-notification profile-notification">
-                                    <li>
-                                        <a href="#!">
-                                            <i class="ti-settings"></i> Settings
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="ti-user"></i> Profile
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="ti-email"></i> My Messages
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="ti-lock"></i> Lock Screen
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#!">
-                                            <i class="ti-layout-sidebar-left"></i> Logout
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </nav>
+        {% include "front-end/header.html" %}
         <div class="pcoded-main-container">
             <div class="pcoded-wrapper">
                 <nav class="pcoded-navbar" pcoded-header-position="relative">
@@ -183,7 +120,8 @@
 <script type="text/javascript" src="{% static 'bower_components/jquery-i18next/jquery-i18next.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'bower_components/select2/dist/js/select2.full.min.js' %}"></script>
 
-<script type="text/javascript" src="{% static 'bower_components/bootstrap-multiselect/dist/js/bootstrap-multiselect.js' %}"></script>
+<script type="text/javascript"
+        src="{% static 'bower_components/bootstrap-multiselect/dist/js/bootstrap-multiselect.js' %}"></script>
 
 <script type="text/javascript" src="{% static 'bower_components/multiselect/js/jquery.multi-select.js' %}"></script>
 <script type="text/javascript" src="{% static 'assets/js/jquery.quicksearch.js' %}"></script>
@@ -207,10 +145,10 @@
 {% endblock %}
 </body>
 <script>
-$(document).ready(function () {
-    $('#pcoded').attr("vertical-nav-type", "collapsed");
-
-});
+    $(document).ready(function () {
+        $('#pcoded').attr("vertical-nav-type", "collapsed");
+        $('[data-toggle="tooltip"]').tooltip();
+    });
 </script>
 
 <!-- Mirrored from flatable.phoenixcoded.net/default/sample-page.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 10 Jan 2019 12:22:56 GMT -->

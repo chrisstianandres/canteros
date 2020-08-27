@@ -20,13 +20,13 @@
     <div class="pcoded-navigatio-lavel" menu-title-theme="theme5">Navegacion
     </div>
     <ul class="pcoded-item pcoded-left-item">
-        <li class="">
+        <li data-toggle="tooltip" data-placement="right" title="Menu Principal">
             <a href="{% url 'menu' %}">
                 <span class="pcoded-micon"><i class="feather icon-home"></i></span>
                 <span class="pcoded-mtext">Menu Principal</span>
             </a>
         </li>
-        <li>
+        <li data-toggle="tooltip" data-placement="right" title="Configuracion">
             <a href="{% url 'empresa:editar' %}">
                 <span class="pcoded-micon"><i class="feather icon-settings m-r-5"></i></span>
                 <span class="pcoded-mtext">Configuracion</span>
@@ -36,14 +36,14 @@
     </ul>
     <div class="pcoded-navigatio-lavel" menu-title-theme="theme5">Ventas</div>
     <ul class="pcoded-item pcoded-left-item">
-        <li class="">
+        <li data-toggle="tooltip" data-placement="right" title="Clientes">
             <a href="{% url 'cliente:lista' %}">
                 <span class="pcoded-micon"><i class="fa fa-user"></i></span>
                 <span class="pcoded-mtext"> Clientes</span>
                 <span class="pcoded-mcaret"></span>
             </a>
         </li>
-        <li>
+        <li data-toggle="tooltip" data-placement="right" title="Ventas">
             <a href="{% url 'venta:lista' %}">
                 <span class="pcoded-micon"><i class="fa fa-shopping-basket"></i></span>
                 <span class="pcoded-mtext"> Ventas</span>
@@ -53,59 +53,59 @@
     </ul>
     <div class="pcoded-navigatio-lavel" menu-title-theme="theme5">Produccion</div>
     <ul class="pcoded-item pcoded-left-item">
-        <li>
+        <li data-toggle="tooltip" data-placement="right" title="Trabajador">
             <a href="{% url 'trabajador:lista' %}">
                 <span class="pcoded-micon"><i class="fas fa-people-carry"></i></span>
                 <span class="pcoded-mtext"> Trabajador</span>
                 <span class="pcoded-mcaret"></span>
             </a>
         </li>
-        <li>
+        <li data-toggle="tooltip" data-placement="right" title="Cantero">
             <a href="{% url 'cantero:lista' %}">
                 <span class="pcoded-micon"><i class="fa fa-tractor"></i></span>
                 <span class="pcoded-mtext"> Cantero</span>
                 <span class="pcoded-mcaret"></span>
             </a>
         </li>
-        <li>
+        <li data-toggle="tooltip" data-placement="right" title="Producto">
             <a href="{% url 'producto:lista' %}">
                 <span class="pcoded-micon"><i class="fab fa-pagelines"></i></span>
                 <span class="pcoded-mtext"> Producto</span>
                 <span class="pcoded-mcaret"></span>
             </a>
         </li>
-        <li>
+        <li data-toggle="tooltip" data-placement="right" title="Insumo">
             <a href="{% url 'insumo:lista' %}">
                 <span class="pcoded-micon"><i class="fa fa-tags"></i></span>
                 <span class="pcoded-mtext"> Insumo</span>
                 <span class="pcoded-mcaret"></span>
             </a>
         </li>
-            <li>
-                <a href="{% url 'asig_insumo:lista' %}">
+        <li data-toggle="tooltip" data-placement="right" title="Asignar Insumo">
+            <a href="{% url 'asig_insumo:lista' %}">
                 <span class="pcoded-micon"><i class="fas fa-check-circle"></i></span>
                 <span class="pcoded-mtext"> Asignar Insumo</span>
                 <span class="pcoded-mcaret"></span>
             </a>
-            </li>
-            <li>
-                <a href="{% url 'asig_labor:lista' %}">
+        </li>
+        <li data-toggle="tooltip" data-placement="right" title="Asignar Labor">
+            <a href="{% url 'asig_labor:lista' %}">
                 <span class="pcoded-micon"><i class="fas fa-briefcase"></i></span>
-                <span class="pcoded-mtext"> Asignar Tarea</span>
+                <span class="pcoded-mtext"> Asignar Labor</span>
                 <span class="pcoded-mcaret"></span>
             </a>
-            </li>
+        </li>
     </ul>
     <div class="pcoded-navigatio-lavel" menu-title-theme="theme5">Compras</div>
     <ul class="pcoded-item pcoded-left-item">
-        <li>
+        <li data-toggle="tooltip" data-placement="right" title="Compras">
             <a href="{% url 'compra:lista' %}">
                 <span class="pcoded-micon"><i class="fa fa-shopping-bag"></i></span>
                 <span class="pcoded-mtext"> Compras</span>
                 <span class="pcoded-mcaret"></span>
             </a>
         </li>
-        <li>
+        <li data-toggle="tooltip" data-placement="right" title="Proveedor">
             <a href="{% url 'proveedor:lista' %}">
                 <span class="pcoded-micon"><i class="fa fa-truck"></i></span>
                 <span class="pcoded-mtext"> Proveedor</span>
@@ -115,17 +115,24 @@
     </ul>
     <div class="pcoded-navigatio-lavel" menu-title-theme="theme5">Extras</div>
     <ul class="pcoded-item pcoded-left-item">
-        <li>
+        <li data-toggle="tooltip" data-placement="right" title="Categoria">
             <a href="{% url 'Categoria:lista' %}">
                 <span class="pcoded-micon"><i class="fas fa-boxes"></i></span>
                 <span class="pcoded-mtext"> Categoria</span>
                 <span class="pcoded-mcaret"></span>
             </a>
         </li>
-        <li>
+        <li data-toggle="tooltip" data-placement="right" title="Presentacion">
             <a href="{% url 'Presentacion:lista' %}">
                 <span class="pcoded-micon"><i class="fas fa-box-open"></i></span>
                 <span class="pcoded-mtext"> Presentacion</span>
+                <span class="pcoded-mcaret"></span>
+            </a>
+        </li>
+        <li data-toggle="tooltip" data-placement="right" title="Periodo">
+            <a href="{% url 'periodo:lista' %}">
+                <span class="pcoded-micon"><i class="fas fa-clock"></i></span>
+                <span class="pcoded-mtext"> Periodo</span>
                 <span class="pcoded-mcaret"></span>
             </a>
         </li>
