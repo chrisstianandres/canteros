@@ -128,7 +128,7 @@ function menssaje_ok(title, content, icon, callback) {
     $.confirm({
         theme: 'modern',
         icon: icon,
-        type:'green',
+        type: 'green',
         title: title,
         content: content,
         draggable: true,
@@ -137,10 +137,28 @@ function menssaje_ok(title, content, icon, callback) {
                 text: '<i class="fas fa-check"></i> Ok',
                 btnClass: 'btn-blue',
                 action: function () {
-                   callback();
+                    callback();
                 }
             },
         }
     });
 }
 
+function login(url, parametros, callback) {
+     $.ajax({
+        dataType: 'JSON',
+        type: 'POST',
+        url: url,
+        data: parametros,
+    }).done(function (data) {
+        if (!data.hasOwnProperty('error')) {
+            callback();
+            return false;
+        }
+        menssaje_error('Error', data.error, 'fas fa-exclamation-circle');
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        alert(textStatus + ': ' + errorThrown);
+    })
+
+
+}

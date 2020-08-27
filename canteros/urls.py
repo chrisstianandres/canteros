@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf.urls import url, include
+from django.contrib.auth.decorators import login_required
 from django.urls import path
 from apps import backEnd as backEnd
 from django.conf import settings
@@ -25,7 +26,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # empresa
     path('empresa/', include('apps.configuracion.urls', namespace='empresa')),
-    path('', backEnd.menu, name='menu'),
+    path('', login_required(backEnd.menu), name='menu'),
+    path('login/', backEnd.logeo, name='login'),
+    path('logout/', backEnd.disconnect, name='logout'),
+    path('connect/', backEnd.connect, name='connect'),
     path('cliente/', include('apps.cliente.urls', namespace='cliente')),
     path('proveedor/', include('apps.proveedor.urls', namespace='proveedor')),
     path('insumo/', include('apps.insumo.urls', namespace='insumo')),
