@@ -4,7 +4,7 @@ from django.shortcuts import render
 from apps.labor.forms import LaborForm
 from apps.labor.models import Labor
 
-opc_icono = 'fa fa-tags'
+opc_icono = 'fab fa-phoenix-framework'
 opc_entidad = 'Labores'
 crud = '/labor/crear'
 
@@ -14,7 +14,8 @@ def lista(request):
         'icono': opc_icono, 'entidad': opc_entidad,
         'boton': 'Nueva Labor', 'titulo': 'Listado de Labores',
         'nuevo': '/labor/nuevo'}
-
+    list = Labor.objects.all()
+    data['list'] = list
     return render(request, "front-end/labor/labor_list.html", data)
 
 

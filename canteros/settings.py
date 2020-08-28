@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     # sistema
     'apps.asignar_insumo',
     'apps.asignar_labor',
+    'apps.cantero',
     'apps.categoria',
     'apps.cliente',
     'apps.compra',
@@ -49,6 +50,7 @@ INSTALLED_APPS = [
     'apps.pago_jornada',
     'apps.presentacion',
     'apps.produccion',
+    'apps.producto',
     'apps.proveedor',
     'apps.trabajador',
     'apps.venta',
@@ -159,6 +161,8 @@ STATICFILES_DIRS = (
 )
 
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static', 'static')
+
+LOGIN_URL = '/login'
 BOOTSTRAP4 = {
     'include_jquery': True,
 }

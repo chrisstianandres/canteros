@@ -1,3 +1,4 @@
 from django.contrib import admin
+from apps.cantero.models import Cantero
 
-# Register your models here.
+admin.site.register(Cantero)

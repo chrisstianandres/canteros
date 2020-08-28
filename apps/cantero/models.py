@@ -12,6 +12,7 @@ estado = (
 
 SUP = str.maketrans("0123456789", "⁰¹²³⁴⁵⁶⁷⁸⁹")
 
+
 class Cantero(models.Model):
     nombre = models.CharField(max_length=50)
     dimesion = models.IntegerField(choices=area, default=1)
