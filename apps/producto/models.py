@@ -14,7 +14,7 @@ class Producto(models.Model):
     stock = models.IntegerField(default=0)
 
     def __str__(self):
-        return '%s' % self.nombre
+        return '%s %s %s' % (self.nombre, ' / ', self.presentacion.nombre)
 
     def toJSON(self):
         item = model_to_dict(self)

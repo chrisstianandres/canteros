@@ -27,7 +27,7 @@ class ProduccionForm(forms.ModelForm):
             self.initial['periodo'] = Periodo.objects.get(estado=1)
 
             self.fields['producto'].widget.attrs = {
-                'class': 'form-control',
+                'class': 'form-control selectpicker',
                 'data-width': "80%"
             }
             self.initial['producto'] = Producto.objects.all().first()

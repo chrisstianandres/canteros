@@ -16,7 +16,7 @@
                 <td>{{ dato.nombre }}</td>
                 <td><a type="button" rel="detalle" style="color: white" class="btn btn-primary btn-sm"
                        data-toggle="tooltip"
-                       title="Dettales"><i class="fas fa-server"></i></a></td>
+                       title="Detalles"><i class="fas fa-server"></i></a></td>
             </tr>
         {% endfor %}
     {% endif %}
@@ -29,7 +29,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle"><i class="fas fa-cart-arrow-down"></i> Detalle de
-                        Asignaciones</h5>
+                        Ingresos de Produccion</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -40,15 +40,9 @@
                         <tr>
                             <th>Fecha</th>
                             <th>Periodo</th>
-                            <th>Desde</th>
-                            <th>Hasta</th>
-                            <th>Labor</th>
-                            <th>Dias</th>
-                            <th>Valor</th>
-                            <th>Saldo</th>
-                            <th>Valor pg</th>
-                            <th>Estado</th>
-                            <th>Pagar</th>
+                            <th>Producto</th>
+                            <th>Presentacion</th>
+                            <th>Cantidad</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -69,7 +63,7 @@
 {% endblock %}
 
 {% block extra %}
-    <script src="{% static 'apps/asig_labor/asig_labor_list.js' %}"></script>
+    <script src="{% static 'apps/produccion/produccion_list.js' %}"></script>
     <script src="{% static 'apps/funtions.js' %}"></script>
 {% endblock %}
 {% block javascript %}

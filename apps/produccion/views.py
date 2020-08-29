@@ -10,6 +10,7 @@ from apps.cantero.models import Cantero
 from apps.produccion.forms import ProduccionForm
 from apps.produccion.models import Produccion
 from apps.periodo.models import Periodo
+from apps.producto.models import Producto
 
 opc_icono = 'fas fa-spa'
 opc_entidad = 'Produccion'
@@ -35,17 +36,17 @@ class lista(ListView):
         return data
 
 
-# def nuevo(request):
-#     data = {
-#         'icono': opc_icono, 'entidad': opc_entidad,
-#         'boton': 'Guardar Ingreso', 'action': 'add', 'titulo': 'Nuevo Ingreso de Produccion',
-#         'key': ''
-#     }
-#     if request.method == 'GET':
-#         data['form'] = ProduccionForm()
-#         data['list'] = Cantero.objects.filter(estado=0).order_by('id')
-#         # data['detalle'] = json.dumps(get_detalle_productos())
-#     return render(request, 'front-end/produccion/produccion_form.html', data)
+def nuevo(request):
+    data = {
+        'icono': opc_icono, 'entidad': opc_entidad,
+        'boton': 'Guardar Ingreso', 'action': 'add', 'titulo': 'Nuevo Ingreso de Produccion',
+        'key': ''
+    }
+    if request.method == 'GET':
+        data['form'] = ProduccionForm()
+        data['list'] = Cantero.objects.filter(estado=0).order_by('id')
+        # data['detalle'] = json.dumps(get_detalle_productos())
+    return render(request, 'front-end/produccion/produccion_form.html', data)
 
 
 # def days_between(d1, d2):
@@ -77,23 +78,24 @@ class lista(ListView):
 #     return data
 #
 #
-# @csrf_exempt
-# def get_detalle(request):
-#     data = {}
-#     try:
-#         id = request.POST['id']
-#
-#         if id:
-#             data = []
-#             for p in Asig_labor.objects.filter(trabajador_id=id):
-#                 items = p.toJSON()
-#                 print(p.toJSON())
-#                 data.append(items)
-#         else:
-#             data['error'] = 'Ha ocurrido un error'
-#     except Exception as e:
-#         data['error'] = str(e)
-#     return JsonResponse(data, safe=False)
+@csrf_exempt
+def get_detalle(request):
+    data = {}
+    try:
+        id = request.POST['id']
+
+        if id:
+            data = []
+            for p in Produccion.objects.filter(cantero_id=id):
+                items = p.toJSON()
+                data.append(items)
+        else:
+            data['error'] = 'Ha ocurrido un error'
+    except Exception as e:
+        data['error'] = str(e)
+    return JsonResponse(data, safe=False)
+
+
 #
 #
 # @csrf_exempt
@@ -112,41 +114,29 @@ class lista(ListView):
 #     return JsonResponse(data, safe=False)
 #
 #
-# @csrf_exempt
-# def save_asig(request):
-#     data = {}
-#     if request.method == 'POST':
-#         datos = json.loads(request.POST['asignaciones'])
-#         if datos:
-#             with transaction.atomic():
-#                 for i in datos['trabajadores']:
-#                     d1 = datetime.strptime(i['desde'], '%Y-%m-%d')
-#                     d2 = datetime.strptime(i['hasta'], '%Y-%m-%d')
-#                     if Asig_labor.objects.filter(desde__lt=d2, hasta__gt=d1, trabajador_id=i['trabajador']):
-#                         t = Asig_labor.objects.get(trabajador_id=i['trabajador'])
-#                         data['resp'] = False
-#                         data['error'] = "El trabajador " + t.trabajador.nombres + " " + t.trabajador.apellidos + \
-#                                         " ya tiene Labores asignadas de " + t.desde.strftime('%d/%m/%Y') + " hasta " \
-#                                         + t.hasta.strftime('%d/%m/%Y') + ""
-#                     else:
-#                         dias = (days_between(d1, d2) + 1)
-#                         lab = Labor.objects.get(pk=i['labor'])
-#                         dv = Asig_labor()
-#                         dv.fecha_asig = datos['fecha_asig']
-#                         dv.periodo_id = datos['periodo']
-#                         dv.trabajador_id = i['trabajador']
-#                         dv.labor_id = i['labor']
-#                         dv.desde = i['desde']
-#                         dv.hasta = i['hasta']
-#                         dv.total_dias = dias
-#                         dv.valor_a_pag = dias * lab.valor_dia
-#                         dv.saldo = dias * lab.valor_dia
-#                         dv.save()
-#                         data['resp'] = True
-#         else:
-#             data['resp'] = False
-#             data['error'] = "Datos Incompletos"
-#     return HttpResponse(json.dumps(data), content_type="application/json")
+@csrf_exempt
+def save(request):
+    data = {}
+    if request.method == 'POST':
+        datos = json.loads(request.POST['ingresos'])
+        if datos:
+            with transaction.atomic():
+                for i in datos['canteros']:
+                    dv = Produccion()
+                    dv.fecha = datos['fecha']
+                    dv.periodo_id = datos['periodo']
+                    dv.cantero_id = i['cantero']
+                    dv.producto_id = i['producto']
+                    dv.cantidad = int(i['cantidad'])
+                    dv.save()
+                    x = Producto.objects.get(pk=i['producto'])
+                    x.stock = x.stock + int(i['cantidad'])
+                    x.save()
+                    data['resp'] = True
+        else:
+            data['resp'] = False
+            data['error'] = "Datos Incompletos"
+    return HttpResponse(json.dumps(data), content_type="application/json")
 #
 #
 # def pago_jornada(request, id):
