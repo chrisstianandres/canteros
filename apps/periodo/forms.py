@@ -20,9 +20,9 @@ class PeriodoForm(forms.ModelForm):
             self.fields['nombre'].widget = TextInput(
                 attrs={'placeholder': 'Ingrese el nombre del Periodo', 'class': 'form-control form-rounded'})
             self.fields['desde'].widget = SelectDateWidget(years=yearsd, attrs={
-                'class': 'selectpicker', 'data-width': '33.33%'})
+                'class': 'form-control', 'data-width': '30%', 'container': 'body'})
             self.fields['hasta'].widget = SelectDateWidget(years=yearsh, attrs={
-                'class': 'selectpicker', 'data-width': '33.33%'})
+                'class': 'form-control', 'data-width': '30%', 'container': 'body'})
         # habilitar, desabilitar, y mas
 
     class Meta:

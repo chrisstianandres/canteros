@@ -89,7 +89,6 @@ def get_detalle(request):
             data = []
             for p in Asig_labor.objects.filter(trabajador_id=id):
                 items = p.toJSON()
-                print(p.toJSON())
                 data.append(items)
         else:
             data['error'] = 'Ha ocurrido un error'

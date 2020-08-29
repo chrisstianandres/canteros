@@ -44,4 +44,5 @@ urlpatterns = [
     path('asig_insumo/', include('apps.asignar_insumo.urls', namespace='asig_insumo')),
     path('asig_labor/', include('apps.asignar_labor.urls', namespace='asig_labor')),
     path('labor/', include('apps.labor.urls', namespace='labor')),
+    path('produccion/', include('apps.produccion.urls', namespace='produccion')),
 ]

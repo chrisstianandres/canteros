@@ -19,30 +19,20 @@
                 <td>{{ dato.nombre }}</td>
                 <td> {{ dato.desde }}  </td>
                 <td> {{ dato.hasta }} </td>
-                <td>{{dato.get_estado_display}}</td>
+                <td><span>{{dato.get_estado_display}}</span></td>
                 <td><a type="button" class="btn btn-success btn-sm" data-toggle="tooltip"
                        title="Editar Datos"
                        href="#"><i class="fa fa-edit"></i></a>
-                    <button type="button" class="btn btn-primary btn-sm estado"
+                    <a type="button" class="btn btn-primary btn-sm"
                             data-toggle="tooltip"
-                            title="Gestionar Estado" name="btnestado">
-                        <i class="fa fa-cogs"></i></button>
+                            title="Gestionar Estado" rel="estado">
+                        <i class="fa fa-cogs"></i></a>
             </tr>
         {% endfor %}
     {% endif %}
     </tbody>
 {% endblock %}
-{% block javascript %}
- <script>
-        $(function () {
-            $("#datatable").DataTable({
-                responsive: true,
-                autoWidth: false,
-                language: {
-                    "url": '{% static 'lib/datatables-1.10.20/spanish.txt' %}'
-                },
-
-            });
-        });
-    </script>
+{% block extra %}
+<script src="{% static 'apps/periodo/periodo_list.js' %}"></script>
+<script src="{% static 'apps/funtions.js' %}"></script>
 {% endblock %}

@@ -12,18 +12,19 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Periodo',
+            name='Cantero',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('nombre', models.CharField(max_length=50)),
-                ('desde', models.DateField()),
-                ('hasta', models.DateField()),
-                ('estado', models.IntegerField(choices=[(1, 'ACTIVO'), (0, 'INACTIVO')], default=0)),
+                ('dimesion', models.IntegerField(choices=[(1, 'METROS'), (0, 'HECTAREAS')], default=1)),
+                ('valor_dim', models.FloatField(max_length=13)),
+                ('estado', models.IntegerField(choices=[(0, 'ACTIVO'), (1, 'INACTIVO')], default=1)),
             ],
             options={
-                'verbose_name_plural': 'periodos',
-                'verbose_name': 'periodo',
-                'db_table': 'periodo',
+                'ordering': ['-nombre', '-valor_dim'],
+                'verbose_name_plural': 'canteros',
+                'db_table': 'cantero',
+                'verbose_name': 'cantero',
             },
         ),
     ]

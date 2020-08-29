@@ -12,7 +12,6 @@ from apps.trabajador.models import Trabajador
 
 class Produccion(models.Model):
     fecha = models.DateField(default=datetime.now)
-    presentacion = models.ForeignKey(Presentacion, on_delete=models.PROTECT)
     periodo = models.ForeignKey(Periodo, on_delete=models.PROTECT)
     cantero = models.ForeignKey(Cantero, on_delete=models.CASCADE)
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)

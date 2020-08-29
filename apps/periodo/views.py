@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import *
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from apps.periodo.forms import PeriodoForm
 from apps.periodo.models import Periodo
 from django.http import HttpResponseRedirect
@@ -22,6 +23,7 @@ def lista(request):
     data['list'] = list
     return render(request, "front-end/periodo/periodo_list.html", data)
 
+
 def nuevo(request):
     data = {
         'icono': opc_icono, 'entidad': opc_entidad, 'crud': crud,
@@ -30,6 +32,7 @@ def nuevo(request):
     if request.method == 'GET':
         data['form'] = PeriodoForm()
     return render(request, 'front-end/periodo/periodo_form.html', data)
+
 
 def crear(request):
     f = PeriodoForm(request.POST)
@@ -47,4 +50,24 @@ def crear(request):
             else:
                 data['form'] = f
                 return render(request, 'front-end/periodo/periodo_form.html', data)
-            return HttpResponseRedirect('periodo:lista')
+            return HttpResponseRedirect('/periodo/lista')
+
+
+@csrf_exempt
+def estado(request):
+    data = {}
+    try:
+        id = request.POST['id']
+        if id:
+            ps = Periodo.objects.get(estado=1)
+            ps.estado = 0
+            ps.save()
+            es = Periodo.objects.get(id=id)
+            es.estado = 1
+            es.save()
+            data['resp'] = True
+        else:
+            data['error'] = 'Ha ocurrido un error'
+    except Exception as e:
+        data['error'] = str(e)
+    return JsonResponse(data)

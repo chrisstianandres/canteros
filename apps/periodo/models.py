@@ -10,7 +10,7 @@ class Periodo(models.Model):
     nombre = models.CharField(max_length=50)
     desde = models.DateField()
     hasta = models.DateField()
-    estado = models.IntegerField(choices=estado, unique=True, default=0)
+    estado = models.IntegerField(choices=estado, default=0)
 
     def __str__(self):
         return '%s' % self.nombre

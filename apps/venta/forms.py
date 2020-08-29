@@ -20,7 +20,8 @@ class VentaForm(forms.ModelForm):
             }
             self.fields['cliente'].widget.attrs = {
                 'class': 'form-control selectpicker',
-                'data-live-search': "true"
+                'data-live-search': "true",
+                'maxOptions': 10
             }
             self.fields['subtotal'].widget.attrs = {
                 'value': '0.00',
