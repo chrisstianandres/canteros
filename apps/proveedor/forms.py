@@ -17,17 +17,17 @@ class ProveedorForm(forms.ModelForm):
             })
 
             self.fields['nombres'].widget = TextInput(
-                attrs={'placeholder': 'Ingrese sus dos nombres', 'class': 'form-control form-rounded'})
+                attrs={'placeholder': 'Ingrese sus dos nombres', 'class': 'form-control'})
             #self.fields['documento'].widget = TextInput(
              #   attrs={'placeholder': 'Ingrese sus dos Apellidos', 'class': 'form-control form-rounded'})
             self.fields['numero_documento'].widget = TextInput(
-                attrs={'placeholder': 'Ingrese numero de docuemnto', 'class': 'form-control form-rounded'})
+                attrs={'placeholder': 'Ingrese numero de docuemnto', 'class': 'form-control'})
             self.fields['correo'].widget = EmailInput(
-                attrs={'placeholder': 'abc@correo.com', 'class': 'form-control form-rounded'})
+                attrs={'placeholder': 'abc@correo.com', 'class': 'form-control'})
             self.fields['telefono'].widget = TextInput(
-                attrs={'placeholder': 'Ingrese el numero de telefono', 'class': 'form-control form-rounded'})
+                attrs={'placeholder': 'Ingrese el numero de telefono', 'class': 'form-control'})
             self.fields['direccion'].widget = TextInput(
-                attrs={'placeholder': 'Ingrese una direccion', 'class': 'form-control form-rounded'})
+                attrs={'placeholder': 'Ingrese una direccion', 'class': 'form-control'})
             # self.fields['sexo'].widget.attrs['class'] = 'selectpicker'
             # self.fields["fecha_nacimiento"].widget = SelectDateWidget(years=years,
             #                                                         attrs={'class': 'selectpicker'})

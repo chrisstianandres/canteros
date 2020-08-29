@@ -22,7 +22,6 @@ class Produccion(models.Model):
 
     def toJSON(self):
         item = model_to_dict(self)
-        item['presentacion'] = self.presentacion.toJSON()
         item['cantero'] = self.cantero.toJSON()
         item['periodo'] = self.periodo.toJSON()
         item['producto'] = self.producto.toJSON()

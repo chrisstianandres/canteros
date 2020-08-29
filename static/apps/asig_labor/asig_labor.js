@@ -19,6 +19,14 @@ var asignar = {
 };
 
 $(function () {
+    $('.select2').select2({
+        "language": {
+            "noResults": function () {
+                return "Sin resultados";
+            }
+        },
+        allowClear: true
+    });
     datatable = $("#tbltrab").DataTable({
         destroy: true,
         autoWidth: false,
@@ -50,7 +58,6 @@ $(function () {
     });
     $('input[name="tiempo"]').daterangepicker();
     $('#save').on('click', function () {
-
         asignar.items.fecha_asig = $('input[name="fecha_asig"]').val();
         asignar.items.periodo = $('select[name="periodo"] option:selected').val();
         var trs = $("#tbltrab tr").length;

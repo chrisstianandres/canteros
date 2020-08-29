@@ -42,7 +42,7 @@ $(function () {
                 {data: 'fecha'},
                 {data: 'periodo.nombre'},
                 {data: 'producto.nombre'},
-                {data: 'presentacion.nombre'},
+                {data: 'producto.presentacion.nombre'},
                 {data: 'cantidad'}
 
             ],

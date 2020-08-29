@@ -3,6 +3,7 @@
 {% block table %}
     <thead>
     <tr>
+        <th>ID</th>
         <th>Fecha</th>
         <th>Periodo</th>
         <th>Cantero</th>
@@ -13,19 +14,15 @@
     {% if object_list %}
         {% for dato in object_list %}
             <tr>
+                <td>{{ dato.id }}</td>
                 <td>{{ dato.fecha_asig }}</td>
                 <td>{{ dato.periodo.nombre }}</td>
                 <td>{{ dato.cantero.nombre }}</td>
                 <td><a type="button" rel="edit" class="btn btn-primary btn-sm" data-toggle="tooltip"
-                       title="Editar Compra"
-                       href="{% url 'compra:editar' dato.id %}"><i class="fa fa-edit"></i></a>
+                       title="Editar Asignacion"><i class="fa fa-edit" style="color: white"></i></a>
                     <a type="button" rel="detalle" class="btn btn-success btn-sm" data-toggle="tooltip"
-                       title="Detalle de Productos"
+                       title="Detalles"
                        href="#"><i class="fa fa-search"></i></a>
-                    <a type="button" rel="estado" class="btn btn-warning btn-sm" style="color: white"
-                       data-toggle="tooltip" title="Finalizar"><i class="fa fa-check"></i></a>
-                    <a type="button" rel="borrar" class="btn btn-danger btn-sm" data-toggle="tooltip" style="color: white"
-                       title="Eliminar compra"><i class="fa fa-trash-alt"></i></a>
             </tr>
         {% endfor %}
     {% endif %}
@@ -38,7 +35,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle"><i class="fas fa-cart-arrow-down"></i> Detalle de
-                        Productos </h5>
+                        Asignaciones </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -47,12 +44,10 @@
                     <table class="table" id="tbldetalle_insumos">
                         <thead>
                         <tr>
-                            <th>Producto</th>
+                            <th>Insumo</th>
                             <th>Categoria</th>
                             <th>Presentacion</th>
                             <th>Cantidad</th>
-                            <th>Pvp</th>
-                            <th>Subtotal</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -65,7 +60,7 @@
 {% endblock %}
 
 {% block extra %}
-<script src="{% static 'apps/compra/compra_list.js' %}"></script>
+<script src="{% static 'apps/asig_insumo/asig_insumo_list.js' %}"></script>
 <script src="{% static 'apps/funtions.js' %}"></script>
 {% endblock %}
 {% block javascript %}

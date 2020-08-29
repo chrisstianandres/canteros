@@ -19,9 +19,8 @@ class VentaForm(forms.ModelForm):
                 'class': 'form-control'
             }
             self.fields['cliente'].widget.attrs = {
-                'class': 'form-control selectpicker',
-                'data-live-search': "true",
-                'maxOptions': 10
+                'class': 'form-control select2',
+                'data-live-search': "true"
             }
             self.fields['subtotal'].widget.attrs = {
                 'value': '0.00',
@@ -77,7 +76,7 @@ class Detalle_VentaForm(forms.ModelForm):
                 'class': 'form-control'
             })
             self.fields['producto'].widget.attrs = {
-                'class': 'form-control selectpicker',
+                'class': 'form-control select2',
                 'data-live-search': "true"
             }
             self.fields["producto"].queryset = Producto.objects.filter(stock__gte=1)

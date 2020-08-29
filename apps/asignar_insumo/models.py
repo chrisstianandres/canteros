@@ -37,7 +37,7 @@ class Detalle_asig_insumo(models.Model):
 
     def toJSON(self):
         item = model_to_dict(self)
-        item['compra'] = self.asig_insumo.toJSON()
+        item['asig_insumo'] = self.asig_insumo.toJSON()
         item['insumo'] = self.insumo.toJSON()
         return item
 

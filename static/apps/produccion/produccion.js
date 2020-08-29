@@ -20,6 +20,14 @@ var ingresar = {
 };
 
 $(function () {
+    $('.select2').select2({
+        "language": {
+            "noResults": function () {
+                return "Sin resultados";
+            }
+        },
+        allowClear: true
+    });
     datatable = $("#tbltrab").DataTable({
         destroy: true,
         autoWidth: false,

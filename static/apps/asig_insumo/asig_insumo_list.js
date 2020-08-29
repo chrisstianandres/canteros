@@ -45,7 +45,7 @@ $(function () {
         var tr = datatable.cell($(this).closest('td, li')).index();
         var data = datatable.row(tr.row).data();
         var parametros = {'id': data['3']};
-        save_estado('Alerta' + ' ' + '<i class="fas fa-exclamation-triangle"></i>',
+        save_estado('Alerta',
             '/compra/estado', 'Esta seguro que desea finalizar esta compra?', parametros,
             function () {
                 menssaje_ok('Exito!', 'Exito al finalizar la compra', 'far fa-smile-wink', function () {
@@ -58,13 +58,14 @@ $(function () {
         var tr = datatable.cell($(this).closest('td, li')).index();
         var data = datatable.row(tr.row).data();
         var parametros = {'id': data['3']};
-        save_estado('Alerta' + ' ' + '<i class="fas fa-exclamation-triangle"></i>',
+        save_estado('Alerta',
             '/compra/eliminar', 'Esta seguro que desea eliminar esta compra?', parametros,
             function () {
                 menssaje_ok('Exito!', 'Exito al Eliminar la compra', 'far fa-smile-wink')
             });
 
-    }).on('click', 'a[rel="detalle"]', function () {
+    })
+        .on('click', 'a[rel="detalle"]', function () {
         $('.tooltip').remove();
         var tr = datatable.cell($(this).closest('td, li')).index();
         var data = datatable.row(tr.row).data();
@@ -77,10 +78,10 @@ $(function () {
             },
             destroy: true,
             ajax: {
-                url: '/compra/get_detalle',
+                url: '/asig_insumo/get_detalle',
                 type: 'Post',
                 data: {
-                    'id': data['3']
+                    'id': data['0']
                 },
                 dataSrc: ""
             },
@@ -88,23 +89,13 @@ $(function () {
                 {data: 'insumo.nombre'},
                 {data: 'insumo.categoria.nombre'},
                 {data: 'insumo.presentacion.nombre'},
-                {data: 'cantidad'},
-                {data: 'insumo.pvp'},
-                {data: 'compra.subtotal'}
+                {data: 'cantidad'}
             ],
             columnDefs: [
                 {
                     targets: [3],
                     class: 'text-center'
-                },
-                {
-                    targets: [-1, -2],
-                    class: 'text-center',
-                    orderable: false,
-                    render: function (data, type, row) {
-                        return '$' + parseFloat(data).toFixed(2);
-                    }
-                },
+                }
             ],
         });
 

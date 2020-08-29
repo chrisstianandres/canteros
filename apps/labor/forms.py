@@ -20,7 +20,7 @@ class LaborForm(forms.ModelForm):
             self.fields['nombre'].widget = TextInput(
                 attrs={'placeholder': 'Ingrese el nombre del insumo', 'class': 'form-control', 'autofocus': True})
             self.fields['descripcion'].widget = TextInput(
-                attrs={'placeholder': 'Ingrese una descripcion', 'class': 'form-control form-rounded'})
+                attrs={'placeholder': 'Ingrese una descripcion', 'class': 'form-control'})
             self.fields['valor_dia'].widget.attrs = {
                 'class': 'form-control form-control-sm input-sm',
             }

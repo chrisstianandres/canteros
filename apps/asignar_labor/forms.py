@@ -24,14 +24,12 @@ class Asig_LaborForm(forms.ModelForm):
             }
             self.fields['periodo'].widget.attrs = {
                 'class': 'form-control',
-                # 'value': Periodo.objects.get(estado=0),
                 'disabled': True,
             }
             self.initial['periodo'] = Periodo.objects.get(estado=1)
             self.fields['labor'].widget.attrs = {
-                'class': 'form-control selectpicker',
-                'data-live-search': "true",
-                'data-width': "80%"
+                'class': 'form-control select2',
+                'data-live-search': "true"
             }
             self.initial['labor'] = Labor.objects.all().first()
 

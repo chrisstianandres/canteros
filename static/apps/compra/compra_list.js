@@ -45,7 +45,7 @@ $(function () {
         var tr = datatable.cell($(this).closest('td, li')).index();
         var data = datatable.row(tr.row).data();
         var parametros = {'id': data['3']};
-        save_estado('Alerta' + ' ' + '<i class="fas fa-exclamation-triangle"></i>',
+        save_estado('Alerta',
             '/compra/estado', 'Esta seguro que desea finalizar esta compra?', parametros,
             function () {
                 menssaje_ok('Exito!', 'Exito al finalizar la compra', 'far fa-smile-wink', function () {
@@ -58,7 +58,7 @@ $(function () {
         var tr = datatable.cell($(this).closest('td, li')).index();
         var data = datatable.row(tr.row).data();
         var parametros = {'id': data['3']};
-        save_estado('Alerta' + ' ' + '<i class="fas fa-exclamation-triangle"></i>',
+        save_estado('Alerta',
             '/compra/eliminar', 'Esta seguro que desea eliminar esta compra?', parametros,
             function () {
                 menssaje_ok('Exito!', 'Exito al Eliminar la compra', 'far fa-smile-wink')

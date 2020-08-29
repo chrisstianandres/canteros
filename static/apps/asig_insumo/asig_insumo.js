@@ -60,11 +60,16 @@ var asignar = {
 };
 $(function () {
     //texto de los selects
-    $('.selectpicker').selectpicker({
-        noneResultsText: 'Sin resultados'
+    $('.select2').select2({
+        "language": {
+            "noResults": function () {
+                return "Sin resultados";
+            }
+        },
+        allowClear: true
     });
     //seleccionar producto del select producto
-    $('#id_insumo').on('change', function (e) {
+    $('#id_insumo').on('select2:select', function (e) {
         var crud = $('input[name="crud"]').val();
         $.ajax({
             type: "POST",
@@ -76,7 +81,6 @@ $(function () {
             success: function (data) {
                 asignar.add(data['0']);
                 $('#id_insumo option:selected').remove();
-                $('#id_insumo').selectpicker('refresh');
             },
             error: function (xhr, status, data) {
                 alert(data['0']);
@@ -91,17 +95,16 @@ $(function () {
             'Esta seguro que desea eliminar este insumo de tu detalle?', function () {
                 var p = asignar.items.insumos[tr.row];
                 asignar.items.insumos.splice(tr.row, 1);
-                $('#id_insumo').append('<option value="'+p.id+'">'+p.nombre+ ' / '+p.presentacion.nombre+'</option>');
-                $('#id_insumo').selectpicker('refresh');
+                $('#id_insumo').append('<option value="' + p.id + '">' + p.nombre + ' / ' + p.presentacion.nombre + '</option>');
                 menssaje_ok('Confirmacion!', 'Insumo eliminado', 'far fa-smile-wink', function () {
                     asignar.list();
                 });
             })
     }).on('change keyup', 'input[name="cantidad"]', function () {
-            var cantidad = parseInt($(this).val());
-            var tr = tblasig_insumo.cell($(this).closest('td, li')).index();
-            asignar.items.insumos[tr.row].cantidad = cantidad;
-        });
+        var cantidad = parseInt($(this).val());
+        var tr = tblasig_insumo.cell($(this).closest('td, li')).index();
+        asignar.items.insumos[tr.row].cantidad = cantidad;
+    });
     $('.btnRemoveall').on('click', function () {
         if (asignar.items.insumos.length === 0) return false;
         borrar_todo_alert('Alerta de Eliminación',
@@ -135,8 +138,7 @@ $(function () {
                 '../../asig_insumo/editar_save', 'Esta seguro que desea editar esta asignacion?', parametros, function () {
                     location.href = '../../asig_insumo/lista';
                 });
-        }
-        else {
+        } else {
             parametros = {'asignar': JSON.stringify(asignar.items)};
             console.log(parametros);
             save_with_ajax('Alerta',

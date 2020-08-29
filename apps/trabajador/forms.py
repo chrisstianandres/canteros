@@ -17,16 +17,16 @@ class TrabajadorForm(forms.ModelForm):
             })
 
             self.fields['nombres'].widget = TextInput(
-                attrs={'placeholder': 'Ingrese los nombres del trabajador', 'class': 'form-control form-rounded'})
+                attrs={'placeholder': 'Ingrese los nombres del trabajador', 'class': 'form-control'})
             self.fields['apellidos'].widget = TextInput(
-                attrs={'placeholder': 'Ingrese los apellidos del trabajador', 'class': 'form-control form-rounded'})
+                attrs={'placeholder': 'Ingrese los apellidos del trabajador', 'class': 'form-control'})
             self.fields['cedula'].widget = TextInput(
-                attrs={'placeholder': 'Ingrese el numero de cedula del trabajador', 'class': 'form-control form-rounded'})
+                attrs={'placeholder': 'Ingrese el numero de cedula del trabajador', 'class': 'form-control'})
             self.fields['correo'].widget = EmailInput(
-                attrs={'placeholder': 'abc@correo.com', 'class': 'form-control form-rounded'})
+                attrs={'placeholder': 'abc@correo.com', 'class': 'form-control'})
             self.fields['telefono'].widget.attrs['placeholder'] = 'Ingrese un numero de telefono'
             self.fields['direccion'].widget = TextInput(
-                attrs={'placeholder': 'Ingrese su direccion con maximo 50 caracteres', 'class': 'form-control form-rounded'})
+                attrs={'placeholder': 'Ingrese su direccion con maximo 50 caracteres', 'class': 'form-control'})
 
         # habilitar, desabilitar, y mas
 

@@ -27,7 +27,7 @@ class Asig_InsumoForm(forms.ModelForm):
             }
             self.initial['periodo'] = Periodo.objects.get(estado=1)
             self.fields['cantero'].widget.attrs = {
-                'class': 'form-control selectpicker',
+                'class': 'form-control select2',
                 'data-live-search': "true"
             }
         # habilitar, desabilitar, y mas
@@ -62,7 +62,7 @@ class Detalle_Asig_InsumoForm(forms.ModelForm):
                 'class': 'form-control'
             })
             self.fields['insumo'].widget.attrs = {
-                'class': 'form-control selectpicker',
+                'class': 'form-control select2',
                 'data-live-search': "true"
             }
             self.fields["insumo"].queryset = Insumo.objects.filter(stock__gte=1)

@@ -83,7 +83,6 @@ def get_detalle(request):
     data = {}
     try:
         id = request.POST['id']
-
         if id:
             data = []
             for p in Produccion.objects.filter(cantero_id=id):

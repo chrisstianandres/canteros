@@ -88,11 +88,16 @@ var compras = {
 };
 $(function () {
     //texto de los selects
-    $('.selectpicker').selectpicker({
-        noneResultsText: 'Sin resultados'
+    $('.select2').select2({
+        "language": {
+            "noResults": function () {
+                return "Sin resultados";
+            }
+        },
+        allowClear: true
     });
     //seleccionar producto del select producto
-    $('#id_insumo').on('change', function (e) {
+    $('#id_insumo').on('select2:select', function (e) {
         var crud = $('input[name="crud"]').val();
         $.ajax({
             type: "POST",
@@ -104,7 +109,6 @@ $(function () {
             success: function (data) {
                 compras.add(data['0']);
                 $('#id_insumo option:selected').remove();
-                $('#id_insumo').selectpicker('refresh');
             },
             error: function (xhr, status, data) {
                 alert(data['0']);
@@ -117,7 +121,9 @@ $(function () {
         var tr = tblcompra.cell($(this).closest('td, li')).index();
         borrar_todo_alert('Alerta de Eliminación',
             'Esta seguro que desea eliminar este producto de tu detalle?', function () {
+                var p = compras.items.insumos[tr.row];
                 compras.items.insumos.splice(tr.row, 1);
+                $('#id_insumo').append('<option value="' + p.id + '">' + p.nombre + '</option>');
                 menssaje_ok('Confirmacion!', 'Producto eliminado', 'far fa-smile-wink', function () {
                     compras.list();
                 });
@@ -135,7 +141,7 @@ $(function () {
         borrar_todo_alert('Alerta de Eliminación',
             'Esta seguro que desea eliminar todos los productos seleccionados?', function () {
                 compras.items.insumos = [];
-                 menssaje_ok('Confirmacion!', 'Productos eliminados', 'far fa-smile-wink', function () {
+                menssaje_ok('Confirmacion!', 'Productos eliminados', 'far fa-smile-wink', function () {
                     compras.list();
                 });
             });
@@ -158,13 +164,13 @@ $(function () {
             parametros = {'compras': JSON.stringify(compras.items)};
             parametros['action'] = action;
             parametros['key'] = key;
-            save_with_ajax('Alerta' + ' ' + '<i class="fas fa-exclamation-triangle"></i>',
+            save_with_ajax('Alerta',
                 '../../compra/editar_save', 'Esta seguro que desea editar esta compra?', parametros, function () {
                     location.href = '../../compra/lista';
                 });
         } else {
             parametros = {'compras': JSON.stringify(compras.items)};
-            save_with_ajax('Alerta' + ' ' + '<i class="fas fa-exclamation-triangle"></i>',
+            save_with_ajax('Alerta',
                 '/compra/crear', 'Esta seguro que desea guardar esta compra?', parametros, function () {
                     location.href = '/compra/lista';
                 });

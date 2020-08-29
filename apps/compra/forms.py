@@ -17,7 +17,7 @@ class CompraForm(forms.ModelForm):
                 'class': 'form-control'
             }
             self.fields['proveedor'].widget.attrs = {
-                'class': 'form-control selectpicker',
+                'class': 'form-control select2',
                 'data-live-search': "true"
             }
             self.fields['subtotal'].widget.attrs = {
@@ -74,7 +74,7 @@ class Detalle_CompraForm(forms.ModelForm):
                 'class': 'form-control'
             })
             self.fields['insumo'].widget.attrs = {
-                'class': 'form-control selectpicker',
+                'class': 'form-control select2',
                 'data-live-search': "true"
             }
         # habilitar, desabilitar, y mas

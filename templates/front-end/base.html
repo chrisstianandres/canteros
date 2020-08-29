@@ -45,6 +45,8 @@
 
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet"/>
+
     {% block head %}
 
     {% endblock %}
@@ -133,6 +135,7 @@
 <script src="{% static 'assets/js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
 <script src="{% static 'assets/js/jquery.mousewheel.min.js' %}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 
 {% block script %}
 
@@ -148,6 +151,7 @@
     $(document).ready(function () {
         $('#pcoded').attr("vertical-nav-type", "collapsed");
         $('[data-toggle="tooltip"]').tooltip();
+
     });
 </script>
 

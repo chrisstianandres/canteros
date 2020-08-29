@@ -18,7 +18,7 @@ class PeriodoForm(forms.ModelForm):
             # })
 
             self.fields['nombre'].widget = TextInput(
-                attrs={'placeholder': 'Ingrese el nombre del Periodo', 'class': 'form-control form-rounded'})
+                attrs={'placeholder': 'Ingrese el nombre del Periodo', 'class': 'form-control'})
             self.fields['desde'].widget = SelectDateWidget(years=yearsd, attrs={
                 'class': 'form-control', 'data-width': '30%', 'container': 'body'})
             self.fields['hasta'].widget = SelectDateWidget(years=yearsh, attrs={
@@ -40,5 +40,5 @@ class PeriodoForm(forms.ModelForm):
         widgets = {
             'nombre': forms.TextInput(),
             'desde': forms.SelectDateWidget(),
-            'hasta': forms.SelectDateWidget(attrs={'class': 'selectpicker', 'data-width': 'fit'})
+            'hasta': forms.SelectDateWidget(attrs={'class': 'select2', 'data-width': 'fit'})
         }

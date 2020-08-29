@@ -43,6 +43,26 @@
                 language: {
                     "url": '{% static 'lib/datatables-1.10.20/spanish.txt' %}'
                 },
+                columnDefs: [
+                    {
+                        targets: [-3],
+                        class: 'text-center',
+                        orderable: false,
+                        render: function (data, type, row) {
+                            return '<span>' + data + '</span>';
+                        }
+                    },
+                ],
+                createdRow: function (row, data, dataIndex) {
+                    if (data[4] >=51) {
+                        $('td', row).eq(4).find('span').addClass('badge badge-pill badge-success');
+                    } else if (data[4] >= 10) {
+                        $('td', row).eq(4).find('span').addClass('badge badge-pill badge-warning');
+                    } else if (data[4] <= 9) {
+                        $('td', row).eq(4).find('span').addClass('badge badge-pill badge-danger');
+                    }
+
+                }
 
             });
         });

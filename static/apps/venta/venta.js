@@ -90,11 +90,16 @@ var ventas = {
 };
 $(function () {
     //texto de los selects
-    $('.selectpicker').selectpicker({
-        noneResultsText: 'Sin resultados'
+    $('.select2').select2({
+        "language": {
+            "noResults": function () {
+                return "Sin resultados";
+            }
+        },
+        allowClear: true
     });
     //seleccionar producto del select producto
-    $('#id_producto').on('changed.bs.select', function (e) {
+    $('#id_producto').on('select2:select', function (e) {
         var crud = $('input[name="crud"]').val();
         $.ajax({
             type: "POST",
@@ -106,7 +111,6 @@ $(function () {
             success: function (data) {
                 ventas.add(data['0']);
                 $('#id_producto option:selected').remove();
-                $('#id_producto').selectpicker('refresh');
             },
             error: function (xhr, status, data) {
                 alert(data['0']);
@@ -122,7 +126,7 @@ $(function () {
                 var p = ventas.items.productos[tr.row];
                 ventas.items.productos.splice(tr.row, 1);
                 $('#id_producto').append('<option value="' + p.id + '">' + p.nombre + '</option>');
-                $('#id_producto').selectpicker('refresh');
+                // $('#id_producto').selectpicker('refresh');
 
                 menssaje_ok('Confirmacion!', 'Producto eliminado', 'far fa-smile-wink', function () {
                     ventas.list();

@@ -13,9 +13,9 @@ class CategoriaForm(forms.ModelForm):
                 'class': 'form-control'
             })
             self.fields['nombre'].widget = TextInput(
-                attrs={'placeholder': 'Ingrese el nombre del cantero', 'class': 'form-control form-rounded'})
+                attrs={'placeholder': 'Ingrese el nombre del cantero', 'class': 'form-control'})
             self.fields['descripcion'].widget = TextInput(
-                attrs={'placeholder': 'Ingrese una Descripcion', 'class': 'form-control form-rounded'})
+                attrs={'placeholder': 'Ingrese una Descripcion', 'class': 'form-control'})
         # habilitar, desabilitar, y mas
 
     class Meta:

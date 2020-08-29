@@ -21,11 +21,11 @@ class InsumoForm(forms.ModelForm):
             self.fields['descripcion'].widget = TextInput(
                 attrs={'placeholder': 'Ingrese una descripcion', 'class': 'form-control form-rounded'})
             self.fields['categoria'].widget.attrs = {
-                'class': 'form-control selectpicker',
+                'class': 'form-control select2',
                 'data-live-search': 'true'}
             self.fields['presentacion'].widget.attrs = {
-                'class': 'form-control selectpicker',
-                'data-live-search': 'true'}
+                'class': 'form-control select2',
+            }
             self.fields['pvp'].widget.attrs = {
                 'class': 'form-control form-control-sm input-sm',
             }
