@@ -15,19 +15,20 @@
     <tbody>
     {% for dato in lista %}
         <tr>
-       <td>{{ dato.nombres }} </td>
-       <td>{{ dato.get_tipo_doc_display }} </td>
-       <td>{{ dato.numero_doc }} </td>
-       <td>{{ dato.correo }} </td>
-       <td>{{ dato.direccion }} </td>
-       <td>{{ dato.telefono }} </td>
-        <td><a type="button" class="btn btn-success btn-sm" data-toggle="tooltip"
-                       title="Editar Datos"
-                       href="#"><i class="fa fa-edit"></i></a>
-                    <button type="button" class="btn btn-primary btn-sm estado"
-                            data-toggle="tooltip"
-                            title="Gestionar Estado" name="btnestado">
-                        <i class="fa fa-cogs"></i></button></td>
+            <td>{{ dato.nombres }} </td>
+            <td>{{ dato.get_tipo_doc_display }} </td>
+            <td>{{ dato.numero_doc }} </td>
+            <td>{{ dato.correo }} </td>
+            <td>{{ dato.direccion }} </td>
+            <td>{{ dato.telefono }} </td>
+            <td><a type="button" class="btn btn-success btn-sm" data-toggle="tooltip"
+                   title="Editar Datos"
+                   href="{% url 'cliente:editar' dato.id %}"><i class="fa fa-edit"></i></a>
+                <button type="button" class="btn btn-primary btn-sm estado"
+                        data-toggle="tooltip"
+                        title="Gestionar Estado" name="btnestado">
+                    <i class="fa fa-cogs"></i></button>
+            </td>
         </tr>
 
     {% endfor %}
@@ -39,6 +40,7 @@
             var table = $("#datatable").DataTable({
                 responsive: true,
             });
+
         });
     </script>
 {% endblock %}
