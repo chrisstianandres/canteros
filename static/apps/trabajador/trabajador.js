@@ -1,9 +1,7 @@
 $(document).ready(function () {
     var option = $('input[name="option"]').val();
     if (option === 'editar') {
-        $('#id_numero_doc').attr('readonly', 'true');
-        $('#id_tipo_doc').attr('readonly', 'true');
-        $('select[readonly="readonly"] option:not(:selected)').attr('disabled', true);
+        $('#id_cedula').attr('readonly', 'true');
 
     }
 
@@ -32,17 +30,20 @@ $(document).ready(function () {
         rules: {
             nombres: {
                 required: true,
-                minlength: 10,
+                minlength: 3,
                 maxlength: 50,
                 lettersonly: true,
             },
-            tipo_doc: {
-                required: true
+            apellidos: {
+                required: true,
+                minlength: 3,
+                maxlength: 50,
+                lettersonly: true,
             },
-            numero_doc: {
+            cedula: {
                 required: true,
                 minlength: 10,
-                maxlength: 13,
+                maxlength: 10,
                 digits: true
             },
             correo: {
@@ -64,15 +65,20 @@ $(document).ready(function () {
         },
         messages: {
             nombres: {
-                required: "Porfavor ingresa tus nombres y apellidos",
-                minlength: "Debe ingresar al menos un nombre y un apellido",
+                required: "Porfavor ingresa tus nombres",
+                minlength: "Debe ingresar al menos tres letras",
                 lettersonly: "Debe ingresar unicamente letras y espacios"
             },
-            numero_doc: {
-                required: "Porfavor ingresa tu numero de documento",
+             apellidos: {
+                required: "Porfavor ingresa tus apellidos",
+                minlength: "Debe ingresar al menos tres letras",
+                lettersonly: "Debe ingresar unicamente letras y espacios"
+            },
+            cedula: {
+                required: "Porfavor ingresa tu numero de cedula",
                 minlength: "Tu numero de documento debe tener al menos 10 digitos",
                 digits: "Debe ingresar unicamente numeros",
-                maxlength: "Tu numero de documento debe tener maximo 13 digitos",
+                maxlength: "Tu numero de documento debe tener maximo 10 digitos",
             },
             correo: "Debe ingresar un correo valido",
             telefono: {
@@ -90,6 +96,12 @@ $(document).ready(function () {
     });
 
     $('#id_nombres').keyup(function () {
+        var changue = $(this).val().replace(/\b\w/g, function (l) {
+            return l.toUpperCase()
+        });
+        $(this).val(changue);
+    });
+    $('#id_apellidos').keyup(function () {
         var changue = $(this).val().replace(/\b\w/g, function (l) {
             return l.toUpperCase()
         });

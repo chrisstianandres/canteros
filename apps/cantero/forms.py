@@ -19,7 +19,7 @@ class CanteroForm(forms.ModelForm):
             self.fields['nombre'].widget = TextInput(
                 attrs={'placeholder': 'Ingrese el nombre del cantero', 'class': 'form-control'})
             self.fields['valor_dim'].widget = TextInput(
-                attrs={'placeholder': 'Ingrese numero la dimesion', 'class': 'form-control'})
+                attrs={'value': 1, 'class': 'form-control'})
 
         # habilitar, desabilitar, y mas
 

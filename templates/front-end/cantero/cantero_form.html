@@ -1,1 +1,6 @@
 {% extends 'front-end/form.html' %}
+{% load static from staticfiles%}
+
+{% block extra %}
+<script src="{% static 'apps/cantero/cantero.js' %}"></script>
+{% endblock %}

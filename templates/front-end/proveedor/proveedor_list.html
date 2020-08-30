@@ -25,7 +25,7 @@
                 <td style="font-weight:bold">{{ dato.telefono }}</td>
                 <td><a type="button" class="btn btn-success btn-sm" data-toggle="tooltip"
                        title="Editar Datos"
-                       href="#"><i class="fa fa-edit"></i></a>
+                       href="{% url 'proveedor:editar' dato.id %}"><i class="fa fa-edit"></i></a>
                     <button type="button" class="btn btn-primary btn-sm estado"
                             data-toggle="tooltip"
                             title="Gestionar Estado" name="btnestado">

@@ -1,8 +1,8 @@
 $(document).ready(function () {
     var option = $('input[name="option"]').val();
     if (option === 'editar') {
-        $('#id_numero_doc').attr('readonly', 'true');
-        $('#id_tipo_doc').attr('readonly', 'true');
+        $('#id_numero_documento').attr('readonly', 'true');
+        $('#id_documento').attr('readonly', 'true');
         $('select[readonly="readonly"] option:not(:selected)').attr('disabled', true);
 
     }
@@ -36,10 +36,10 @@ $(document).ready(function () {
                 maxlength: 50,
                 lettersonly: true,
             },
-            tipo_doc: {
+            documento: {
                 required: true
             },
-            numero_doc: {
+            numero_documento: {
                 required: true,
                 minlength: 10,
                 maxlength: 13,
@@ -68,7 +68,7 @@ $(document).ready(function () {
                 minlength: "Debe ingresar al menos un nombre y un apellido",
                 lettersonly: "Debe ingresar unicamente letras y espacios"
             },
-            numero_doc: {
+            numero_documento: {
                 required: "Porfavor ingresa tu numero de documento",
                 minlength: "Tu numero de documento debe tener al menos 10 digitos",
                 digits: "Debe ingresar unicamente numeros",

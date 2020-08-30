@@ -1,4 +1,5 @@
 {% extends 'front-end/list.html' %}
+{% load static from staticfiles %}
 {% block table %}
     <thead>
     <tr>
@@ -16,54 +17,12 @@
         <td>{{ dato.nombre }}</td>
         <td>{{ dato.descripcion }}</td>
         <td>{{ dato.valor_dia }} $</td>
-        <td></td>
+        <td>{{ dato.id }}</td>
     </tr>
     {% endfor %}
     </tbody>
 {% endblock %}
-{% block javascript %}
-    <script>
-
-        $(function () {
-            $("#datatable").DataTable({
-                responsive: true,
-                autoWidth: false,
-                language: {
-                    "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-                },
-                 columnDefs: [
-                {
-                    targets: [-1],
-                    class: 'text-center',
-                    orderable: false,
-                    render: function (data, type, row) {
-                        var edit='<a rel="edit" type="button" class="btn btn-primary btn-sm btn-flat" style="color: white" data-toggle="tooltip" title="Editar Insumo"><i class="fa fa-edit"></i></a>'+' ';
-                        var del= '<a rel="del" type="button" class="btn btn-danger btn-sm btn-flat" style="color: white" data-toggle="tooltip" title="Eliminar Insumo"><i class="fa fa-trash-alt"></i></a>';
-                        return edit + del;
-                    }
-                },
-                     {
-                    targets: [-2],
-                    class: 'text-center',
-                    orderable: false,
-                    render: function (data, type, row) {
-                        return '<span>' +data+ '</span>';
-                    }
-                },
-                 ],
-                createdRow: function (row, data, dataIndex) {
-                    if (data[5] <= 0) {
-                        $('td', row).eq(5).find('span').addClass('badge badge-pill badge-danger');
-                        {#$('td', row).eq(5).append(('<span class="badge badge-pill badge-danger">25</span>'));#}
-                    } else if (data[5] < 50) {
-                        $('td', row).eq(5).find('span').addClass('badge badge-pill badge-warning');
-                    } else if (data[5] >= 21) {
-                        $('td', row).eq(5).find('span').addClass('badge badge-pill badge-success');
-                    }
-
-                }
-
-            });
-        });
-    </script>
+{% block extra %}
+<script src="{% static 'apps/labor/labor_list.js' %}"></script>
+<script src="{% static 'apps/funtions.js' %}"></script>
 {% endblock %}

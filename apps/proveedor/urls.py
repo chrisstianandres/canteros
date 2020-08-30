@@ -9,6 +9,6 @@ urlpatterns = [
     path('lista', login_required(views.proveedor_lista), name='lista'),
     path('nuevo', login_required(views.nuevo), name='nuevo'),
     path('crear', login_required(views.crear), name='crear'),
-    #path('editar/<int:id_alumno>', login_required(views.editar), name='editar'),
+    path('editar/<int:id>', login_required(views.editar), name='editar'),
 
 ]

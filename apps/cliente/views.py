@@ -89,7 +89,7 @@ def editar(request, id):
         'boton': 'Guardar Edicion', 'action': 'add', 'titulo': 'Editar Registro de un Cliente',
     }
     cliente = Cliente.objects.get(id=id)
-    data['crud'] = '/cliente/editar/' + str(id) + '/'
+    data['crud'] = '/cliente/editar/' + str(id)
     data['option'] = 'editar'
 
     if request.method == 'GET':
@@ -108,13 +108,8 @@ def editar(request, id):
                         data['error'] = 'Numero de Cedula ya exitente en los Proveedores'
                         data['form'] = f
                     else:
-                        a = verificar(f.data['numero_doc'])
-                        if a == False:
-                            data['error'] = 'Numero de Cedula no coressponde a digitos para Ecuador'
-                            data['form'] = f
-                        else:
-                            f.save()
-                            return HttpResponseRedirect('/cliente/lista')
+                        f.save()
+                        return HttpResponseRedirect('/cliente/lista')
             else:
                 if Proveedor.objects.filter(documento=1, numero_documento=f.data['numero_doc']):
                     data['error'] = 'Numero de Cedula ya exitente en los Proveedores'
