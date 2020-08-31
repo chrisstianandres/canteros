@@ -1,9 +1,11 @@
 import json
+from datetime import datetime
 
 from django.db import transaction
+from django.db.models import Sum
+from django.db.models.functions import Coalesce
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
-from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import *
 
@@ -212,3 +214,52 @@ def eliminar(request):
     except Exception as e:
         data['error'] = str(e)
     return JsonResponse(data)
+
+
+@csrf_exempt
+def index(request):
+    data = {}
+    try:
+        action = request.POST['action']
+        if action == 'table':
+            data = [[i.fecha_compra.strftime("%d/%m/%Y"), i.proveedor.nombres, format(i.total, '.2f'),
+                     i.get_estado_display()]
+                    for i in Compra.objects.filter(estado=1, fecha_compra__month=datetime.now().month)]
+        else:
+            data['error'] = 'Ha ocurrido un error'
+    except Exception as e:
+        data['error'] = str(e)
+    return HttpResponse(json.dumps(data), content_type="application/json")\
+
+
+@csrf_exempt
+def grap(request):
+    data = {}
+    try:
+        action = request.POST['action']
+        if action == 'chart':
+            data = {
+                'name': 'Porcentaje de compra',
+                'colorByPoint': True,
+                'data': grap_data(),
+            }
+        else:
+            data['error'] = 'Ha ocurrido un error'
+    except Exception as e:
+        data['error'] = str(e)
+    return JsonResponse(data, safe=False)
+
+
+def grap_data():
+    year = datetime.now().year
+    month = datetime.now().month
+    data = []
+    for i in Insumo.objects.all():
+        total = Detalle_compra.objects.filter(insumo_id=i.id, compra__fecha_compra__month=month,
+                                              compra__fecha_compra__year=year, compra__estado=1) \
+            .aggregate(r=Coalesce(Sum('compra__total'), 0)).get('r')
+        data.append({
+            'name': i.nombre,
+            'y': float(total)
+        })
+    return data

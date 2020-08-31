@@ -1,31 +1,58 @@
 {% extends 'front-end/base.html' %}
 {% load static from staticfiles %}
 {% block head %}
-<link rel="stylesheet" href="{% static 'lib/datatables-1.10.20/css/dataTables.bootstrap4.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'lib/datatables-1.10.20/css/dataTables.bootstrap4.min.css' %}"/>
     <link rel="stylesheet"
           href="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/css/responsive.bootstrap4.min.css' %}"/>
 {% endblock %}
 {% block content %}
     <div class="row">
-        <div class="col-lg-12 col-md-6">
+        <div class="col-md-12">
+            <div class="p-20 z-depth-top-0 waves-effect" data-toggle="tooltip" data-placement="top"
+                 title=".z-depth-top-0">
+                <h4>Bienvenido {{ user.get_full_name }}</h4>
+            </div>
+        </div>
+        <br><br><br><br><br>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
             <div class="row">
-                <div class="col-md-12 col-lg-8">
+                <div class="col-md-12 col-lg-6">
                     <div class="card">
                         <div class="card-header">
-                            <h5>Total de ventas del Año</h5>
+                            <h5>Total de compras del año</h5>
                         </div>
                         <div class="card-block">
-                            <canvas id="myChart" width="100" height="40"></canvas>
+                            <figure class="highcharts-figure">
+                                <div id="container"></div>
+
+                            </figure>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12 col-lg-4">
+                <div class="col-md-12 col-lg-6">
                     <div class="card">
                         <div class="card-header">
-                            <h5> Total de compras del mes</h5>
+                            <h5>Compras del Mes</h5>
                         </div>
                         <div class="card-block">
-                            <canvas id="myChart2" width="100" height="80"></canvas>
+                            <div class="dt-responsive table-responsive">
+                                <table class="table" id="datatable" style="width: 100%">
+                                    <thead>
+                                    <tr>
+                                        <th>Fecha</th>
+                                        <th>Proveedor</th>
+                                        <th>Total</th>
+                                        <th>Estado</th>
+                                    </tr>
+
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -35,71 +62,23 @@
     <div class="row">
         <div class="col-lg-12 col-md-6">
             <div class="row">
-                <div class="col-md-12 col-lg-8">
-                    <div class="card">
-                        <div class="card-header">
-                            <h5>Ultimas compras</h5>
-                        </div>
-                        <div class="card-block">
-                            <table id="datatable" style="width: 100%">
-                                <thead>
-                                <tr>
-                                    <th>Fecha</th>
-                                    <th>Producto</th>
-                                    <th>Pvp</th>
-                                    <th>Cantidad</th>
-                                    <th>Subtotal</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>31/08/2020</td>
-                                    <td>Dotex</td>
-                                    <td>$ 10.00</td>
-                                    <td>$ 50</td>
-                                    <td>$ 500</td>
-                                </tr>
-                                <tr>
-                                    <td>31/08/2020</td>
-                                    <td>Dotex</td>
-                                    <td>$ 10.00</td>
-                                    <td>$ 50</td>
-                                    <td>$ 500</td>
-                                </tr>
-                                <tr>
-                                    <td>31/08/2020</td>
-                                    <td>Dotex</td>
-                                    <td>$ 10.00</td>
-                                    <td>$ 50</td>
-                                    <td>$ 500</td>
-                                </tr>
-                                <tr>
-                                    <td>31/08/2020</td>
-                                    <td>Dotex</td>
-                                    <td>$ 10.00</td>
-                                    <td>$ 50</td>
-                                    <td>$ 500</td>
-                                </tr>
-                                <tr>
-                                    <td>31/08/2020</td>
-                                    <td>Dotex</td>
-                                    <td>$ 10.00</td>
-                                    <td>$ 50</td>
-                                    <td>$ 500</td>
-                                </tr>
-                                </tbody>
-
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12 col-lg-4">
+                <div class="col-md-12 col-lg-5">
                     <div class="card">
                         <div class="card-header">
                             <h5> Total de compras del mes</h5>
                         </div>
                         <div class="card-block">
-                            <canvas id="myChart2" width="100" height="80"></canvas>
+                            <canvas id="myChart2" width="10" height="10"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-7">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5> Total de compras del mes</h5>
+                        </div>
+                        <div class="card-block">
+                            <canvas id="myChart2" width="10" height="80"></canvas>
                         </div>
                     </div>
                 </div>
@@ -108,91 +87,16 @@
     </div>
 {% endblock %}
 {% block script %}
-<script src="{% static 'lib/datatables-1.10.20/js/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'lib/datatables-1.10.20/js/jquery.dataTables.js' %}"></script>
     <script src="{% static 'lib/datatables-1.10.20/js/dataTables.bootstrap4.min.js' %}"></script>
     <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/dataTables.responsive.min.js' %}"></script>
     <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/responsive.bootstrap4.min.js' %}"></script>
 {% endblock %}
 {% block extra %}
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-    <script>
-        var ctx = $('#myChart');
-        var ctx2 = $('#myChart2');
-        var myChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            }
-        });
-        var myChart2 = new Chart(ctx2, {
-            type: 'pie',
-            data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
-                    backgroundColor: [
-                        'rgba(240,3,6,0.87)',
-                        'rgba(11,22,179,0.76)',
-                        'rgba(255,227,11,0.74)',
-                        'rgba(75,192,192,0.73)',
-                        'rgba(168,81,255,0.56)',
-                        'rgba(240,100,21,0.74)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            }
-        });
-        $(function () {
-            var datatable = $('#datatable').DataTable();
-        });
-
-    </script>
+    <script src="{% static 'apps/dashboard.js' %}"></script>
 {% endblock %}
