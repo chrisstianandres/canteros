@@ -38,10 +38,9 @@ $(function () {
         createdRow: function (row, data, dataIndex) {
             if (data[6] === '<span>FINALIZADA</span>') {
                 $('td', row).eq(6).find('span').addClass('badge badge-pill badge-success');
+            } else if (data[6] === '<span>DEVUELTA</span>') {
+                $('td', row).eq(6).find('span').addClass('badge badge-pill badge-danger');
                 $('td', row).eq(7).find('a[rel="estado"]').hide();
-                $('td', row).eq(7).find('a[rel="edit"]').hide();
-            } else if (data[6] === '<span>PENDIENTE</span>') {
-                $('td', row).eq(6).find('span').addClass('badge badge-pill badge-warning');
             }
 
         }

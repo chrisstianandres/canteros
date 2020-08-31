@@ -1,6 +1,8 @@
+from django.db import transaction
 from django.shortcuts import render, redirect
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import *
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 
 from apps.cliente.models import Cliente
 from apps.proveedor.forms import ProveedorForm
@@ -178,3 +180,20 @@ def __validar_ced_ruc(nro, tipo):
     mod = total % base
     val = base - mod if mod != 0 else 0
     return val == d_ver
+
+
+@csrf_exempt
+def eliminar(request):
+    data = {}
+    try:
+        id = request.POST['id']
+        if id:
+            ps = Proveedor.objects.get(pk=id)
+            ps.delete()
+            data['resp'] = True
+        else:
+            data['error'] = 'Ha ocurrido un error'
+    except Exception as e:
+        data['error'] = "!No se puede eliminar este proveedor porque esta referenciado en otros procesos!!"
+        data['content'] = "Intenta con otro proveedor"
+    return JsonResponse(data)

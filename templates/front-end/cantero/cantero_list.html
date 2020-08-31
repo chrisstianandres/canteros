@@ -7,7 +7,6 @@
         <th>Nombre</th>
         <th>Area (m <sup>2</sup>)</th>
         <th>Estado</th>
-        <th hidden="hidden"></th>
         <th class="text-center" scope="col" style="width: 10%"><em class="fa fa-cog"></em></th>
     </tr>
     </thead>
@@ -18,12 +17,11 @@
                 <td>{{ dato.id }}</td>
                 <td>{{ dato.nombre }}</td>
                 <td> {{ dato.area_total }} (m<sup>2</sup>)</td>
-                <td><a id="estado">{{ dato.get_estado_display }}</a></td>
-                <td hidden="hidden">{{ dato.get_estado_display }}</td>
-                <td><a type="button" class="btn btn-success btn-sm" data-toggle="tooltip"
+                <td>{{ dato.get_estado_display }}</td>
+                <td><a type="button" class="btn btn-success btn-sm btn-round" data-toggle="tooltip"
                        title="Editar Datos"
                        href="{% url 'cantero:editar' dato.id %}"><i class="fa fa-edit"></i></a>
-                    <a rel="estado" type="button" class="btn btn-primary btn-sm estado" data-toggle="tooltip"
+                    <a rel="estado" type="button" class="btn btn-primary btn-sm btn-round" data-toggle="tooltip"
                        title="Gestionar Estado" style="color: white"> <i class="fa fa-cogs"></i></a>
             </tr>
         {% endfor %}

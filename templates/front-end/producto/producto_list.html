@@ -7,6 +7,7 @@
         <th>Nombre</th>
         <th>Categoria</th>
         <th>Presentacion</th>
+        <th>P.V.P.</th>
         <th>Stock</th>
         <th>Descripcion</th>
         <th class="text-center" scope="col" style="width: 10%"><em class="fa fa-cog"></em></th>
@@ -20,51 +21,22 @@
                 <td>{{ dato.nombre }}</td>
                 <td>{{ dato.categoria.nombre }}</td>
                 <td>{{ dato.presentacion.nombre }}</td>
+                <td>$ {{ dato.pvp }}</td>
                 <td>{{ dato.stock }}</td>
                 <td>{{ dato.descripcion }}</td>
-                <td><a type="button" class="btn btn-success btn-sm" data-toggle="tooltip"
+                <td><a type="button" class="btn btn-success btn-sm btn-round" data-toggle="tooltip"
                        title="Editar Datos"
-                       href="#"><i class="fa fa-edit"></i></a>
-                    <button type="button" class="btn btn-primary btn-sm estado"
+                       href="{% url 'producto:editar' dato.id %}"><i class="fa fa-edit"></i></a>
+                    <a type="button" class="btn btn-danger btn-sm btn-round"
                             data-toggle="tooltip"
-                            title="Gestionar Estado" name="btnestado">
-                        <i class="fa fa-cogs"></i></button>
+                            title="Eliminar" rel="del" style="color: white">
+                        <i class="fa fa-trash"></i></a></td>
             </tr>
         {% endfor %}
     {% endif %}
     </tbody>
 {% endblock %}
-{% block javascript %}
-    <script>
-        $(function () {
-            $("#datatable").DataTable({
-                responsive: true,
-                autoWidth: false,
-                language: {
-                    "url": '{% static 'lib/datatables-1.10.20/spanish.txt' %}'
-                },
-                columnDefs: [
-                    {
-                        targets: [-3],
-                        class: 'text-center',
-                        orderable: false,
-                        render: function (data, type, row) {
-                            return '<span>' + data + '</span>';
-                        }
-                    },
-                ],
-                createdRow: function (row, data, dataIndex) {
-                    if (data[4] >=51) {
-                        $('td', row).eq(4).find('span').addClass('badge badge-pill badge-success');
-                    } else if (data[4] >= 10) {
-                        $('td', row).eq(4).find('span').addClass('badge badge-pill badge-warning');
-                    } else if (data[4] <= 9) {
-                        $('td', row).eq(4).find('span').addClass('badge badge-pill badge-danger');
-                    }
-
-                }
-
-            });
-        });
-    </script>
+{% block extra %}
+    <script src="{% static 'apps/producto/producto_list.js' %}" ></script>
+    <script src="{% static 'apps/funtions.js' %}" ></script>
 {% endblock %}

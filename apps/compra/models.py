@@ -7,8 +7,8 @@ from apps.presentacion.models import Presentacion
 from apps.proveedor.models import Proveedor
 
 estado = (
-    (0, 'FINALIZADA'),
-    (1, 'PENDIENTE')
+    (0, 'DEVUELTA'),
+    (1, 'FINALIZADA')
 )
 
 
@@ -39,8 +39,8 @@ class Compra(models.Model):
 
 
 class Detalle_compra(models.Model):
-    compra = models.ForeignKey(Compra, on_delete=models.CASCADE)
-    insumo = models.ForeignKey(Insumo, on_delete=models.CASCADE)
+    compra = models.ForeignKey(Compra, on_delete=models.PROTECT)
+    insumo = models.ForeignKey(Insumo, on_delete=models.PROTECT)
     cantidad = models.IntegerField(default=1)
 
     def __str__(self):

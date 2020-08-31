@@ -1,7 +1,8 @@
 import json
 
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 
 from apps.cliente.models import Cliente
 from apps.proveedor.models import Proveedor
@@ -155,3 +156,24 @@ def __validar_ced_ruc(nro, tipo):
     mod = total % base
     val = base - mod if mod != 0 else 0
     return val == d_ver
+
+
+@csrf_exempt
+def estado(request):
+    data = {}
+    try:
+        id = int(request.POST['id'])
+        ps = Trabajador.objects.get(pk=id)
+        if ps.estado == 1:
+            ps.estado = 0
+            ps.save()
+            data['resp'] = True
+        elif ps.estado == 0:
+            ps.estado = 1
+            ps.save()
+            data['resp'] = True
+        else:
+            data['error'] = 'Ha ocurrido un error'
+    except Exception as e:
+        data['error'] = str(e)
+    return JsonResponse(data)

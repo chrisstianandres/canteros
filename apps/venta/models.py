@@ -6,12 +6,12 @@ from apps.cliente.models import Cliente
 from apps.producto.models import Producto
 
 estado = (
-    (0, 'FINALIZADA'),
-    (1, 'PENDIENTE')
+    (0, 'DEVUELTA'),
+    (1, 'FINALIZADA')
 )
 
 class Venta(models.Model):
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    cliente = models.ForeignKey(Cliente, on_delete=models.PROTECT)
     fecha_venta = models.DateField(default=datetime.now)
     subtotal = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
     iva = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
@@ -37,8 +37,8 @@ class Venta(models.Model):
 
 
 class Detalle_venta(models.Model):
-    venta = models.ForeignKey(Venta, on_delete=models.CASCADE)
-    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    venta = models.ForeignKey(Venta, on_delete=models.PROTECT)
+    producto = models.ForeignKey(Producto, on_delete=models.PROTECT)
     cantidad = models.IntegerField(default=1)
 
     def __str__(self):

@@ -1,12 +1,22 @@
 $(function () {
     var datatable = $("#datatable").DataTable({
-        responsive: true,
         autoWidth: false,
+        columnDefs: [
+            {
+                targets: [-2],
+                class: 'text-center',
+                orderable: false,
+                render: function (data, type, row) {
+                    return '<span>' + data + '</span>';
+                }
+            }
+        ],
         createdRow: function (row, data, dataIndex) {
-            if (data[4] === 'ACTIVO') {
-                $('td', row).eq(3).addClass('badge badge-primary');
-            } else if (data[4] === 'INACTIVO') {
-                $('td', row).eq(3).addClass('badge badge-danger');
+            console.log(data);
+            if (data[3] === 'ACTIVO') {
+                $('td', row).eq(3).find('span').addClass('badge badge-primary');
+            } else if (data[3] === 'INACTIVO') {
+                $('td', row).eq(3).find('span').addClass('badge badge-danger');
             }
 
         }

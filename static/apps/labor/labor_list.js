@@ -11,8 +11,8 @@ $(function () {
                 class: 'text-center',
                 orderable: false,
                 render: function (data, type, row) {
-                    var edit = '<a rel="edit" href="/labor/editar/' + data + '" type="button" class="btn btn-primary btn-sm btn-flat" style="color: white" data-toggle="tooltip" title="Editar Insumo"><i class="fa fa-edit"></i></a>' + ' ';
-                    var del = '<a rel="del" type="button" class="btn btn-danger btn-sm btn-flat" style="color: white" data-toggle="tooltip" title="Eliminar Labor"><i class="fa fa-trash-alt"></i></a>';
+                    var edit = '<a rel="edit" href="/labor/editar/' + data + '" type="button" class="btn btn-primary btn-sm btn-flat btn-round" style="color: white" data-toggle="tooltip" title="Editar Insumo"><i class="fa fa-edit"></i></a>' + ' ';
+                    var del = '<a rel="del" type="button" class="btn btn-danger btn-sm btn-flat btn-round" style="color: white" data-toggle="tooltip" title="Eliminar Labor"><i class="fa fa-trash-alt"></i></a>';
                     return edit + del;
                 }
             },

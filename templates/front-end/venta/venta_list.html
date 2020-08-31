@@ -24,16 +24,11 @@
                 <td>{{ dato.total }}</td>
                 <td>{{ dato.id }}</td>
                 <td><span>{{ dato.get_estado_display }}</span></td>
-                <td><a type="button" rel="edit" class="btn btn-primary btn-sm" data-toggle="tooltip"
-                       title="Editar Compra"
-                       href="{% url 'venta:editar' dato.id %}"><i class="fa fa-edit"></i></a>
-                    <a type="button" rel="detalle" class="btn btn-success btn-sm" data-toggle="tooltip"
+                <td><a type="button" rel="detalle" class="btn btn-success btn-sm btn-round" data-toggle="tooltip"
                        title="Detalle de Productos"
                        href="#"><i class="fa fa-search"></i></a>
-                    <a type="button" rel="estado" class="btn btn-warning btn-sm" style="color: white"
-                       data-toggle="tooltip" title="Finalizar"><i class="fa fa-check"></i></a>
-                    <a type="button" rel="borrar" class="btn btn-danger btn-sm" data-toggle="tooltip" style="color: white"
-                       title="Eliminar venta"><i class="fa fa-trash-alt"></i></a>
+                    <a type="button" rel="estado" class="btn btn-danger btn-sm btn-round" style="color: white"
+                       data-toggle="tooltip" title="Devolver"><i class="fa fa-times"></i></a>
             </tr>
         {% endfor %}
     {% endif %}

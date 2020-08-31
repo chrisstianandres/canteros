@@ -18,28 +18,19 @@
                 <td>{{ dato.nombre }}</td>
                 <td> {{ dato.abreviatura }}</td>
                 <td>{{ dato.descripcion }}</td>
-                <td><a type="button" class="btn btn-success btn-sm" data-toggle="tooltip"
+                <td><a type="button" class="btn btn-success btn-sm btn-round" data-toggle="tooltip"
                        title="Editar Datos"
-                       href="#"><i class="fa fa-edit"></i></a>
-                    <button type="button" class="btn btn-primary btn-sm estado"
+                       href="{% url 'presentacion:editar' dato.id %}"><i class="fa fa-edit"></i></a>
+                    <a type="button" class="btn btn-danger btn-sm btn-round" style="color: white"
                             data-toggle="tooltip"
-                            title="Gestionar Estado" name="btnestado">
-                        <i class="fa fa-cogs"></i></button>
+                            title="Eliminar presentacion" rel="del">
+                        <i class="fa fa-trash"></i></a>
             </tr>
         {% endfor %}
     {% endif %}
     </tbody>
 {% endblock %}
 {% block javascript %}
-    <script>
-        $(function () {
-            $("#datatable").DataTable({
-                responsive: true,
-                autoWidth: false,
-                language: {
-                    "url": '{% static 'lib/datatables-1.10.20/spanish.txt' %}'
-                },
-            });
-        });
-    </script>
+    <script src="{% static 'apps/presentacion/presentacion_list.js' %}"></script>
+    <script src="{% static 'apps/funtions.js' %}"></script>
 {% endblock %}

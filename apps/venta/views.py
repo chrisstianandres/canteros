@@ -175,9 +175,14 @@ def estado(request):
     try:
         id = request.POST['id']
         if id:
-            es = Venta.objects.get(id=id)
-            es.estado = 0
-            es.save()
+            with transaction.atomic():
+                es = Venta.objects.get(id=id)
+                es.estado = 0
+                for i in Detalle_venta.objects.filter(venta_id=id):
+                    ch = Producto.objects.get(pk=i.producto.pk)
+                    ch.stock = int(ch.stock) + int(i.cantidad)
+                    ch.save()
+                    es.save()
         else:
             data['error'] = 'Ha ocurrido un error'
     except Exception as e:

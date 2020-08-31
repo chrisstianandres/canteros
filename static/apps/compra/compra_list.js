@@ -31,40 +31,29 @@ $(function () {
         createdRow: function (row, data, dataIndex) {
             if (data[4] === '<span>FINALIZADA</span>') {
                 $('td', row).eq(4).find('span').addClass('badge badge-pill badge-success');
-                $('td', row).eq(5).find('a[rel="estado"]').hide();
-                $('td', row).eq(5).find('a[rel="edit"]').hide();
-            } else if (data[4] === '<span>PENDIENTE</span>') {
-                $('td', row).eq(4).find('span').addClass('badge badge-pill badge-warning');
+            } else if (data[4] === '<span>DEVUELTA</span>') {
+                $('td', row).eq(4).find('span').addClass('badge badge-pill badge-danger');
+                $('td', row).eq(5).find('a[rel="devolver"]').hide();
             }
 
         }
     });
 
-    $('#datatable tbody').on('click', 'a[rel="estado"]', function () {
+    $('#datatable tbody').on('click', 'a[rel="devolver"]', function () {
         $('.tooltip').remove();
         var tr = datatable.cell($(this).closest('td, li')).index();
         var data = datatable.row(tr.row).data();
         var parametros = {'id': data['3']};
         save_estado('Alerta',
-            '/compra/estado', 'Esta seguro que desea finalizar esta compra?', parametros,
+            '/compra/estado', 'Esta seguro que desea devolver esta compra?', parametros,
             function () {
-                menssaje_ok('Exito!', 'Exito al finalizar la compra', 'far fa-smile-wink', function () {
+                menssaje_ok('Exito!', 'Exito al devolver la compra', 'far fa-smile-wink', function () {
                     location.reload();
                 })
             });
 
-    }).on('click', 'a[rel="borrar"]', function () {
-        $('.tooltip').remove();
-        var tr = datatable.cell($(this).closest('td, li')).index();
-        var data = datatable.row(tr.row).data();
-        var parametros = {'id': data['3']};
-        save_estado('Alerta',
-            '/compra/eliminar', 'Esta seguro que desea eliminar esta compra?', parametros,
-            function () {
-                menssaje_ok('Exito!', 'Exito al Eliminar la compra', 'far fa-smile-wink')
-            });
-
-    }).on('click', 'a[rel="detalle"]', function () {
+    })
+        .on('click', 'a[rel="detalle"]', function () {
         $('.tooltip').remove();
         var tr = datatable.cell($(this).closest('td, li')).index();
         var data = datatable.row(tr.row).data();

@@ -21,13 +21,13 @@
             <td>{{ dato.correo }} </td>
             <td>{{ dato.direccion }} </td>
             <td>{{ dato.telefono }} </td>
-            <td><a type="button" class="btn btn-success btn-sm" data-toggle="tooltip"
+            <td><a type="button" class="btn btn-success btn-sm btn-round" data-toggle="tooltip"
                    title="Editar Datos"
                    href="{% url 'cliente:editar' dato.id %}"><i class="fa fa-edit"></i></a>
-                <button type="button" class="btn btn-primary btn-sm estado"
+                <a type="button" class="btn btn-danger btn-sm btn-round" style="color:white;"
                         data-toggle="tooltip"
-                        title="Gestionar Estado" name="btnestado">
-                    <i class="fa fa-cogs"></i></button>
+                        title="Eliminar" rel="del">
+                    <i class="fa fa-trash"></i></a>
             </td>
         </tr>
 
@@ -35,12 +35,6 @@
     </tbody>
 {% endblock %}
 {% block javascript %}
-    <script>
-        $(function () {
-            var table = $("#datatable").DataTable({
-                responsive: true,
-            });
-
-        });
-    </script>
+    <script src="{% static 'apps/cliente/cliente_list.js' %}"></script>
+    <script src="{% static 'apps/funtions.js' %}"></script>
 {% endblock %}

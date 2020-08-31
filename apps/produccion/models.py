@@ -13,8 +13,8 @@ from apps.trabajador.models import Trabajador
 class Produccion(models.Model):
     fecha = models.DateField(default=datetime.now)
     periodo = models.ForeignKey(Periodo, on_delete=models.PROTECT)
-    cantero = models.ForeignKey(Cantero, on_delete=models.CASCADE)
-    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    cantero = models.ForeignKey(Cantero, on_delete=models.PROTECT)
+    producto = models.ForeignKey(Producto, on_delete=models.PROTECT)
     cantidad = models.IntegerField(default=0)
 
     def __str__(self):

@@ -161,34 +161,3 @@ def get_detalle(request):
     except Exception as e:
         data['error'] = str(e)
     return JsonResponse(data, safe=False)
-
-
-# @csrf_exempt
-# def estado(request):
-#     data = {}
-#     try:
-#         id = request.POST['id']
-#         if id:
-#             es = Compra.objects.get(id=id)
-#             es.estado = 0
-#             es.save()
-#         else:
-#             data['error'] = 'Ha ocurrido un error'
-#     except Exception as e:
-#         data['error'] = str(e)
-#     return JsonResponse(data)
-#
-#
-# @csrf_exempt
-# def eliminar(request):
-#     data = {}
-#     try:
-#         id = request.POST['id']
-#         if id:
-#             es = Compra.objects.get(id=id)
-#             es.delete()
-#         else:
-#             data['error'] = 'Ha ocurrido un error'
-#     except Exception as e:
-#         data['error'] = str(e)
-#     return JsonResponse(data)

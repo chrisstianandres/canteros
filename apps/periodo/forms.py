@@ -42,3 +42,20 @@ class PeriodoForm(forms.ModelForm):
             'desde': forms.SelectDateWidget(),
             'hasta': forms.SelectDateWidget(attrs={'class': 'select2', 'data-width': 'fit'})
         }
+
+    def clean(self, *args, **kwargs):
+        cleaned_data = super(PeriodoForm, self).clean()
+        periodo_inicio = cleaned_data.get('desde', None)
+        periodo_fin = cleaned_data.get('hasta', None)
+        # if periodo_fin < periodo_inicio:
+        #     self.add_error('hasta', 'la fecha final no puede ser menor a la incial')
+        if periodo_inicio is not None:
+            pi = periodo_inicio.year
+            ye = Periodo.objects.raw('SELECT COUNT(*)as id from periodo where EXTRACT(YEAR FROM desde) = %(pi)s',
+                                     {'pi': pi})
+            for y in ye:
+                if y.id > 0:
+                    self.add_error('desde', 'Periodo ya existente con este rango de fechas')
+                else:
+                    if periodo_fin <= periodo_inicio:
+                        self.add_error('hasta', 'No puede ingresar el final mayor que el inicio')

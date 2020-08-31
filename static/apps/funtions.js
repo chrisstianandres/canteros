@@ -87,10 +87,9 @@ function save_estado(title, url, content, parametros, callback) {
                             callback();
                             return false;
                         }
-                        menssaje_error(data.error);
+                        menssaje_error(data.error, data.content, 'fa fa-times-circle');
                     }).fail(function (jqXHR, textStatus, errorThrown) {
                         alert(textStatus + ': ' + errorThrown);
-                    }).always(function (data) {
                     });
                     //
 
@@ -113,7 +112,6 @@ function menssaje_error(title, content, icon) {
         title: title,
         type: 'red',
         content: content,
-        // columnClass: 'small',
         draggable: true,
         buttons: {
             info: {

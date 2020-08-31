@@ -176,9 +176,22 @@ def estado(request):
     try:
         id = request.POST['id']
         if id:
-            es = Compra.objects.get(id=id)
-            es.estado = 0
-            es.save()
+            with transaction.atomic():
+                es = Compra.objects.get(id=id)
+                es.estado = 0
+                for i in Detalle_compra.objects.filter(compra_id=id):
+                    ch = Insumo.objects.get(pk=i.insumo.pk)
+                    if ch.stock == 0:
+                        data['error'] = 'No se puede devolver esta compra porque los insumos ya fueron utilizados'
+                        data['content'] = 'Prueba con otra venta'
+                    else:
+                        if ch.stock < i.cantidad:
+                            data['error'] = 'No se puede devolver esta compra porque los insumos ya fueron utilizados'
+                            data['content'] = 'Prueba con otra venta'
+                        else:
+                            ch.stock = int(ch.stock) - int(i.cantidad)
+                            es.save()
+                            ch.save()
         else:
             data['error'] = 'Ha ocurrido un error'
     except Exception as e:

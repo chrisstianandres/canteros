@@ -18,11 +18,9 @@
                 <td>{{ dato.fecha_asig }}</td>
                 <td>{{ dato.periodo.nombre }}</td>
                 <td>{{ dato.cantero.nombre }}</td>
-                <td><a type="button" rel="edit" class="btn btn-primary btn-sm" data-toggle="tooltip"
-                       title="Editar Asignacion"><i class="fa fa-edit" style="color: white"></i></a>
-                    <a type="button" rel="detalle" class="btn btn-success btn-sm" data-toggle="tooltip"
+                <td><a type="button" rel="detalle" class="btn btn-success btn-sm btn-round" data-toggle="tooltip"
                        title="Detalles"
-                       href="#"><i class="fa fa-search"></i></a>
+                       href="#"><i class="fa fa-search"></i></a></td>
             </tr>
         {% endfor %}
     {% endif %}
@@ -34,7 +32,7 @@
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle"><i class="fas fa-cart-arrow-down"></i> Detalle de
+                    <h5 class="modal-title" id="exampleModalLongTitle"><i class="fas fa-list-alt"></i> Detalle de
                         Asignaciones </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -62,7 +60,4 @@
 {% block extra %}
 <script src="{% static 'apps/asig_insumo/asig_insumo_list.js' %}"></script>
 <script src="{% static 'apps/funtions.js' %}"></script>
-{% endblock %}
-{% block javascript %}
-
 {% endblock %}

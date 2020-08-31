@@ -1,4 +1,5 @@
 {% extends 'front-end/list.html' %}
+{% load static from staticfiles %}
 {% block table %}
     <thead>
     <tr>
@@ -23,29 +24,19 @@
                 <td> {{ dato.correo }} </td>
                 <td>{{ dato.direccion }}</td>
                 <td style="font-weight:bold">{{ dato.telefono }}</td>
-                <td><a type="button" class="btn btn-success btn-sm" data-toggle="tooltip"
+                <td><a type="button" class="btn btn-success btn-sm btn-round" data-toggle="tooltip"
                        title="Editar Datos"
                        href="{% url 'proveedor:editar' dato.id %}"><i class="fa fa-edit"></i></a>
-                    <button type="button" class="btn btn-primary btn-sm estado"
+                    <a type="button" class="btn btn-danger btn-sm btn-round" style="color: white"
                             data-toggle="tooltip"
-                            title="Gestionar Estado" name="btnestado">
-                        <i class="fa fa-cogs"></i></button>
+                            title="Eliminar Proveedor" rel="del">
+                        <i class="fa fa-trash"></i></a>
             </tr>
         {% endfor %}
     {% endif %}
     </tbody>
 {% endblock %}
 {% block javascript %}
-    <script>
-        $(function () {
-            $("#datatable").DataTable({
-                responsive: true,
-                autoWidth: false,
-                language: {
-                    "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-                },
-
-            });
-        });
-    </script>
+    <script src="{% static 'apps/proveedor/proveedor_list.js' %}"></script>
+    <script src="{% static 'apps/funtions.js' %}"></script>
 {% endblock %}

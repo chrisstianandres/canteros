@@ -7,8 +7,8 @@ from apps.presentacion.models import Presentacion
 
 class Producto(models.Model):
     nombre = models.CharField(max_length=50)
-    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, null=True, blank=True)
-    presentacion = models.ForeignKey(Presentacion, on_delete=models.CASCADE, null=True, blank=True)
+    categoria = models.ForeignKey(Categoria, on_delete=models.PROTECT, null=True, blank=True)
+    presentacion = models.ForeignKey(Presentacion, on_delete=models.PROTECT, null=True, blank=True)
     descripcion = models.CharField(max_length=100)
     pvp = models.DecimalField(default=0.00, max_digits=9, decimal_places=2, null=True, blank=True)
     stock = models.IntegerField(default=0)

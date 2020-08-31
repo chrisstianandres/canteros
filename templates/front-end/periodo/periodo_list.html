@@ -20,10 +20,10 @@
                 <td> {{ dato.desde }}  </td>
                 <td> {{ dato.hasta }} </td>
                 <td><span>{{dato.get_estado_display}}</span></td>
-                <td><a type="button" class="btn btn-success btn-sm" data-toggle="tooltip"
+                <td><a type="button" class="btn btn-success btn-sm btn-round" data-toggle="tooltip"
                        title="Editar Datos"
-                       href="#"><i class="fa fa-edit"></i></a>
-                    <a type="button" class="btn btn-primary btn-sm"
+                       href="{% url 'periodo:editar' dato.id %}"><i class="fa fa-edit"></i></a>
+                    <a type="button" class="btn btn-primary btn-sm btn-round" style="color: white"
                             data-toggle="tooltip"
                             title="Gestionar Estado" rel="estado">
                         <i class="fa fa-cogs"></i></a>

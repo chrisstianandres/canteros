@@ -1,15 +1,16 @@
 {% extends 'front-end/list.html' %}
+{% load static from staticfiles %}
 {% block table %}
     <thead>
     <tr>
         <th>Id</th>
-        <th>Nombres</th>
-        <th>Apellidos</th>
+        <th>Trabajador</th>
         <th>Cedula</th>
         <th>Genero</th>
         <th>Correo</th>
         <th>Direccion</th>
         <th>Telefono</th>
+        <th>Estado</th>
         <th class="text-center"><em class="fa fa-cog"></em></th>
     </tr>
     </thead>
@@ -18,37 +19,27 @@
         {% for dato in list %}
             <tr>
                 <td>{{ dato.id }}</td>
-                <td>{{ dato.nombres }}</td>
-                <td>{{ dato.apellidos }}</td>
+                <td>{{ dato.nombres }} &nbsp;{{ dato.apellidos }}</td>
                 <td> {{ dato.cedula }}  </td>
                 <td> {{ dato.get_genero_display }} </td>
                 <td> {{ dato.correo }} </td>
                 <td>{{ dato.direccion }}</td>
                 <td style="font-weight:bold">{{ dato.telefono }}</td>
-                <td><a type="button" class="btn btn-success btn-sm" data-toggle="tooltip"
+                <td>{{ dato.get_estado_display }}</td>
+                <td><a type="button" class="btn btn-success btn-sm btn-round" data-toggle="tooltip"
                        title="Editar Datos"
                        href="{% url 'trabajador:editar' dato.id %}"><i class="fa fa-edit"></i></a>
-                    <button type="button" class="btn btn-primary btn-sm estado"
+                    <a type="button" class="btn btn-primary btn-sm btn-round" style="color: white"
                             data-toggle="tooltip"
-                            title="Gestionar Estado" name="btnestado">
-                        <i class="fa fa-cogs"></i></button>
+                            title="Gestionar Estado" rel="estado">
+                        <i class="fa fa-cogs"></i></a>
             </tr>
         {% endfor %}
     {% endif %}
     </tbody>
 {% endblock %}
-{% block javascript %}
-<script>
-        $(function () {
-            $("#datatable").DataTable({
-                responsive: true,
-                autoWidth: false,
-                language: {
-                    "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-                },
-
-            });
-        });
-    </script>
+{% block extra %}
+    <script src="{% static 'apps/trabajador/trabajador_list.js'%}"></script>
+    <script src="{% static 'apps/funtions.js'%}"></script>
 
 {% endblock %}

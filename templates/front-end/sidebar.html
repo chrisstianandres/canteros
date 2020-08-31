@@ -51,12 +51,36 @@
             </a>
         </li>
     </ul>
+    <div class="pcoded-navigatio-lavel" menu-title-theme="theme5">Compras</div>
+    <ul class="pcoded-item pcoded-left-item">
+        <li data-toggle="tooltip" data-placement="right" title="Compras">
+            <a href="{% url 'compra:lista' %}">
+                <span class="pcoded-micon"><i class="fa fa-shopping-bag"></i></span>
+                <span class="pcoded-mtext"> Compras</span>
+                <span class="pcoded-mcaret"></span>
+            </a>
+        </li>
+        <li data-toggle="tooltip" data-placement="right" title="Proveedor">
+            <a href="{% url 'proveedor:lista' %}">
+                <span class="pcoded-micon"><i class="fa fa-truck"></i></span>
+                <span class="pcoded-mtext"> Proveedor</span>
+                <span class="pcoded-mcaret"></span>
+            </a>
+        </li>
+    </ul>
     <div class="pcoded-navigatio-lavel" menu-title-theme="theme5">Produccion</div>
     <ul class="pcoded-item pcoded-left-item">
         <li data-toggle="tooltip" data-placement="right" title="Trabajador">
             <a href="{% url 'trabajador:lista' %}">
                 <span class="pcoded-micon"><i class="fas fa-people-carry"></i></span>
                 <span class="pcoded-mtext"> Trabajador</span>
+                <span class="pcoded-mcaret"></span>
+            </a>
+        </li>
+         <li data-toggle="tooltip" data-placement="right" title="Prduccion">
+            <a href="{% url 'produccion:lista' %}">
+                <span class="pcoded-micon"><i class="fas fa-spa"></i></span>
+                <span class="pcoded-mtext"> Produccion</span>
                 <span class="pcoded-mcaret"></span>
             </a>
         </li>
@@ -103,23 +127,7 @@
             </a>
         </li>
     </ul>
-    <div class="pcoded-navigatio-lavel" menu-title-theme="theme5">Compras</div>
-    <ul class="pcoded-item pcoded-left-item">
-        <li data-toggle="tooltip" data-placement="right" title="Compras">
-            <a href="{% url 'compra:lista' %}">
-                <span class="pcoded-micon"><i class="fa fa-shopping-bag"></i></span>
-                <span class="pcoded-mtext"> Compras</span>
-                <span class="pcoded-mcaret"></span>
-            </a>
-        </li>
-        <li data-toggle="tooltip" data-placement="right" title="Proveedor">
-            <a href="{% url 'proveedor:lista' %}">
-                <span class="pcoded-micon"><i class="fa fa-truck"></i></span>
-                <span class="pcoded-mtext"> Proveedor</span>
-                <span class="pcoded-mcaret"></span>
-            </a>
-        </li>
-    </ul>
+
     <div class="pcoded-navigatio-lavel" menu-title-theme="theme5">Extras</div>
     <ul class="pcoded-item pcoded-left-item">
         <li data-toggle="tooltip" data-placement="right" title="Categoria">

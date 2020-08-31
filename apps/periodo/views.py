@@ -53,6 +53,26 @@ def crear(request):
             return HttpResponseRedirect('/periodo/lista')
 
 
+def editar(request, id):
+    periodo = Periodo.objects.get(id=id)
+    crud = '/periodo/editar/' + str(id)
+    data = {
+        'icono': opc_icono, 'crud': crud, 'entidad': opc_entidad,
+        'boton': 'Guardar Edicion', 'titulo': 'Editar Registro de un Periodo',
+    }
+    if request.method == 'GET':
+        form = PeriodoForm(instance=periodo)
+        data['form'] = form
+    else:
+        form = PeriodoForm(request.POST, instance=periodo)
+        if form.is_valid():
+            form.save()
+        else:
+            data['form'] = form
+        return redirect('/periodo/lista')
+    return render(request, 'front-end/periodo/periodo_form.html', data)
+
+
 @csrf_exempt
 def estado(request):
     data = {}

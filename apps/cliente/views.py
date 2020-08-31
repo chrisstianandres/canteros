@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import *
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from apps.cliente.forms import ClienteForm
 from apps.cliente.models import Cliente
 from django.http import HttpResponseRedirect
@@ -127,6 +128,24 @@ def editar(request, id):
         return render(request, 'front-end/cliente/cliente_form.html', data)
     data['form'] = f
     return render(request, 'front-end/cliente/cliente_form.html', data)
+
+
+@csrf_exempt
+def eliminar(request):
+    data = {}
+    try:
+        id = request.POST['id']
+        if id:
+            ps = Cliente.objects.get(pk=id)
+            ps.delete()
+            data['resp'] = True
+        else:
+            data['error'] = 'Ha ocurrido un error'
+    except Exception as e:
+        data['error'] = 'No se puede eliminar este cliente porque esta referenciado en otros procesos'
+        data['content'] = 'Intenta con otro cliente'
+    return JsonResponse(data)
+
 
 
 def verificar(nro):
