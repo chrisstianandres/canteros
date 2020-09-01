@@ -263,3 +263,4 @@ def grap_data():
             'y': float(total)
         })
     return data
+

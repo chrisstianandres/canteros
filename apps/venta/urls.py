@@ -15,6 +15,7 @@ urlpatterns = [
     path('get_detalle', login_required(views.get_detalle), name='get_detalle'),
     path('estado', login_required(views.estado), name='estado'),
     path('eliminar', login_required(views.eliminar), name='eliminar'),
+    path('chart', login_required(views.grap), name='chart'),
     #path('editar/<int:id_alumno>', login_required(views.editar), name='editar'),
 
 ]

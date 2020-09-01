@@ -1,6 +1,9 @@
 import json
+from datetime import datetime
 
 from django.db import transaction
+from django.db.models import Sum
+from django.db.models.functions import Coalesce
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -203,3 +206,47 @@ def eliminar(request):
     except Exception as e:
         data['error'] = str(e)
     return JsonResponse(data)
+
+
+@csrf_exempt
+def grap(request):
+    data = {}
+    try:
+        action = request.POST['action']
+        if action == 'chart':
+            dat = []
+            data = {
+                'cat': cate(),
+                'dat': {
+                    'name': 'Total de ventas',
+                    'type': 'column',
+                    'colorByPoint': True,
+                    'showInLegend': True,
+                    'data': grap_data(),
+                }
+
+            }
+        else:
+            data['error'] = 'Ha ocurrido un error'
+    except Exception as e:
+        data['error'] = str(e)
+    return JsonResponse(data, safe=False)
+
+
+def grap_data():
+    year = datetime.now().year
+    data = []
+    for y in range(year-5, year+1):
+        total = Venta.objects.filter(fecha_venta__year=y, estado=1).aggregate(r=Coalesce(Sum('total'), 0)).get('r')
+        data.append(float(total))
+    return data
+
+
+def cate():
+    ye = []
+    year = datetime.now().year
+    for y in range(year-5, year+1):
+        ye.append(y)
+    return ye
+
+

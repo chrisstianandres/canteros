@@ -16,69 +16,131 @@
         <br><br><br><br><br>
     </div>
     <div class="row">
-        <div class="col-lg-12">
-            <div class="row">
-                <div class="col-md-12 col-lg-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <h5>Total de compras del año</h5>
-                        </div>
-                        <div class="card-block">
-                            <figure class="highcharts-figure">
-                                <div id="container"></div>
 
-                            </figure>
+        <div class="col-md-12 col-xl-4">
+            <div class="card counter-card-1">
+                <div class="card-block-big">
+                    <div>
+                        <h3>4000</h3>
+                        <p>Most Played Last Month
+                            <span class="f-right text-primary">
+<i class="icofont icofont-arrow-up"></i>
+37.89%
+</span></p>
+                        <div class="progress ">
+                            <div class="progress-bar progress-bar-striped progress-xs progress-bar-pink"
+                                 role="progressbar" style="width: 70%" aria-valuenow="70" aria-valuemin="0"
+                                 aria-valuemax="100"></div>
                         </div>
                     </div>
+                    <i class="icofont icofont-comment"></i>
                 </div>
-                <div class="col-md-12 col-lg-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <h5>Compras del Mes</h5>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-4">
+            <div class="card counter-card-2">
+                <div class="card-block-big">
+                    <div>
+                        <h3>2500</h3>
+                        <p>Coffee cups per day
+                            <span class="f-right text-success">
+<i class="icofont icofont-arrow-up"></i>
+34.52%
+</span>
+                        </p>
+                        <div class="progress ">
+                            <div class="progress-bar progress-bar-striped progress-xs progress-bar-success"
+                                 role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0"
+                                 aria-valuemax="100"></div>
                         </div>
-                        <div class="card-block">
-                            <div class="dt-responsive table-responsive">
-                                <table class="table" id="datatable" style="width: 100%">
-                                    <thead>
-                                    <tr>
-                                        <th>Fecha</th>
-                                        <th>Proveedor</th>
-                                        <th>Total</th>
-                                        <th>Estado</th>
-                                    </tr>
-
-                                    </thead>
-                                    <tbody>
-
-                                    </tbody>
-                                </table>
-                            </div>
+                    </div>
+                    <i class="icofont icofont-coffee-mug"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-4">
+            <div class="card counter-card-3">
+                <div class="card-block-big">
+                    <div>
+                        <h3>800 Gb</h3>
+                        <p>Average Monthly Uploads
+                            <span class="f-right text-default">
+<i class="icofont icofont-arrow-down"></i>
+22.34%
+</span></p>
+                        <div class="progress ">
+                            <div class="progress-bar progress-bar-striped progress-xs progress-bar-default"
+                                 role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0"
+                                 aria-valuemax="100"></div>
                         </div>
+                    </div>
+                    <i class="icofont icofont-upload"></i>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-xl-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5>TOTAL DE COMPRAS DEL AÑO</h5>
+                </div>
+                <div class="card-block">
+                    <figure class="highcharts-figure">
+                        <div id="container"></div>
+                    </figure>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5>COMPRAS DEL MES</h5>
+                </div>
+                <div class="card-block">
+                    <div class="dt-responsive table-responsive">
+                        <table class="table" id="datatable" style="width: 100%">
+                            <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Proveedor</th>
+                                <th>Total</th>
+                                <th>Estado</th>
+                            </tr>
+
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12 col-md-6">
-            <div class="row">
-                <div class="col-md-12 col-lg-5">
-                    <div class="card">
-                        <div class="card-header">
-                            <h5> Total de compras del mes</h5>
-                        </div>
-                        <div class="card-block">
-                            <canvas id="myChart2" width="10" height="10"></canvas>
-                        </div>
-                    </div>
+
+
+        <div class="col-xl-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5>TOTAL DE VENTAS DE LOS 6 ULTIMOS AÑOS</h5>
                 </div>
-                <div class="col-md-12 col-lg-7">
+                <div class="card-block">
+                    <figure class="highcharts-figure">
+                                <div id="container2"></div>
+                            </figure>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-xl-4">
+            <div class="row">
+                <div class="col-sm-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5> Total de compras del mes</h5>
+                            <h5>Daily Visitors</h5>
                         </div>
                         <div class="card-block">
-                            <canvas id="myChart2" width="10" height="80"></canvas>
+                            <div id="pie-chart" style="height:300px"></div>
                         </div>
                     </div>
                 </div>
