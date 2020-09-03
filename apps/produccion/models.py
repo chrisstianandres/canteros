@@ -16,6 +16,7 @@ class Produccion(models.Model):
     cantero = models.ForeignKey(Cantero, on_delete=models.PROTECT)
     producto = models.ForeignKey(Producto, on_delete=models.PROTECT)
     cantidad = models.IntegerField(default=0)
+    perdida = models.IntegerField(default=0)
 
     def __str__(self):
         return '%s %s' % (self.fecha, self.cantero.nombre)

@@ -47,6 +47,9 @@ function cahrtventas() {
         data: {'action': 'chart'},
         dataSrc: "",
     }).done(function (data) {
+        $('#vend').html(data['vent']);
+        $('#prod').html(data['prod']);
+        $('#perd').html(data['perd']);
         var yea = data['cat'];
         var chart = Highcharts.chart('container2', {
             title: {
@@ -60,7 +63,6 @@ function cahrtventas() {
                     valueSuffix: '$'
                 }
             },
-
             yAxis: {
                 title: {
                     text: 'Valores $'
@@ -69,7 +71,6 @@ function cahrtventas() {
             xAxis: {
                 categories: data['cat']
             },
-
         });
         chart.addSeries(data['dat']);
     });

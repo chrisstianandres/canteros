@@ -255,12 +255,10 @@ def grap_data():
     month = datetime.now().month
     data = []
     for i in Insumo.objects.all():
-        total = Detalle_compra.objects.filter(insumo_id=i.id, compra__fecha_compra__month=month,
-                                              compra__fecha_compra__year=year, compra__estado=1) \
+        total = Detalle_compra.objects.filter(insumo_id=i.id, compra__fecha_compra__year=year, compra__estado=1)\
             .aggregate(r=Coalesce(Sum('compra__total'), 0)).get('r')
         data.append({
             'name': i.nombre,
             'y': float(total)
         })
     return data
-

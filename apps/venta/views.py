@@ -1,5 +1,6 @@
 import json
 from datetime import datetime
+from itertools import count
 
 from django.db import transaction
 from django.db.models import Sum
@@ -10,6 +11,7 @@ from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import *
 
+from apps.produccion.models import Produccion
 from apps.venta.forms import VentaForm, Detalle_VentaForm
 from apps.venta.models import Venta, Detalle_venta
 from apps.configuracion.models import Empresa
@@ -223,9 +225,12 @@ def grap(request):
                     'colorByPoint': True,
                     'showInLegend': True,
                     'data': grap_data(),
-                }
-
+                },
+                'vent': vent(),
+                'prod': prod(),
+                'perd': perd(),
             }
+            print(data['perd'])
         else:
             data['error'] = 'Ha ocurrido un error'
     except Exception as e:
@@ -248,5 +253,33 @@ def cate():
     for y in range(year-5, year+1):
         ye.append(y)
     return ye
+
+
+def vent():
+    year = datetime.now().year
+    data = []
+    c = Detalle_venta.objects.filter(venta__fecha_venta__year=year, venta__estado=1).aggregate(
+        r=Coalesce(Sum('cantidad'), 0)).get('r')
+    data.append(c)
+    return data
+
+
+def prod():
+    year = datetime.now().year
+    data = []
+    c = Produccion.objects.filter(fecha__year=year).aggregate(
+        r=Coalesce(Sum('cantidad'), 0)).get('r')
+    data.append(c)
+    return data
+
+
+def perd():
+    year = datetime.now().year
+    data = []
+    c = Produccion.objects.filter(fecha__year=year).aggregate(
+        r=Coalesce(Sum('perdida'), 0)).get('r')
+    data.append(c)
+    return data
+
 
 
