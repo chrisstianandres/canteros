@@ -79,7 +79,7 @@ $(function () {
                 {data: 'insumo.presentacion.nombre'},
                 {data: 'cantidad'},
                 {data: 'insumo.pvp'},
-                {data: 'compra.subtotal'}
+                {data: 'subtotal'}
             ],
             columnDefs: [
                 {

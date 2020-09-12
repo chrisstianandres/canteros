@@ -1,4 +1,6 @@
 from datetime import datetime
+
+from django.contrib.auth.models import User
 from django.db import models
 from django.forms import model_to_dict
 
@@ -18,6 +20,7 @@ class Compra(models.Model):
     subtotal = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
     iva = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
     total = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
+    user = models.ForeignKey(User, on_delete=models.PROTECT, blank=True, null=True)
     estado = models.IntegerField(choices=estado, default=1)
 
     def __str__(self):
@@ -42,6 +45,7 @@ class Detalle_compra(models.Model):
     compra = models.ForeignKey(Compra, on_delete=models.PROTECT)
     insumo = models.ForeignKey(Insumo, on_delete=models.PROTECT)
     cantidad = models.IntegerField(default=1)
+    subtotal = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
 
     def __str__(self):
         return '%s %s' % (self.compra, self.insumo.nombre)

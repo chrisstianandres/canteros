@@ -1,5 +1,8 @@
 $(function () {
-    $('#save').on('click', function () {
+    $('#formlogin').on('submit', function (e) {
+
+        e.preventDefault();
+
         if ($('input[name="username"]').val() === "") {
             menssaje_error('Error!', "Debe ingresar un Username", 'far fa-times-circle');
             return false
@@ -13,16 +16,16 @@ $(function () {
             'password': $('input[name="password"]').val()
         };
         login('/connect/', parametros, function () {
-                 window.$.dialog({
-                    icon: 'fa fa-spinner fa-spin',
-                    title: 'Iniciando Sesion!',
-                    content: false
-                });
-                setTimeout(function () {
-                    location.href = '/';
-                }, 2000);
-
+            window.$.dialog({
+                icon: 'fa fa-spinner fa-spin',
+                title: 'Iniciando Sesion!',
+                content: false
             });
+            setTimeout(function () {
+                location.href = '/';
+            }, 2000);
+
+        });
     });
 });
 

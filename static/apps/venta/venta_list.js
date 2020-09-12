@@ -96,7 +96,7 @@ $(function () {
                     {data: 'producto.presentacion.nombre'},
                     {data: 'cantidad'},
                     {data: 'producto.pvp'},
-                    {data: 'venta.subtotal'}
+                    {data: 'subtotal'}
                 ],
                 columnDefs: [
                     {

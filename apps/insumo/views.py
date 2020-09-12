@@ -25,7 +25,7 @@ def lista(request):
 
 @csrf_exempt
 def ajax(request):
-    data = [[i.id, i.nombre, i.categoria.nombre, i.descripcion, i.presentacion.nombre, format(i.pvp, '.2f'), i.stock]
+    data = [[i.id, i.nombre, i.categoria.nombre, i.descripcion, i.presentacion.nombre, format(i.pvp, '.2f'), i.stock, i.id]
             for i in Insumo.objects.all()]
     return HttpResponse(json.dumps(data), content_type="application/json")
 

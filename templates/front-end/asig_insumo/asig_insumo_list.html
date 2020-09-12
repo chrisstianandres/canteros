@@ -18,9 +18,11 @@
                 <td>{{ dato.fecha_asig }}</td>
                 <td>{{ dato.periodo.nombre }}</td>
                 <td>{{ dato.cantero.nombre }}</td>
-                <td><a type="button" rel="detalle" class="btn btn-success btn-sm btn-round" data-toggle="tooltip"
-                       title="Detalles"
-                       href="#"><i class="fa fa-search"></i></a></td>
+                <td></td>
+{#            <td class=" text-center"><a type="button" class="btn btn-success btn-sm btn-round" data-toggle="tooltip" title="" href="/cliente/editar/3" data-original-title="Editar Datos"><i class="fa fa-edit"></i></a>#}
+{#                <a type="button" class="btn btn-danger btn-sm btn-round" style="color:white;" data-toggle="tooltip" title="" rel="del" data-original-title="Eliminar">#}
+{#                    <i class="fa fa-trash"></i></a>#}
+{#            </td>#}
             </tr>
         {% endfor %}
     {% endif %}

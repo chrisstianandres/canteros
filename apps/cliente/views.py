@@ -147,7 +147,6 @@ def eliminar(request):
     return JsonResponse(data)
 
 
-
 def verificar(nro):
     error = ''
     l = len(nro)

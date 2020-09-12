@@ -2,9 +2,8 @@ var datatable;
 $(function () {
 
     datatable = $("#datatable").DataTable({
-        // responsive: true,
+        responsive: true,
         destroy: true,
-        scrollX: true,
         autoWidth: false,
         language: {
             "url": '../static/lib/datatables-1.10.20/spanish.txt'
@@ -20,7 +19,14 @@ $(function () {
                 targets: [0, -1],
                 class: 'text-center',
                 width: "8%",
-            }
+            },
+            {
+                targets: [-1],
+                orderable: false,
+                render: function (data, type, row) {
+                    return  '<a rel="detalle" type="button" class="btn btn-success btn-sm btn-flat btn-round" style="color: white" data-toggle="tooltip" title="Detalles"><i class="fa fa-search"></i></a>';;
+                }
+            },
         ],
     });
 

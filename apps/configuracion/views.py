@@ -11,7 +11,7 @@ from apps.configuracion.models import Empresa
 
 opc_icono = 'fa fa-cogs'
 opc_entidad = 'Configuracion'
-crud = '/cantero/editar'
+crud = '/empresa/configuracion'
 
 
 def editar(request):

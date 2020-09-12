@@ -1,50 +1,73 @@
 {% extends 'front-end/base.html' %}
 {% load static from staticfiles %}
 {% block head %}
-
-    <link rel="stylesheet" href="{% static 'lib/datatables-1.10.20/css/dataTables.bootstrap4.min.css' %}"/>
-    <link rel="stylesheet"
-          href="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/css/responsive.bootstrap4.min.css' %}"/>
-    <link rel="stylesheet" href="https://cdn.datatables.net/searchpanes/1.1.1/css/searchPanes.dataTables.min.css"/>
-    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.1/css/select.dataTables.min.css"/>
+    <link href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet"/>
+    <link href="https://nightly.datatables.net/searchpanes/css/searchPanes.dataTables.min.css" rel="stylesheet"/>
+    <link href="https://cdn.datatables.net/searchpanes/1.1.1/css/searchPanes.dataTables.min.css" rel="stylesheet"/>
+    <link href="https://cdn.datatables.net/select/1.3.1/css/select.dataTables.min.css" rel="stylesheet"/>
+    <link href="https://cdn.datatables.net/responsive/2.2.5/css/responsive.dataTables.min.css" rel="stylesheet"/>
+    {#    <link href="https://nightly.datatables.net/select/css/select.dataTables.min.css" rel="stylesheet"/>#}
+    {#    <link href="https://nightly.datatables.net/buttons/css/buttons.dataTables.min.css" rel="stylesheet"/>#}
+    <link href="https://cdn.datatables.net/buttons/1.6.2/css/buttons.bootstrap.min.css" rel="stylesheet"/>
+    <link href="{% static "lib/daterangepicker-3.1/daterangepicker.css" %}" rel="stylesheet">
 
 {% endblock %}
 
 {% block content %}
-    <div class="row">
-        <div class="card col-md-12">
-            <div class="card-header">
-                <a type="button" class="btn btn-primary btn-sm" href="{{ nuevo }}">
-                    <i class="fa fa-plus" aria-hidden="true"></i> {{ boton }}
-                </a>
-            </div>
-            <div class="card-block">
-                <div class="dt-responsive table-responsive">
-                    <table class="table" id="datatable" style="width: 100%">
-                        {% block table %}
-                        {% endblock %}
-                    </table>
-                </div>
-            </div>
-        <div class="card-footer">
-            <button type="button" class="btn btn-warning btn-sm btn-flat"
-                        onclick="location.reload();">
-                    <i class="fas fa-sync"></i> Actualizar
-                </button>
+
+    <div class="card">
+        <div class="card-header">
+            <a type="button" class="btn btn-primary btn-sm btn-round" href="{{ nuevo }}">
+                <i class="fa fa-plus" aria-hidden="true"></i> {{ boton }}
+            </a>
         </div>
+        <div class="card-block-big">
+            <div class="d-flex flex-column flex-grow">
+                <table class="table" id="datatable" style="width: 100%">
+                    {% block table %}
+                    {% endblock %}
+                </table>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="button" class="btn btn-warning btn-sm btn-flat btn-round"
+                    onclick="location.reload();">
+                <i class="fas fa-sync"></i> Actualizar
+            </button>
         </div>
     </div>
+    <br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br>
+
     {% block modal %}
 
     {% endblock %}
 {% endblock %}
 {% block script %}
-    <script src="{% static 'lib/datatables-1.10.20/js/jquery.dataTables.js' %}"></script>
-    <script src="{% static 'lib/datatables-1.10.20/js/dataTables.bootstrap4.min.js' %}"></script>
-    <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/dataTables.responsive.min.js' %}"></script>
-    <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/responsive.bootstrap4.min.js' %}"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    {#<script src="https://nightly.datatables.net/js/jquery.dataTables.min.js"></script>#}
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/searchpanes/1.1.1/js/dataTables.searchPanes.min.js"></script>
-    <script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
+    {#<script src="https://cdn.datatables.net/searchpanes/1.1.1/js/searchPanes.bootstrap.min.js"></script>#}
+    {#<script src="https://nightly.datatables.net/searchpanes/js/dataTables.searchPanes.min.js"></script>#}
+    <script type="text/javascript" src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
+    {#<script type="text/javascript" src="https://nightly.datatables.net/select/js/dataTables.select.min.js"></script>#}
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.bootstrap.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdn.datatables.net/responsive/2.2.5/js/dataTables.responsive.min.js"></script>
+    {#<script type="text/javascript" src="https://nightly.datatables.net/buttons/js/dataTables.buttons.min.js"></script>#}
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script src="{% static "lib/daterangepicker-3.1/spanish.js" %}"></script>
+    <script src="{% static "lib/daterangepicker-3.1/daterangepicker.js" %}"></script>
+
+
 {% endblock %}
-
-

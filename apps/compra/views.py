@@ -68,6 +68,7 @@ def crear(request):
                     dv.compra_id = c.id
                     dv.insumo_id = i['id']
                     dv.cantidad = int(i['cantidad'])
+                    dv.subtotal = float(i['subtotal'])
                     dv.save()
                     x = Insumo.objects.get(pk=i['id'])
                     x.stock = x.stock + int(i['cantidad'])

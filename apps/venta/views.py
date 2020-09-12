@@ -68,6 +68,7 @@ def crear(request):
                     dv.venta_id = c.id
                     dv.producto_id = i['id']
                     dv.cantidad = int(i['cantidad'])
+                    dv.subtotal = float(i['subtotal'])
                     dv.save()
                     x = Producto.objects.get(pk=i['id'])
                     x.stock = x.stock - int(i['cantidad'])
