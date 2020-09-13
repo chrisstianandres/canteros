@@ -89,3 +89,45 @@ def save(request):
             data['resp'] = False
             data['error'] = "Datos Incompletos"
     return HttpResponse(json.dumps(data), content_type="application/json")
+
+
+def report(request):
+    data = { 'icono': opc_icono, 'entidad': opc_entidad, 'titulo': 'Reporte de Produccion', 'key': ''}
+    return render(request, 'front-end/produccion/produccion_report.html', data)
+
+
+@csrf_exempt
+def data(request):
+    data = []
+    start_date = request.POST.get('start_date', '')
+    end_date = request.POST.get('end_date', '')
+    try:
+        if start_date == '' and end_date == '':
+            produccion = Produccion.objects.all()
+            for c in produccion:
+                data.append([
+                    c.id,
+                    c.fecha.strftime('%d-%m-%Y'),
+                    c.periodo.nombre,
+                    c.cantero.nombre,
+                    c.producto.nombre,
+                    c.producto.categoria.nombre,
+                    c.producto.presentacion.nombre,
+                    c.cantidad
+                ])
+        else:
+            produccion = Produccion.objects.filter(fecha__range=[start_date, end_date])
+            for c in produccion:
+                data.append([
+                    c.id,
+                    c.fecha.strftime('%d-%m-%Y'),
+                    c.periodo.nombre,
+                    c.cantero.nombre,
+                    c.producto.nombre,
+                    c.producto.categoria.nombre,
+                    c.producto.presentacion.nombre,
+                    c.cantidad
+                ])
+    except:
+        pass
+    return JsonResponse(data, safe=False)
