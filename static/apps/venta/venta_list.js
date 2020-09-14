@@ -219,7 +219,7 @@ $(function () {
                 render: function (data, type, row) {
                     var detalle = '<a type="button" rel="detalle" class="btn btn-success btn-sm btn-round" style="color: white" data-toggle="tooltip" title="Detalle de Productos"><i class="fa fa-search"></i></a>' + " ";
                     var devolver = '<a type="button" rel="devolver" class="btn btn-danger btn-sm btn-round" style="color: white" data-toggle="tooltip" title="Devolver"><i class="fa fa-times"></i></a>';
-                    var pdf = '<a type="button" rel="pdf" class="btn btn-info btn-sm btn-round" style="color: white" data-toggle="tooltip" title="Comprobante"><i class="fa fa-file-pdf"></i></a>';
+                    var pdf = '<a type="button" rel="pdf" href="/venta/printpdf/'+ row[5] + '" class="btn btn-info btn-sm btn-round" style="color: white" data-toggle="tooltip" title="Comprobante"><i class="fa fa-file-pdf"></i></a>';
                     return detalle + devolver+" "+pdf;
                 }
             },
@@ -285,7 +285,7 @@ $(function () {
                 {data: 'producto.categoria.nombre'},
                 {data: 'producto.presentacion.nombre'},
                 {data: 'cantidad'},
-                {data: 'producto.pvp'},
+                {data: 'pvp_moment'},
                 {data: 'subtotal'}
             ],
             columnDefs: [

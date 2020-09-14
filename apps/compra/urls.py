@@ -3,6 +3,7 @@ from django.urls import path
 from . import views
 from apps.compra.views import *
 from django.contrib.auth.decorators import login_required
+
 app_name = 'Compra'
 
 urlpatterns = [
@@ -18,4 +19,5 @@ urlpatterns = [
     path('index', login_required(views.index), name='index'),
     path('chart', login_required(views.grap), name='chart'),
     path('data', login_required(views.data), name='data'),
+    path('printpdf/<int:pk>', login_required(printpdf.as_view()), name='printpdf'),
 ]

@@ -160,21 +160,16 @@ $(function () {
         var parametros;
         compras.items.fecha_compra = $('input[name="fecha_compra"]').val();
         compras.items.proveedor = $('#id_proveedor option:selected').val();
-        if (action === 'edit') {
-            parametros = {'compras': JSON.stringify(compras.items)};
-            parametros['action'] = action;
-            parametros['key'] = key;
-            save_with_ajax('Alerta',
-                '../../compra/editar_save', 'Esta seguro que desea editar esta compra?', parametros, function () {
-                    location.href = '../../compra/lista';
-                });
-        } else {
-            parametros = {'compras': JSON.stringify(compras.items)};
-            save_with_ajax('Alerta',
-                '/compra/crear', 'Esta seguro que desea guardar esta compra?', parametros, function () {
+        parametros = {'compras': JSON.stringify(compras.items)};
+        save_with_ajax('Alerta',
+            '/compra/crear', 'Esta seguro que desea guardar esta compra?', parametros, function (response) {
+                printpdf('Alerta!', '¿Desea generar el comprobante en PDF?', function () {
+                    window.open('/compra/printpdf/' + response['id'], '_blank');
                     location.href = '/compra/lista';
-                });
-        }
+                }, function () {
+                    location.href = '/compra/lista';
+                })
+            });
     });
 });
 

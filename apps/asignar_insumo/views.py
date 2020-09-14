@@ -7,6 +7,7 @@ from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import *
 
+from apps.Mixins import SuperUserRequiredMixin
 from apps.asignar_insumo.forms import Asig_InsumoForm, Detalle_Asig_InsumoForm
 from apps.asignar_insumo.models import Asig_insumo, Detalle_asig_insumo
 from apps.insumo.models import Insumo
@@ -16,7 +17,7 @@ opc_entidad = 'Asignacion de Insumos'
 crud = '/asig_insumo/crear'
 
 
-class lista(ListView):
+class lista(SuperUserRequiredMixin, ListView):
     model = Asig_insumo
     template_name = 'front-end/asig_insumo/asig_insumo_list.html'
 

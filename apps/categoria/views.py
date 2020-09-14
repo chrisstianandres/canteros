@@ -2,6 +2,8 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import *
+
+from apps.Mixins import SuperUserRequiredMixin
 from apps.categoria.forms import CategoriaForm
 from apps.categoria.models import Categoria
 
@@ -10,7 +12,7 @@ opc_entidad = 'Categoria'
 crud = '/categoria/crear'
 
 
-class lista(ListView):
+class lista(SuperUserRequiredMixin, ListView):
     model = Categoria
     template_name = 'front-end/categoria/categoria_list.html'
 

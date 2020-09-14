@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import *
 
+from apps.Mixins import SuperUserRequiredMixin
 from apps.cantero.models import Cantero
 from apps.produccion.forms import ProduccionForm
 from apps.produccion.models import Produccion
@@ -17,7 +18,7 @@ opc_entidad = 'Produccion'
 crud = '/produccion/crear'
 
 
-class lista(ListView):
+class lista(SuperUserRequiredMixin, ListView):
     model = Produccion
     template_name = 'front-end/produccion/produccion_list.html'
 

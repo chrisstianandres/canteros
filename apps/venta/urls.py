@@ -3,6 +3,7 @@ from django.urls import path
 from . import views
 from apps.venta.views import *
 from django.contrib.auth.decorators import login_required
+
 app_name = 'Venta'
 
 urlpatterns = [
@@ -17,6 +18,5 @@ urlpatterns = [
     path('eliminar', login_required(views.eliminar), name='eliminar'),
     path('chart', login_required(views.grap), name='chart'),
     path('data', login_required(views.data), name='data'),
-    #path('editar/<int:id_alumno>', login_required(views.editar), name='editar'),
-
+    path('printpdf/<int:pk>', login_required(printpdf.as_view()), name='printpdf'),
 ]

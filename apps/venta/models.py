@@ -43,6 +43,7 @@ class Venta(models.Model):
 class Detalle_venta(models.Model):
     venta = models.ForeignKey(Venta, on_delete=models.PROTECT)
     producto = models.ForeignKey(Producto, on_delete=models.PROTECT)
+    pvp_moment = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
     cantidad = models.IntegerField(default=1)
     subtotal = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
 

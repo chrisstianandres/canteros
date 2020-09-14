@@ -21,8 +21,12 @@ def menu(request):
 
 
 def logeo(request):
-   data = {'titulo': 'Inicio de sesión'}
-   return render(request, 'front-end/registration/login.html', data)
+    data = {}
+    if not request.user.is_authenticated:
+        data['titulo'] = 'Inicio de Sesion'
+    else:
+        return HttpResponseRedirect("/")
+    return render(request, 'front-end/registration/login.html', data)
 
 
 @csrf_exempt

@@ -1,12 +1,13 @@
 import json
+import os
 from datetime import datetime
-from itertools import count
 
 from django.db import transaction
 from django.db.models import Sum
 from django.db.models.functions import Coalesce
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import *
 
@@ -15,6 +16,13 @@ from apps.venta.forms import VentaForm, Detalle_VentaForm
 from apps.venta.models import Venta, Detalle_venta
 from apps.configuracion.models import Empresa
 from apps.producto.models import Producto
+from canteros import settings
+
+import os
+from django.conf import settings
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+from django.contrib.staticfiles import finders
 
 opc_icono = 'fa fa-shopping-basket '
 opc_entidad = 'Ventas'
@@ -95,6 +103,7 @@ def crear(request):
                 c = Venta()
                 c.fecha_venta = datos['fecha_venta']
                 c.cliente_id = datos['cliente']
+                c.user_id = request.user.id
                 c.subtotal = float(datos['subtotal'])
                 c.iva = float(datos['iva'])
                 c.total = float(datos['total'])
@@ -105,10 +114,12 @@ def crear(request):
                     dv.producto_id = i['id']
                     dv.cantidad = int(i['cantidad'])
                     dv.subtotal = float(i['subtotal'])
-                    dv.save()
                     x = Producto.objects.get(pk=i['id'])
+                    dv.pvp_moment = float(x.pvp)
                     x.stock = x.stock - int(i['cantidad'])
+                    dv.save()
                     x.save()
+                    data['id'] = c.id
                     data['resp'] = True
         else:
             data['resp'] = False
@@ -317,3 +328,55 @@ def perd():
         r=Coalesce(Sum('perdida'), 0)).get('r')
     data.append(c)
     return data
+
+
+class printpdf(View):
+
+    def link_callback(self, uri, rel):
+        """
+        Convert HTML URIs to absolute system paths so xhtml2pdf can access those
+        resources
+        """
+        result = finders.find(uri)
+        if result:
+            if not isinstance(result, (list, tuple)):
+                result = [result]
+            result = list(os.path.realpath(path) for path in result)
+            path = result[0]
+        else:
+            sUrl = settings.STATIC_URL  # Typically /static/
+            sRoot = settings.STATIC_ROOT  # Typically /home/userX/project_static/
+            mUrl = settings.MEDIA_URL  # Typically /media/
+            mRoot = settings.MEDIA_ROOT  # Typically /home/userX/project_static/media/
+
+            if uri.startswith(mUrl):
+                path = os.path.join(mRoot, uri.replace(mUrl, ""))
+            elif uri.startswith(sUrl):
+                path = os.path.join(sRoot, uri.replace(sUrl, ""))
+            else:
+                return uri
+
+        # make sure that file exists
+        if not os.path.isfile(path):
+            raise Exception(
+                'media URI must start with %s or %s' % (sUrl, mUrl)
+            )
+        return path
+
+    def get(self, request, *args, **kwargs):
+        try:
+            template = get_template('front-end/report/pdf.html')
+            context = {'title': 'Comprobante de Venta',
+                       'sale': Venta.objects.get(pk=self.kwargs['pk']),
+                       'empresa': Empresa.objects.get(id=1),
+                       'icon': 'media/canteros_logo.png'
+                       }
+            html = template.render(context)
+
+            response = HttpResponse(content_type='application/pdf')
+            response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+            pisa_status = pisa.CreatePDF(html, dest=response, link_callback=self.link_callback)
+            return response
+        except:
+            pass
+        return HttpResponseRedirect(reverse_lazy('venta:lista'))

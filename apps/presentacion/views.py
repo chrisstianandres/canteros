@@ -2,6 +2,8 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import *
+
+from apps.Mixins import SuperUserRequiredMixin
 from apps.presentacion.forms import PresentacionForm
 from apps.presentacion.models import Presentacion
 
@@ -10,7 +12,7 @@ opc_entidad = 'Presentacion'
 crud = '/presentacion/crear'
 
 
-class lista(ListView):
+class lista(SuperUserRequiredMixin, ListView):
     model = Presentacion
     template_name = 'front-end/presentacion/presentacion_list.html'
 

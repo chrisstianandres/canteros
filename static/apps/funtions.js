@@ -43,7 +43,7 @@ function save_with_ajax(title, url, content, parametros, callback) {
                         data: parametros,
                     }).done(function (data) {
                         if (!data.hasOwnProperty('error')) {
-                            callback();
+                            callback(data);
                             return false;
                         }
                         menssaje_error('Error', data.error, 'fas fa-exclamation-circle');
@@ -103,6 +103,35 @@ function save_estado(title, url, content, parametros, callback) {
             }
         }
     });
+}
+
+function printpdf(title, content, callback, cancel) {
+    $.confirm({
+            theme: 'modern',
+            type: 'blue',
+            icon: 'fas fa-exclamation-circle',
+            title: title,
+            content: content,
+            columnClass: 'small',
+            draggable: true,
+            buttons: {
+                si: {
+                    text: '<i class="fas fa-check"></i> Si',
+                    btnClass: 'btn-blue',
+                    action: function () {
+                        callback();
+                    }
+                },
+                no: {
+                    text: '<i class="fas fa-times"></i> No',
+                    btnClass: 'btn-red',
+                    action: function () {
+                        cancel();
+                    }
+                }
+            }
+        }
+    );
 }
 
 function menssaje_error(title, content, icon) {

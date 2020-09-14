@@ -4,8 +4,9 @@ from datetime import datetime
 from django.db import transaction
 from django.db.models import Sum
 from django.db.models.functions import Coalesce
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import *
 
@@ -13,6 +14,12 @@ from apps.compra.forms import CompraForm, Detalle_CompraForm
 from apps.compra.models import Compra, Detalle_compra
 from apps.configuracion.models import Empresa
 from apps.insumo.models import Insumo
+
+import os
+from django.conf import settings
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+from django.contrib.staticfiles import finders
 
 opc_icono = 'fa fa-shopping-bag'
 opc_entidad = 'Compras'
@@ -96,6 +103,7 @@ def crear(request):
                 c = Compra()
                 c.fecha_compra = datos['fecha_compra']
                 c.proveedor_id = datos['proveedor']
+                c.user_id = request.user.id
                 c.subtotal = float(datos['subtotal'])
                 c.iva = float(datos['iva'])
                 c.total = float(datos['total'])
@@ -106,10 +114,12 @@ def crear(request):
                     dv.insumo_id = i['id']
                     dv.cantidad = int(i['cantidad'])
                     dv.subtotal = float(i['subtotal'])
-                    dv.save()
                     x = Insumo.objects.get(pk=i['id'])
+                    dv.pvp_moment = float(x.pvp)
                     x.stock = x.stock + int(i['cantidad'])
+                    dv.save()
                     x.save()
+                    data['id'] = c.id
                     data['resp'] = True
         else:
             data['resp'] = False
@@ -300,3 +310,55 @@ def grap_data():
             'y': float(total)
         })
     return data
+
+
+class printpdf(View):
+
+    def link_callback(self, uri, rel):
+        """
+        Convert HTML URIs to absolute system paths so xhtml2pdf can access those
+        resources
+        """
+        result = finders.find(uri)
+        if result:
+            if not isinstance(result, (list, tuple)):
+                result = [result]
+            result = list(os.path.realpath(path) for path in result)
+            path = result[0]
+        else:
+            sUrl = settings.STATIC_URL  # Typically /static/
+            sRoot = settings.STATIC_ROOT  # Typically /home/userX/project_static/
+            mUrl = settings.MEDIA_URL  # Typically /media/
+            mRoot = settings.MEDIA_ROOT  # Typically /home/userX/project_static/media/
+
+            if uri.startswith(mUrl):
+                path = os.path.join(mRoot, uri.replace(mUrl, ""))
+            elif uri.startswith(sUrl):
+                path = os.path.join(sRoot, uri.replace(sUrl, ""))
+            else:
+                return uri
+
+        # make sure that file exists
+        if not os.path.isfile(path):
+            raise Exception(
+                'media URI must start with %s or %s' % (sUrl, mUrl)
+            )
+        return path
+
+    def get(self, request, *args, **kwargs):
+        try:
+            template = get_template('front-end/report/pdf_compra.html')
+            context = {'title': 'Comprobante de Compra',
+                       'sale': Compra.objects.get(pk=self.kwargs['pk']),
+                       'empresa': Empresa.objects.get(id=1),
+                       'icon': 'media/canteros_logo.png'
+                       }
+            html = template.render(context)
+
+            response = HttpResponse(content_type='application/pdf')
+            response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+            pisa_status = pisa.CreatePDF(html, dest=response, link_callback=self.link_callback)
+            return response
+        except:
+            pass
+        return HttpResponseRedirect(reverse_lazy('compra:lista'))

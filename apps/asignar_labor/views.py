@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import *
 
+from apps.Mixins import SuperUserRequiredMixin
 from apps.asignar_labor.forms import Asig_LaborForm, Asig_LaborForm_pag
 from apps.asignar_labor.models import Asig_labor
 from apps.historial_pagos.models import Pago
@@ -18,7 +19,7 @@ opc_entidad = 'Asignacion de Labores'
 crud = '/asig_labor/crear'
 
 
-class lista(ListView):
+class lista(SuperUserRequiredMixin, ListView):
     model = Asig_labor
     template_name = 'front-end/asig_labor/asig_labor_list.html'
 
