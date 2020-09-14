@@ -1,3 +1,5 @@
+var datatable;
+
 var logotipo;
 const toDataURL = url => fetch(url).then(response => response.blob())
     .then(blob => new Promise((resolve, reject) => {
@@ -10,11 +12,67 @@ const toDataURL = url => fetch(url).then(response => response.blob())
 toDataURL('/media/canteros_logo.png').then(dataUrl => {
     logotipo = dataUrl;
 });
+var datos = {
+    fechas: {
+        'start_date': '',
+        'end_date': ''
+    },
+    add: function (data) {
+        if (data.key === 1) {
+            this.fechas['start_date'] = data.startDate.format('YYYY-MM-DD');
+            this.fechas['end_date'] = data.endDate.format('YYYY-MM-DD');
+        } else {
+            this.fechas['start_date'] = '';
+            this.fechas['end_date'] = '';
+        }
+
+        $.ajax({
+            url: '/pagos/data',
+            type: 'POST',
+            data: this.fechas,
+            success: function (data) {
+                datatable.clear();
+                datatable.rows.add(data).draw();
+            }
+        });
+
+    },
+};
+
+function daterange() {
+    $("div.toolbar").html('<br><div class="col-lg-3"><input type="text" name="fecha" class="form-control form-control-sm input-sm"></div> <br>');
+    $('input[name="fecha"]').daterangepicker({
+        locale: {
+            format: 'YYYY-MM-DD',
+            applyLabel: '<i class="fas fa-search"></i> Buscar',
+            cancelLabel: '<i class="fas fa-times"></i> Cancelar',
+        }
+    }).on('apply.daterangepicker', function (ev, picker) {
+        picker['key'] = 1;
+        datos.add(picker);
+        // filter_by_date();
+
+    }).on('cancel.daterangepicker', function (ev, picker) {
+        picker['key'] = 0;
+        datos.add(picker);
+
+    });
+
+}
+
 $(function () {
-    var datatable = $("#datatable").DataTable({
-        destroy: true,
+    $('a[rel="btn_nuevo"]').hide();
+    $("div.card-header").html('<h3><i class="far fa-file-pdf"></i> Reporte de Asignacion de Labor</h3>');
+    datatable = $("#datatable").DataTable({
+        responsive: true,
         autoWidth: false,
-        dom: '<"top"B><br>frtip',
+        ajax: {
+            url: '/pagos/data',
+            type: 'POST',
+            data: datos.fechas,
+            dataSrc: ""
+        },
+        dom: '<"top"B><"toolbar"><br>frtip',
         language: {
             url: '//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json',
             searchPanes: {
@@ -34,6 +92,13 @@ $(function () {
         },
         buttons: [
             {
+                text: '<i class="fa fa-search-minus"> Filtar por fecha</i>',
+                className: 'btn btn-success btn-round my_class',
+                action: function (e, dt, node, config) {
+                    daterange();
+                }
+            },
+            {
                 className: 'btn btn-info btn-round my_class', extend: 'searchPanes',
                 config: {
                     cascadePanes: true,
@@ -50,14 +115,13 @@ $(function () {
                 pageSize: 'A4', //A3 , A5 , A6 , legal , letter
                 download: 'open',
                 exportOptions: {
-                    columns: [1, 2, 3, 4, 5, 6, 7],
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
                     search: 'applied',
                     order: 'applied'
                 },
                 customize: function (doc) {
                     const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto",
-                        "Septiembre", "Octubre",
-                        "Noviembre", "Diciembre"
+                        "Septiembre", "Octubre", "Noviembre", "Diciembre"
                     ];
 
                     var date = new Date();
@@ -76,9 +140,9 @@ $(function () {
 
                     var jsDate = formatDateToString(date);
                     //[izquierda, arriba, derecha, abajo]
-                    doc.pageMargins = [25, 120, 25, 50];
-                    doc.defaultStyle.fontSize = 12;
-                    doc.styles.tableHeader.fontSize = 14;
+                    doc.pageMargins = [20, 120, 25, 50];
+                    doc.defaultStyle.fontSize = 10;
+                    doc.styles.tableHeader.fontSize = 12;
                     doc['header'] = (function () {
                         return {
                             columns: [{alignment: 'center', image: logotipo, width: 300}],
@@ -120,7 +184,7 @@ $(function () {
                         return 4;
                     };
                     doc.content[0].layout = objLayout;
-                    doc.content[1].table.widths = [160, 70, 70, 140, 180, 70, "*"];
+                    doc.content[1].table.widths = [65, 95, 110, 60, 55, 120, 30, 60, 60, 70];
                     doc.styles.tableBodyEven.alignment = 'center';
                     doc.styles.tableBodyOdd.alignment = 'center';
                 }
@@ -132,7 +196,13 @@ $(function () {
         ],
         columnDefs: [
             {
-                targets: [-2],
+                searchPanes: {
+                    show: true,
+                },
+                targets: [2, 3, 4, 5, 6, 7],
+            },
+            {
+                targets: [3],
                 class: 'text-center',
                 orderable: false,
                 render: function (data, type, row) {
@@ -140,33 +210,22 @@ $(function () {
                 }
             },
             {
-                searchPanes: {
-                    show: true,
-                },
-                targets: [0, 1, 2, 3, 4, 5, 6, 7],
+                targets: [-3, -2, -1],
+                class: 'text-center',
+                orderable: false,
+                render: function (data, type, row) {
+                    return '$' + data;
+                }
             },
         ],
         createdRow: function (row, data, dataIndex) {
-            if (data[7] === 'ACTIVO') {
-                $('td', row).eq(7).find('span').addClass('badge badge-primary');
-            } else if (data[7] === 'INACTIVO') {
-                $('td', row).eq(7).find('span').addClass('badge badge-danger');
+            if (data[3] === 'ACTIVO') {
+                $('td', row).eq(3).find('span').addClass('badge badge-info');
+            } else if (data[3] === 'INACTIVO') {
+                $('td', row).eq(3).find('span').addClass('badge badge-danger');
             }
         }
-
-    });
-
-    $('#datatable tbody').on('click', 'a[rel="estado"]', function () {
-        var tr = datatable.cell($(this).closest('td, li')).index();
-        var data = datatable.row(tr.row).data();
-        var parametros = {'id': data['0']};
-        save_estado('Alerta',
-            '/trabajador/estado', 'Esta seguro que desea cambiar el estado de este trabajador?', parametros,
-            function () {
-                menssaje_ok('Exito!', 'Exito en la actualizacion', 'far fa-smile-wink', function () {
-                    location.reload();
-                })
-            });
     });
 });
+
 

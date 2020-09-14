@@ -10,6 +10,7 @@ from apps.asignar_labor.models import Asig_labor
 class Pago(models.Model):
     fecha = models.DateField(default=datetime.now)
     asignacion = models.ForeignKey(Asig_labor, on_delete=models.PROTECT)
+    valor = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
     user = models.ForeignKey(User, on_delete=models.PROTECT)
 
     def __str__(self):

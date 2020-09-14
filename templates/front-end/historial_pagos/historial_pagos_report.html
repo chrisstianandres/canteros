@@ -1,0 +1,28 @@
+{% extends 'front-end/list.html' %}
+{% load static from staticfiles %}
+{% block table %}
+    <thead>
+    <tr>
+        <th>Fecha_pago</th>
+        <th>fecha_asignacion</th>
+        <th>Trabajador</th>
+        <th>Estdo Tbjdr</th>
+        <th>Desde/Hasta</th>
+        <th>Labor</th>
+        <th>Dias</th>
+        <th>Valor</th>
+        <th>Saldo</th>
+        <th>Valor Pg</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+{% endblock %}
+
+{% block extra %}
+    <script src="{% static 'apps/historial_pagos/historial_pagos_report.js' %}"></script>
+    <script src="{% static 'apps/funtions.js' %}"></script>
+{% endblock %}
+{% block javascript %}
+
+{% endblock %}

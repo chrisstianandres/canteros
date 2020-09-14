@@ -24,7 +24,7 @@ class lista(ListView):
     template_name = 'front-end/compra/compra_list.html'
 
     def get_queryset(self):
-        return Compra.objects.order_by('-id')
+        return Compra.objects.none()
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
@@ -47,6 +47,43 @@ def nuevo(request):
         data['form2'] = Detalle_CompraForm()
         data['detalle'] = []
     return render(request, 'front-end/compra/compra_form.html', data)
+
+
+@csrf_exempt
+def data(request):
+    data = []
+    start_date = request.POST.get('start_date', '')
+    end_date = request.POST.get('end_date', '')
+
+    try:
+        if start_date == '' and end_date == '':
+            compra = Compra.objects.all()
+            for c in compra:
+                data.append([
+                    c.fecha_compra.strftime('%d-%m-%Y'),
+                    str(c.proveedor),
+                    format(c.subtotal, '.2f'),
+                    format(c.iva, '.2f'),
+                    format(c.total, '.2f'),
+                    c.id,
+                    c.get_estado_display()
+                ])
+        else:
+            compra = Compra.objects.filter(fecha_compra__range=[start_date, end_date])
+            print(compra)
+            for c in compra:
+                data.append([
+                    c.fecha_compra.strftime('%d-%m-%Y'),
+                    str(c.proveedor),
+                    format(c.subtotal, '.2f'),
+                    format(c.iva, '.2f'),
+                    format(c.total, '.2f'),
+                    c.id,
+                    c.get_estado_display()
+                ])
+    except:
+        pass
+    return JsonResponse(data, safe=False)
 
 
 @csrf_exempt

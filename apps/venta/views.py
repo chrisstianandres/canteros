@@ -7,7 +7,6 @@ from django.db.models import Sum
 from django.db.models.functions import Coalesce
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
-from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import *
 
@@ -25,6 +24,7 @@ crud = '/venta/crear'
 class lista(ListView):
     model = Venta
     template_name = 'front-end/venta/venta_list.html'
+    queryset = Venta.objects.none()
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
@@ -34,6 +34,42 @@ class lista(ListView):
         data['titulo'] = 'Listado de Ventas'
         data['nuevo'] = '/venta/nuevo'
         return data
+
+
+@csrf_exempt
+def data(request):
+    data = []
+    start_date = request.POST.get('start_date', '')
+    end_date = request.POST.get('end_date', '')
+
+    try:
+        if start_date == '' and end_date == '':
+            venta = Venta.objects.all()
+            for c in venta:
+                data.append([
+                    c.fecha_venta.strftime('%d-%m-%Y'),
+                    str(c.cliente),
+                    format(c.subtotal, '.2f'),
+                    format(c.iva, '.2f'),
+                    format(c.total, '.2f'),
+                    c.id,
+                    c.get_estado_display()
+                ])
+        else:
+            venta = Venta.objects.filter(fecha_venta__range=[start_date, end_date])
+            for c in venta:
+                data.append([
+                    c.fecha_venta.strftime('%d-%m-%Y'),
+                    str(c.cliente),
+                    format(c.subtotal, '.2f'),
+                    format(c.iva, '.2f'),
+                    format(c.total, '.2f'),
+                    c.id,
+                    c.get_estado_display()
+                ])
+    except:
+        pass
+    return JsonResponse(data, safe=False)
 
 
 def nuevo(request):
@@ -281,6 +317,3 @@ def perd():
         r=Coalesce(Sum('perdida'), 0)).get('r')
     data.append(c)
     return data
-
-
-

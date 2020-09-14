@@ -1,0 +1,26 @@
+{% extends 'front-end/list.html' %}
+{% load static from staticfiles %}
+{% block table %}
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Fecha</th>
+        <th>Periodo</th>
+        <th>Cantero</th>
+        <th>Insumo</th>
+        <th>Categoria</th>
+        <th>Presentacion</th>
+        <th>Cantidad</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+{% endblock %}
+
+{% block extra %}
+    <script src="{% static 'apps/asig_insumo/asig_insumo_report.js' %}"></script>
+    <script src="{% static 'apps/funtions.js' %}"></script>
+{% endblock %}
+{% block javascript %}
+
+{% endblock %}

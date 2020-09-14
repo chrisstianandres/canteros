@@ -43,6 +43,7 @@ urlpatterns = [
     path('periodo/', include('apps.periodo.urls', namespace='periodo')),
     path('asig_insumo/', include('apps.asignar_insumo.urls', namespace='asig_insumo')),
     path('asig_labor/', include('apps.asignar_labor.urls', namespace='asig_labor')),
+    path('pagos/', include('apps.historial_pagos.urls', namespace='pagos')),
     path('labor/', include('apps.labor.urls', namespace='labor')),
     path('produccion/', include('apps.produccion.urls', namespace='produccion')),
 ]

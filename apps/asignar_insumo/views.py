@@ -161,3 +161,45 @@ def get_detalle(request):
     except Exception as e:
         data['error'] = str(e)
     return JsonResponse(data, safe=False)
+
+
+def report(request):
+    data = { 'icono': opc_icono, 'entidad': opc_entidad, 'titulo': 'Reporte de Asignacion de Isumos', 'key': ''}
+    return render(request, 'front-end/asig_insumo/asig_insumo_report.html', data)
+
+
+@csrf_exempt
+def data(request):
+    data = []
+    start_date = request.POST.get('start_date', '')
+    end_date = request.POST.get('end_date', '')
+    try:
+        if start_date == '' and end_date == '':
+            asig_insumo = Detalle_asig_insumo.objects.all()
+            for c in asig_insumo:
+                data.append([
+                    c.id,
+                    c.asig_insumo.fecha_asig.strftime('%d-%m-%Y'),
+                    c.asig_insumo.periodo.nombre,
+                    c.asig_insumo.cantero.nombre,
+                    c.insumo.nombre,
+                    c.insumo.categoria.nombre,
+                    c.insumo.presentacion.nombre,
+                    c.cantidad
+                ])
+        else:
+            asig_insumo = Detalle_asig_insumo.objects.filter(asig_insumo__fecha_asig__range=[start_date, end_date])
+            for c in asig_insumo:
+                data.append([
+                    c.id,
+                    c.asig_insumo.fecha_asig.strftime('%d-%m-%Y'),
+                    c.asig_insumo.periodo.nombre,
+                    c.asig_insumo.cantero.nombre,
+                    c.insumo.nombre,
+                    c.insumo.categoria.nombre,
+                    c.insumo.presentacion.nombre,
+                    c.cantidad
+                ])
+    except:
+        pass
+    return JsonResponse(data, safe=False)

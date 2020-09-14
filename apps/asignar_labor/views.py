@@ -175,7 +175,8 @@ def save_pago(request):
                 dv.saldo = float(dv.saldo) - float(datos['valor_pag'])
                 dv.save()
                 hp = Pago()
-                hp.fecha= datetime.now()
+                hp.fecha = datetime.now()
+                hp.valor = float(datos['valor_pag'])
                 hp.asignacion_id = dv.id
                 hp.user_id = request.user.id
                 hp.save()
@@ -187,3 +188,56 @@ def save_pago(request):
             data['resp'] = False
             data['error'] = "Datos Incompletos"
     return HttpResponse(json.dumps(data), content_type="application/json")
+
+
+def report(request):
+    data = { 'icono': opc_icono, 'entidad': opc_entidad, 'titulo': 'Reporte de Asignacion de Labores', 'key': ''}
+    return render(request, 'front-end/asig_labor/asig_labor_report.html', data)
+
+
+@csrf_exempt
+def data(request):
+    data = []
+    start_date = request.POST.get('start_date', '')
+    end_date = request.POST.get('end_date', '')
+
+    try:
+        if start_date == '' and end_date == '':
+            print("sin fecha")
+            asig_labor = Asig_labor.objects.all()
+            for c in asig_labor:
+                data.append([
+                    c.fecha_asig.strftime('%d-%m-%Y'),
+                    c.periodo.nombre,
+                    c.trabajador.nombres + " " + c.trabajador.apellidos,
+                    c.trabajador.get_estado_display(),
+                    c.desde.strftime('%d-%m-%Y'),
+                    c.hasta.strftime('%d-%m-%Y'),
+                    c.labor.nombre,
+                    c.total_dias,
+                    format(c.valor_a_pag, '.2f'),
+                    format(c.saldo, '.2f'),
+                    format(c.valor_pag, '.2f'),
+                    c.get_estado_display(),
+                ])
+        else:
+            print("con fecha")
+            asig_labor = Asig_labor.objects.filter(fecha_asig__range=[start_date, end_date])
+            for c in asig_labor:
+                data.append([
+                    c.fecha_asig.strftime('%d-%m-%Y'),
+                    c.periodo.nombre,
+                    c.trabajador.nombres + " " + c.trabajador.apellidos,
+                    c.trabajador.get_estado_display(),
+                    c.desde.strftime('%d-%m-%Y'),
+                    c.hasta.strftime('%d-%m-%Y'),
+                    c.labor.nombre,
+                    c.total_dias,
+                    format(c.valor_a_pag, '.2f'),
+                    format(c.saldo, '.2f'),
+                    format(c.valor_pag, '.2f'),
+                    c.get_estado_display()
+                ])
+    except:
+        pass
+    return JsonResponse(data, safe=False)

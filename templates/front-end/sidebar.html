@@ -136,17 +136,24 @@
                 <span class="pcoded-mcaret"></span>
             </a>
         </li>
-        <li data-toggle="tooltip" data-placement="right" title="Asignacion de Labores">
-            <a href="{% url 'Presentacion:lista' %}">
-                <span class="pcoded-micon"><i class="fas fa-box-open"></i></span>
+        <li data-toggle="tooltip" data-placement="right" title="Reporte de Asignacion de Labores">
+            <a href="{% url 'Asig_labor:report' %}">
+                <span class="pcoded-micon"><i class="fas fa-laptop-house"></i></span>
                 <span class="pcoded-mtext"> Presentacion</span>
                 <span class="pcoded-mcaret"></span>
             </a>
         </li>
-        <li data-toggle="tooltip" data-placement="right" title="Asignacion de Insumos">
-            <a href="{% url 'periodo:lista' %}">
-                <span class="pcoded-micon"><i class="fas fa-clock"></i></span>
-                <span class="pcoded-mtext"> Periodo</span>
+        <li data-toggle="tooltip" data-placement="right" title="Reporte de Asignacion de Insumos">
+            <a href="{% url 'asig_insumo:report' %}">
+                <span class="pcoded-micon"><i class="fab fa-free-code-camp"></i></span>
+                <span class="pcoded-mtext"> Asignacion de Insumos</span>
+                <span class="pcoded-mcaret"></span>
+            </a>
+        </li>
+        <li data-toggle="tooltip" data-placement="right" title="Reporte de Pago de Labores">
+            <a href="{% url 'pagos:report' %}">
+                <span class="pcoded-micon"><i class="fas fa-hand-holding-usd"></i></span>
+                <span class="pcoded-mtext"> Historial de Pagos</span>
                 <span class="pcoded-mcaret"></span>
             </a>
         </li>

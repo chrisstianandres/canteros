@@ -11,6 +11,7 @@ estado = (
     (1, 'PAGADO')
 )
 
+
 class Asig_labor(models.Model):
     fecha_asig = models.DateField(default=datetime.now)
     trabajador = models.ForeignKey(Trabajador, on_delete=models.PROTECT)

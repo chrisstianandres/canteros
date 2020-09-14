@@ -1,0 +1,30 @@
+{% extends 'front-end/list.html' %}
+{% load static from staticfiles %}
+{% block table %}
+    <thead>
+    <tr>
+       <th>Fecha</th>
+        <th>Periodo</th>
+        <th>Trabajador</th>
+        <th>Estdo Tbjdr</th>
+        <th>Desde</th>
+        <th>Hasta</th>
+        <th>Labor</th>
+        <th>Dias</th>
+        <th>Valor</th>
+        <th>Saldo</th>
+        <th>Valor Pg</th>
+        <th>Estado</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+{% endblock %}
+
+{% block extra %}
+    <script src="{% static 'apps/asig_labor/asig_labor_report.js' %}"></script>
+    <script src="{% static 'apps/funtions.js' %}"></script>
+{% endblock %}
+{% block javascript %}
+
+{% endblock %}
