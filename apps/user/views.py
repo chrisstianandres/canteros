@@ -36,19 +36,17 @@ def data(request):
     try:
         user = User.objects.all()
         for c in user:
+            print(c)
             data.append([
                 c.id,
                 c.username,
                 c.get_full_name(),
                 c.cedula,
-                c.cargo.nombre,
                 c.direccion,
                 c.telefono,
                 c.get_sexo_display(),
-                c.get_estado_display(),
                 c.id,
             ])
-
     except:
         pass
     return JsonResponse(data, safe=False)
