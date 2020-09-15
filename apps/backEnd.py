@@ -10,6 +10,8 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 
 #-----------------------------------------------PAGINA PRINCIPAL-----------------------------------------------------
+
+
 def menu(request):
     data = {
         'titulo': 'Menu Principal', 'entidad': 'Menu Principal'
@@ -50,3 +52,8 @@ def connect(request):
 def disconnect(request):
     logout(request)
     return HttpResponseRedirect('/login')
+
+
+def profile(request):
+    data = { 'titulo': 'Perfil de Usuario', 'entidad': 'Perfil de Usuario'}
+    return render(request, 'front-end/profile/profile.html', data)

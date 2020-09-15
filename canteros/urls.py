@@ -30,6 +30,7 @@ urlpatterns = [
     path('login/', backEnd.logeo, name='login'),
     path('logout/', backEnd.disconnect, name='logout'),
     path('connect/', backEnd.connect, name='connect'),
+    path('user/', include('apps.user.urls', namespace='user')),
     path('cliente/', include('apps.cliente.urls', namespace='cliente')),
     path('proveedor/', include('apps.proveedor.urls', namespace='proveedor')),
     path('insumo/', include('apps.insumo.urls', namespace='insumo')),

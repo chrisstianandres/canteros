@@ -1,17 +1,17 @@
 from datetime import datetime
 
-from django.contrib.auth.models import User
 from django.db import models
 from django.forms import model_to_dict
 
 from apps.asignar_labor.models import Asig_labor
+from apps.user.models import User
 
 
 class Pago(models.Model):
     fecha = models.DateField(default=datetime.now)
     asignacion = models.ForeignKey(Asig_labor, on_delete=models.PROTECT)
     valor = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
-    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    user = models.ForeignKey(User, on_delete=models.PROTECT, null=True, blank=True)
 
     def __str__(self):
         return '%s %s' % (self.fecha, self.asignacion.trabajador.nombres)

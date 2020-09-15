@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'apps.venta',
     'apps.periodo',
     'apps.historial_pagos',
+    'apps.user'
 
 ]
 
@@ -108,7 +109,7 @@ WSGI_APPLICATION = 'canteros.wsgi.application'
 DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'bd_canteros',
+            'NAME': 'bd_h_fajardo',
             'USER': 'user',
             'PASSWORD': '123456',
             'HOST': 'localhost',
@@ -118,7 +119,10 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
-
+AUTHENTICATION_BACKENDS = (
+        'django.contrib.auth.backends.RemoteUserBackend',
+        'django.contrib.auth.backends.ModelBackend',
+)
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -161,8 +165,5 @@ MEDIA_URL = '/media/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
-
+AUTH_USER_MODEL = 'user.User'
 LOGIN_URL = '/login'
-# BOOTSTRAP4 = {
-#     'include_jquery': True,
-# }

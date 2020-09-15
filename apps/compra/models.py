@@ -1,12 +1,13 @@
 from datetime import datetime
 
-from django.contrib.auth.models import User
+
 from django.db import models
 from django.forms import model_to_dict
 
 from apps.insumo.models import Insumo
 from apps.presentacion.models import Presentacion
 from apps.proveedor.models import Proveedor
+from apps.user.models import User
 
 estado = (
     (0, 'DEVUELTA'),

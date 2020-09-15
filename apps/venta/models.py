@@ -1,11 +1,11 @@
 from datetime import datetime
 
-from django.contrib.auth.models import User
 from django.db import models
 from django.forms import model_to_dict
 
 from apps.cliente.models import Cliente
 from apps.producto.models import Producto
+from apps.user.models import User
 
 estado = (
     (0, 'DEVUELTA'),
