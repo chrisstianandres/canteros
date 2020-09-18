@@ -39,7 +39,7 @@ $(function () {
         dom: "<'top'B> frtip",
         buttons: [
             {
-                className: 'btn-default my_class', extend: 'searchPanes', config: {
+                className: 'btn btn-info my_class btn_round', extend: 'searchPanes', config: {
                     cascadePanes: true,
                     viewTotal: true,
                     layout: 'columns-5'
@@ -148,7 +148,7 @@ $(function () {
                 width: '10%',
                 render: function (data, type, row) {
                     var edit = '<a type="button" class="btn btn-success btn-sm" style="color: white" data-toggle="tooltip" title="Editar Datos" href="/user/editar/' + row[0] + '"><i class="fa fa-user-edit"></i></a>' + ' ';
-                    var estado = '<a type="button" class="btn btn-primary btn-sm" style="color:white;" data-toggle="tooltip" title="Gestionar Estado" rel="estado"> <i class="fa fa-user-cog"></i></a>';
+                    var estado = '<a type="button" class="btn btn-danger btn-sm" style="color:white;" data-toggle="tooltip" title="Eliminar" rel="del"> <i class="fa fa-user-times"></i></a>';
                     return edit + estado;
                 }
             },
@@ -169,6 +169,18 @@ $(function () {
             '/empleado/estado', 'Esta seguro que desea cambiar el estado de este trabajador?', parametros,
             function () {
                 menssaje_ok('Exito!', 'Exito en la actualizacion', 'far fa-smile-wink', function () {
+                    datatable.ajax.reload(null, false);
+                })
+            });
+    });
+     $('#datatable tbody').on('click', 'a[rel="del"]', function () {
+        var tr = datatable.cell($(this).closest('td, li')).index();
+        var data = datatable.row(tr.row).data();
+        var parametros = {'id': data['0']};
+        save_estado('Alerta',
+            '/user/eliminar', 'Esta seguro que desea eliminar este usuario?', parametros,
+            function () {
+                menssaje_ok('Exito!', 'Exito al eliminar este usuario!', 'far fa-smile-wink', function () {
                     datatable.ajax.reload(null, false);
                 })
             });

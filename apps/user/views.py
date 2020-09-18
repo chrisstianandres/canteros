@@ -123,14 +123,14 @@ def eliminar(request):
     try:
         id = request.POST['id']
         if id:
-            ps = Cliente.objects.get(pk=id)
+            ps = User.objects.get(pk=id)
             ps.delete()
             data['resp'] = True
         else:
             data['error'] = 'Ha ocurrido un error'
     except Exception as e:
-        data['error'] = 'No se puede eliminar este cliente porque esta referenciado en otros procesos'
-        data['content'] = 'Intenta con otro cliente'
+        data['error'] = 'No se puede eliminar este Usuario porque esta referenciado en otros procesos'
+        data['content'] = 'Intenta con otro Usuario'
     return JsonResponse(data)
 
 
@@ -211,8 +211,8 @@ def profile(request):
     user = User.objects.get(id=request.user.id)
     crud = '/user/profile'
     data = {
-        'icono': opc_icono, 'entidad': opc_entidad, 'crud': crud,
-        'boton': 'Guardar Usuario', 'action': 'add', 'titulo': 'Perfil de Usuario'
+        'icono': 'fa fa-user', 'entidad': 'Perfil de Usuario', 'crud': crud,
+        'boton': 'Guardar info', 'action': 'add', 'titulo': 'Perfil de Usuario'
     }
     if request.method == 'GET':
         form = UserForm(instance=user)

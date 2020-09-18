@@ -26,7 +26,7 @@
                         <ul class="nav-right">
                             <li class="user-profile header-notification">
                                 <a href="#!">
-                                    <img src="{% static 'assets/images/user.png' %}" alt="User-Profile-Image">
+                                    <img class="user-img img-circle" src="{{ request.user.get_image }}" alt="User-Profile-Image">
                                     <span>{{ user.first_name }}</span>
                                     <i class="ti-angle-down"></i>
                                 </a>
