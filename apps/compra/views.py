@@ -77,7 +77,6 @@ def data(request):
                 ])
         else:
             compra = Compra.objects.filter(fecha_compra__range=[start_date, end_date])
-            print(compra)
             for c in compra:
                 data.append([
                     c.fecha_compra.strftime('%d-%m-%Y'),

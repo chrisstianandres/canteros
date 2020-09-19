@@ -278,7 +278,6 @@ def grap(request):
                 'prod': prod(),
                 'perd': perd(),
             }
-            print(data['perd'])
         else:
             data['error'] = 'Ha ocurrido un error'
     except Exception as e:

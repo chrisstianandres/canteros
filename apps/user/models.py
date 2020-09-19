@@ -4,18 +4,12 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.forms import model_to_dict
-from stdimage import StdImageField
 
 from canteros.settings import MEDIA_URL, STATIC_URL
 
 SEXO = (
     (1, 'Masculino'),
     (0, 'Femenino'),
-)
-
-ESTADO = (
-    (1, 'ACTIVO'),
-    (0, 'INACTIVO'),
 )
 
 
