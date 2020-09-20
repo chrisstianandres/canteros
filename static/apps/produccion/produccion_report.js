@@ -113,7 +113,7 @@ $(function () {
                 pageSize: 'A4', //A3 , A5 , A6 , legal , letter
                 download: 'open',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6, 7],
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8],
                     search: 'applied',
                     order: 'applied'
                 },
@@ -183,7 +183,7 @@ $(function () {
                         return 4;
                     };
                     doc.content[0].layout = objLayout;
-                    doc.content[1].table.widths = [20, 70, 100, 90, 140, 120, 120, 70];
+                    doc.content[1].table.widths = [20, 70, 80, 70, 120, 110, 110, 70, 70];
                     doc.styles.tableBodyEven.alignment = 'center';
                     doc.styles.tableBodyOdd.alignment = 'center';
                 }
@@ -198,7 +198,7 @@ $(function () {
                 searchPanes: {
                     show: true,
                 },
-                targets: [2, 3, 4, 5, 6, 7],
+                targets: [2, 3, 4, 5, 6, 7, 8],
             },
         ],
     });

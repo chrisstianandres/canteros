@@ -39,25 +39,38 @@ $(function () {
         // },
         columnDefs: [
             {
-                targets: [-1],
+                targets: [-2],
 
                 render: function (data, type, row) {
                     return '<input type="text" name= "cantidad" class="form-control form-control-sm input-sm col-sm-10" value="1">';
                     // return '<input type="text" name="cantidad" class="form-control form-control-sm input-sm" autocomplete="off" value="' + data + '">';
                 }
             },
+              {
+                targets: [-1],
+
+                render: function (data, type, row) {
+                    return '<input type="text" name= "perdida" class="form-control form-control-sm input-sm col-sm-10" value="1">';
+                    // return '<input type="text" name="cantidad" class="form-control form-control-sm input-sm" autocomplete="off" value="' + data + '">';
+                }
+            },
             {
                 targets: 2,
-                width: '40%'
+                width: '30%'
             },
             {
                 targets: 1,
-                width: '30%'
+                width: '20%'
             },
 
         ],
         rowCallback: function (row, data) {
             $(row).find('input[name="cantidad"]').TouchSpin({
+                min: 1,
+                max: 99999999999999,
+                step: 1
+            });
+             $(row).find('input[name="perdida"]').TouchSpin({
                 min: 1,
                 max: 99999999999999,
                 step: 1
@@ -70,7 +83,7 @@ $(function () {
         ingresar.items.periodo = $('select[name="periodo"] option:selected').val();
         var trs = $("#tbltrab tr").length;
         $("#tbltrab tbody tr").each(function (index) {
-            var c, p, ct;
+            var c, p, ct, pd;
             var filas = $(this).children("td").each(function (index2) {
                 switch (index2) {
                     case 0:
@@ -84,12 +97,16 @@ $(function () {
                     case 3:
                         ct = $(this).find('input[name="cantidad"]').val();
                         break;
+                    case 4:
+                        pd = $(this).find('input[name="perdida"]').val();
+                        break;
                 }
             });
             var items = {
                 "cantero": c,
                 "producto": p,
-                "cantidad": ct
+                "cantidad": ct,
+                "perdida": pd,
             };
             ingresar.add(items);
         });

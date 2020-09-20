@@ -81,6 +81,7 @@ def save(request):
                     dv.cantero_id = i['cantero']
                     dv.producto_id = i['producto']
                     dv.cantidad = int(i['cantidad'])
+                    dv.perdida = int(i['perdida'])
                     dv.save()
                     x = Producto.objects.get(pk=i['producto'])
                     x.stock = x.stock + int(i['cantidad'])
@@ -114,7 +115,8 @@ def data(request):
                     c.producto.nombre,
                     c.producto.categoria.nombre,
                     c.producto.presentacion.nombre,
-                    c.cantidad
+                    c.cantidad,
+                    c.perdida
                 ])
         else:
             produccion = Produccion.objects.filter(fecha__range=[start_date, end_date])
@@ -127,7 +129,8 @@ def data(request):
                     c.producto.nombre,
                     c.producto.categoria.nombre,
                     c.producto.presentacion.nombre,
-                    c.cantidad
+                    c.cantidad,
+                    c.perdida
                 ])
     except:
         pass

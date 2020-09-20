@@ -39,11 +39,13 @@ $(function () {
                 dataSrc: ""
             },
             columns: [
+                console.log(data),
                 {data: 'fecha'},
                 {data: 'periodo.nombre'},
                 {data: 'producto.nombre'},
                 {data: 'producto.presentacion.nombre'},
-                {data: 'cantidad'}
+                {data: 'cantidad'},
+                {data: 'perdida'},
 
             ],
             order: [[0, "desc"]],

@@ -1,8 +1,10 @@
 $(function () {
-
     var datatable = $("#datatable").DataTable({
         responsive: true,
         autoWidth: false,
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json',
+        },
         createdRow: function (row, data, dataIndex) {
             if (data[4] === '<span>ACTIVO</span>') {
                 $('td', row).eq(4).find('span').addClass('badge badge-pill badge-success');

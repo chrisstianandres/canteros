@@ -11,8 +11,8 @@
         <div class="main-menu-content">
             <ul>
                 <li class="more-details">
-                    <a href="#"><i class="ti-user"></i>Perfil</a>
-                    <a href="#!"><i class="ti-layout-sidebar-left"></i>Salir</a>
+                    <a href="{% url 'user:profile' %}"><i class="ti-user"></i>Perfil</a>
+                    <a href="{% url 'logout' %}"><i class="ti-layout-sidebar-left"></i>Salir</a>
                 </li>
             </ul>
         </div>
@@ -36,9 +36,16 @@
     </ul>
     <div class="pcoded-navigatio-lavel" menu-title-theme="theme5">Ventas</div>
     <ul class="pcoded-item pcoded-left-item">
+         <li data-toggle="tooltip" data-placement="right" title="Usuarios">
+            <a href="{% url 'user:lista' %}">
+                <span class="pcoded-micon"><i class="fa fa-user"></i></span>
+                <span class="pcoded-mtext"> Clientes</span>
+                <span class="pcoded-mcaret"></span>
+            </a>
+        </li>
         <li data-toggle="tooltip" data-placement="right" title="Clientes">
             <a href="{% url 'cliente:lista' %}">
-                <span class="pcoded-micon"><i class="fa fa-user"></i></span>
+                <span class="pcoded-micon"><i class="fa fa-users"></i></span>
                 <span class="pcoded-mtext"> Clientes</span>
                 <span class="pcoded-mcaret"></span>
             </a>

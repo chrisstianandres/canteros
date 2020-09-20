@@ -181,7 +181,7 @@ $(function () {
                         return 4;
                     };
                     doc.content[0].layout = objLayout;
-                    doc.content[1].table.widths = [65, 95, 110, 60, 55, 120];
+                    doc.content[1].table.widths = [200, 110, 120, 80, 100, 140];
                     doc.styles.tableBodyEven.alignment = 'center';
                     doc.styles.tableBodyOdd.alignment = 'center';
                 }

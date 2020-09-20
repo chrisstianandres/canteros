@@ -58,6 +58,7 @@ function daterange() {
     });
 
 }
+
 $(function () {
     datatable = $("#datatable").DataTable({
         // responsive: true,
@@ -182,7 +183,7 @@ $(function () {
                         return 4;
                     };
                     doc.content[0].layout = objLayout;
-                    doc.content[1].table.widths = [65, 95, 110, 60, 55, 120];
+                    doc.content[1].table.widths = [200, 110, 120, 80, 100, 140];
                     doc.styles.tableBodyEven.alignment = 'center';
                     doc.styles.tableBodyOdd.alignment = 'center';
                 }
@@ -192,22 +193,28 @@ $(function () {
                 extend: 'excel'
             }
         ],
-        order: [[ 5, "desc" ]],
+        order: [[5, "desc"]],
         columnDefs: [
+            {
+                searchPanes: {
+                    show: true,
+                },
+                targets: [1, 4, 5, 6],
+            },
             {
                 targets: '_all',
                 class: 'text-center',
 
             },
-           {
+            {
                 targets: [-1],
                 class: 'text-center',
                 width: "10%",
                 render: function (data, type, row) {
                     var detalle = '<a type="button" rel="detalle" class="btn btn-success btn-sm btn-round" style="color: white" data-toggle="tooltip" title="Detalle de Productos"><i class="fa fa-search"></i></a>' + " ";
                     var devolver = '<a type="button" rel="devolver" class="btn btn-danger btn-sm btn-round" style="color: white" data-toggle="tooltip" title="Devolver"><i class="fa fa-times"></i></a>';
-                    var pdf = '<a type="button" rel="pdf" href="/compra/printpdf/'+ row[5]+'" class="btn btn-info btn-sm btn-round" style="color: white" data-toggle="tooltip" title="Comprobante"><i class="fa fa-file-pdf"></i></a>';
-                    return detalle + devolver+" "+pdf;
+                    var pdf = '<a type="button" rel="pdf" href="/compra/printpdf/' + row[5] + '" class="btn btn-info btn-sm btn-round" style="color: white" data-toggle="tooltip" title="Comprobante"><i class="fa fa-file-pdf"></i></a>';
+                    return detalle + devolver + " " + pdf;
                 }
             },
             {
@@ -223,7 +230,7 @@ $(function () {
                 }
             }
         ],
-         createdRow: function (row, data, dataIndex) {
+        createdRow: function (row, data, dataIndex) {
             if (data[6] === 'FINALIZADA') {
                 $('td', row).eq(6).find('span').addClass('badge badge-pill badge-success');
             } else if (data[6] === 'DEVUELTA') {
@@ -250,54 +257,54 @@ $(function () {
 
     })
         .on('click', 'a[rel="detalle"]', function () {
-        $('.tooltip').remove();
-        var tr = datatable.cell($(this).closest('td, li')).index();
-        var data = datatable.row(tr.row).data();
-        $('#Modal').modal('show');
-        $("#tbldetalle_insumos").DataTable({
-            responsive: true,
-            autoWidth: false,
-            language: {
-                "url": '../static/lib/datatables-1.10.20/spanish.txt'
-            },
-            destroy: true,
-            ajax: {
-                url: '/compra/get_detalle',
-                type: 'Post',
-                data: {
-                    'id': data['5']
+            $('.tooltip').remove();
+            var tr = datatable.cell($(this).closest('td, li')).index();
+            var data = datatable.row(tr.row).data();
+            $('#Modal').modal('show');
+            $("#tbldetalle_insumos").DataTable({
+                responsive: true,
+                autoWidth: false,
+                language: {
+                    "url": '../static/lib/datatables-1.10.20/spanish.txt'
                 },
-                dataSrc: ""
-            },
-            columns: [
-                {data: 'insumo.nombre'},
-                {data: 'insumo.categoria.nombre'},
-                {data: 'insumo.presentacion.nombre'},
-                {data: 'cantidad'},
-                {data: 'pvp_moment'},
-                {data: 'subtotal'}
-            ],
-            columnDefs: [
-                {
-                    targets: [3],
-                    class: 'text-center'
+                destroy: true,
+                ajax: {
+                    url: '/compra/get_detalle',
+                    type: 'Post',
+                    data: {
+                        'id': data['5']
+                    },
+                    dataSrc: ""
                 },
-                {
-                    targets: [-1, -2],
-                    class: 'text-center',
-                    orderable: false,
-                    render: function (data, type, row) {
-                        return '$' + parseFloat(data).toFixed(2);
-                    }
-                },
-            ],
-        });
+                columns: [
+                    {data: 'insumo.nombre'},
+                    {data: 'insumo.categoria.nombre'},
+                    {data: 'insumo.presentacion.nombre'},
+                    {data: 'cantidad'},
+                    {data: 'pvp_moment'},
+                    {data: 'subtotal'}
+                ],
+                columnDefs: [
+                    {
+                        targets: [3],
+                        class: 'text-center'
+                    },
+                    {
+                        targets: [-1, -2],
+                        class: 'text-center',
+                        orderable: false,
+                        render: function (data, type, row) {
+                            return '$' + parseFloat(data).toFixed(2);
+                        }
+                    },
+                ],
+            });
 
-    });
+        });
 
 });
 
-function pad (str, max) {
-  str = str.toString();
-  return str.length < max ? pad("0" + str, max) : str;
+function pad(str, max) {
+    str = str.toString();
+    return str.length < max ? pad("0" + str, max) : str;
 }
