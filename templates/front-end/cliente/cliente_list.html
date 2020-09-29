@@ -3,6 +3,7 @@
 {% block table %}
     <thead>
     <tr>
+        <th>ID</th>
         <th scope="col" style="width: 10%">Nombres</th>
         <th>Tipo</th>
         <th>N° Documento</th>
@@ -15,6 +16,7 @@
     <tbody>
     {% for dato in lista %}
         <tr>
+            <td>{{ dato.id }}</td>
             <td>{{ dato.nombres }} </td>
             <td>{{ dato.get_tipo_doc_display }} </td>
             <td>{{ dato.numero_doc }} </td>

@@ -85,3 +85,7 @@ def eliminar(request):
         gs = goslate.Goslate()
         data['error'] = gs.translate(str(e), 'es')
     return JsonResponse(data)
+
+
+def tabla(request):
+    return render(request, "back-end/tabla.html")

@@ -11,5 +11,6 @@ urlpatterns = [
     #path('inventario', login_required(views.stock), name='inventario'),
     path('editar/<int:id>', login_required(views.editar), name='editar'),
     path('eliminar', login_required(views.eliminar), name='editar'),
+    path('tabla', login_required(views.tabla), name='tabla'),
 
 ]
