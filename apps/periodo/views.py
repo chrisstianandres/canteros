@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import *
@@ -79,15 +81,37 @@ def estado(request):
     try:
         id = request.POST['id']
         if id:
-            ps = Periodo.objects.get(estado=1)
-            ps.estado = 0
-            ps.save()
+            if Periodo.objects.filter(estado=1).exists():
+                ps = Periodo.objects.get(estado=1)
+                ps.estado = 0
+                ps.save()
             es = Periodo.objects.get(id=id)
             es.estado = 1
             es.save()
             data['resp'] = True
         else:
             data['error'] = 'Ha ocurrido un error'
+    except Exception as e:
+        data['error'] = str(e)
+    return JsonResponse(data)
+
+
+@csrf_exempt
+def check(request):
+    data = {}
+    try:
+        date = datetime.now().date()
+        if Periodo.objects.filter(desde__lte=date, hasta__gte=date).exists():
+            p = Periodo.objects.get(desde__lte=date, hasta__gte=date)
+            if p.estado == 1:
+                pass
+            else:
+                p.estado = 1
+                p.save()
+        else:
+            data['error'] = 'Por favor Agregue el periodo ' + str(date.year)
+        data['resp'] = True
+
     except Exception as e:
         data['error'] = str(e)
     return JsonResponse(data)

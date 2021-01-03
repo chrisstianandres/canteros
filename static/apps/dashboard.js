@@ -53,7 +53,7 @@ function cahrtventas() {
         var yea = data['cat'];
         var chart = Highcharts.chart('container2', {
             title: {
-                text: 'Ventas del año '+ '<strong>'+yea[0]+'</strong>'+ ' al año ' +'<strong>'+yea[5]+'</strong>'
+                text: 'Ventas del año ' + '<strong>' + yea[0] + '</strong>' + ' al año ' + '<strong>' + yea[5] + '</strong>'
             },
             tooltip: {
                 pointFormat: '{series.name}: <b>$ {point.y}</b>'
@@ -76,6 +76,35 @@ function cahrtventas() {
     });
 }
 
+function periodo() {
+    $.ajax({
+        url: '/periodo/check',
+        type: 'POST',
+        data: {'action': 'chart'},
+        dataSrc: "",
+    }).done(function (data) {
+        if (data.hasOwnProperty('error')) {
+            menssaje_error('Error', data.error, 'fas fa-exclamation-circle');
+        }
+
+    })
+}
+function menssaje_error(title, content, icon) {
+    $.confirm({
+        theme: 'modern',
+        icon: icon,
+        title: title,
+        type: 'red',
+        content: content,
+        draggable: true,
+        buttons: {
+            info: {
+                text: '<i class="fas fa-check"></i> Ok',
+                btnClass: 'btn-blue',
+            },
+        }
+    });
+}
 $(function () {
     var datatable = $("#datatable").DataTable({
         autoWidth: false,
@@ -114,5 +143,7 @@ $(function () {
     });
     cahrtcompras();
     cahrtventas();
+    periodo();
 
 });
+
