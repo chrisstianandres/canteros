@@ -44,12 +44,105 @@ class lista(ListView):
         return data
 
 
+class report(ListView):
+    model = Venta
+    template_name = 'front-end/venta/venta_report.html'
+    queryset = Venta.objects.none()
+
+    @csrf_exempt
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def post(self, *args, **kwargs):
+        data = {}
+        try:
+            start_date = self.request.POST.get('start_date', '')
+            end_date = self.request.POST.get('end_date', '')
+            action = self.request.POST['action']
+            if action == 'report':
+                data = []
+                if start_date == '' and end_date == '':
+                    query = Venta.objects.filter(estado=1)
+                else:
+                    query = Venta.objects.filter(fecha_venta__range=[start_date, end_date], estado=1)
+                for c in query:
+                    data.append([
+                    c.fecha_venta.strftime('%d-%m-%Y'),
+                    str(c.cliente),
+                    c.id,
+                    format(c.subtotal, '.2f'),
+                    format(c.iva, '.2f'),
+                    format(c.total, '.2f')])
+            else:
+                data['error'] = 'No ha seleccionado una opcion'
+        except Exception as e:
+            data['error'] = 'No ha seleccionado una opcion'
+        return JsonResponse(data, safe=False)
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['icono'] = opc_icono
+        data['entidad'] = opc_entidad
+        data['titulo'] = 'Reporte de Ventas'
+        return data
+
+
+class report_prod(ListView):
+    model = Venta
+    template_name = 'front-end/venta/venta_report_prod.html'
+    queryset = Venta.objects.none()
+
+    @csrf_exempt
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def post(self, *args, **kwargs):
+        data = {}
+        try:
+            start_date = self.request.POST.get('start_date', '')
+            end_date = self.request.POST.get('end_date', '')
+            action = self.request.POST['action']
+            if action == 'report':
+                data = []
+                if start_date == '' and end_date == '':
+                    query = Detalle_venta.objects.all().values('venta__fecha_venta',
+                                                         'producto__nombre',
+                                                         'pvp_moment').order_by().annotate(
+                        Sum('cantidad')).filter(venta__estado=1)
+                else:
+                    query = Detalle_venta.objects.values('venta__fecha_venta',
+                                                         'producto__nombre',
+                                                         'pvp_moment').order_by().annotate(
+                        Sum('cantidad')).filter(venta__fecha_venta__range=[start_date, end_date], venta__estado=1)
+                for p in query:
+                    total = (p['pvp_moment']) * (p['cantidad__sum'])
+                    data.append([
+                        p['venta__fecha_venta'].strftime("%d/%m/%Y"),
+                        p['producto__nombre'],
+                        int(p['cantidad__sum']),
+                        format(p['pvp_moment'], '.2f'),
+                        format(total, '.2f'),
+                        format((float(total) * 0.12), '.2f'),
+                        format(((float(total) * 0.12) + float(total)), '.2f')
+                    ])
+            else:
+                data['error'] = 'No ha seleccionado una opcion'
+        except Exception as e:
+            data['error'] = 'No ha seleccionado una opcion'
+        return JsonResponse(data, safe=False)
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['icono'] = opc_icono
+        data['entidad'] = opc_entidad
+        data['titulo'] = 'Reporte de Ventas'
+        return data
+
 @csrf_exempt
 def data(request):
     data = []
     start_date = request.POST.get('start_date', '')
     end_date = request.POST.get('end_date', '')
-
     try:
         if start_date == '' and end_date == '':
             venta = Venta.objects.all()

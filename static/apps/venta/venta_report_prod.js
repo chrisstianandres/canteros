@@ -1,5 +1,4 @@
 var datatable;
-
 var logotipo;
 const toDataURL = url => fetch(url).then(response => response.blob())
     .then(blob => new Promise((resolve, reject) => {
@@ -15,7 +14,8 @@ toDataURL('/media/canteros_logo.png').then(dataUrl => {
 var datos = {
     fechas: {
         'start_date': '',
-        'end_date': ''
+        'end_date': '',
+        'action': 'report',
     },
     add: function (data) {
         if (data.key === 1) {
@@ -27,7 +27,7 @@ var datos = {
         }
 
         $.ajax({
-            url: '/pagos/data',
+            url: window.location.pathname,
             type: 'POST',
             data: this.fechas,
             success: function (data) {
@@ -62,12 +62,11 @@ function daterange() {
 
 $(function () {
     $('a[rel="btn_nuevo"]').hide();
-    $("div.card-header").html('<h3><i class="far fa-file-pdf"></i> Reporte de Asignacion de Labor</h3>');
     datatable = $("#datatable").DataTable({
-        responsive: true,
-        autoWidth: false,
+        // responsive: true,
+        destroy: true,
         ajax: {
-            url: '/pagos/data',
+            url: window.location.pathname,
             type: 'POST',
             data: datos.fechas,
             dataSrc: ""
@@ -115,7 +114,7 @@ $(function () {
                 pageSize: 'A4', //A3 , A5 , A6 , legal , letter
                 download: 'open',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+                    columns: [0, 1, 2, 3, 4, 5],
                     search: 'applied',
                     order: 'applied'
                 },
@@ -184,7 +183,7 @@ $(function () {
                         return 4;
                     };
                     doc.content[0].layout = objLayout;
-                    doc.content[1].table.widths = [65, 95, 110, 60, 55, 120, 30, 60, 60, 70];
+                    doc.content[1].table.widths = ["*", "*", "*", "*", "*", "*"];
                     doc.styles.tableBodyEven.alignment = 'center';
                     doc.styles.tableBodyOdd.alignment = 'center';
                 }
@@ -194,39 +193,29 @@ $(function () {
                 extend: 'excel'
             }
         ],
+        order: [[5, "desc"]],
         columnDefs: [
             {
                 searchPanes: {
                     show: true,
                 },
-                targets: [2, 3, 4, 5, 6, 7],
+                targets: [1, 2],
             },
             {
-                targets: [3],
+                targets: '_all',
+                class: 'text-center',
+
+            },
+            {
+                targets: [5, 3, 4, 6],
                 class: 'text-center',
                 orderable: false,
                 render: function (data, type, row) {
-                    return '<span>' + data + '</span>';
+                    return '$' + parseFloat(data).toFixed(2);
                 }
-            },
-            {
-                targets: [-3, -2, -1],
-                class: 'text-center',
-                orderable: false,
-                render: function (data, type, row) {
-                    return '$' + data;
-                }
-            },
-        ],
-        createdRow: function (row, data, dataIndex) {
-            if (data[3] === 'ACTIVO') {
-                $('td', row).eq(3).find('span').addClass('badge badge-info');
-            } else if (data[3] === 'INACTIVO') {
-                $('td', row).eq(3).find('span').addClass('badge badge-danger');
             }
-        },
+        ],
         footerCallback: function (row, data, start, end, display) {
-            console.log(data);
             var api = this.api(), data;
 
             // Remove the formatting to get integer data for summation
@@ -238,23 +227,90 @@ $(function () {
             };
             // Total over this page
             pageTotalsiniva = api
-                .column(9, {page: 'current'})
+                .column(3, {page: 'current'})
                 .data()
                 .reduce(function (a, b) {
                     return intVal(a) + intVal(b);
                 }, 0);
             // total full table
-            pageTotalsiniva = api.column(9).data().reduce(function (a, b) {
+            pageTotalsiniva = api.column(3).data().reduce(function (a, b) {
                 return intVal(a) + intVal(b);
             }, 0);
 
+            // Total over this page
+            pageTotaliva = api
+                .column(4, {page: 'current'})
+                .data()
+                .reduce(function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+            // total full table
+            totaliva = api.column(4).data().reduce(function (a, b) {
+                return intVal(a) + intVal(b);
+            }, 0);
+
+            pageTotaliva2 = api
+                .column(5, {page: 'current'})
+                .data()
+                .reduce(function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+            // total full table
+            totaliva2 = api.column(5).data().reduce(function (a, b) {
+                return intVal(a) + intVal(b);
+            }, 0);
+
+             pagetotal2 = api
+                .column(6, {page: 'current'})
+                .data()
+                .reduce(function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+            // total full table
+            paguetotal2 = api.column(6).data().reduce(function (a, b) {
+                return intVal(a) + intVal(b);
+            }, 0);
+
+
+             pageCantidad = api
+                .column(2, {page: 'current'})
+                .data()
+                .reduce(function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+            // total full table
+            Cantidad = api.column(2).data().reduce(function (a, b) {
+                return intVal(a) + intVal(b);
+            }, 0);
+
+// Total over this page
             // Update footer
-            $(api.column(9).footer()).html(
-                 '$ '+parseFloat(pageTotalsiniva).toFixed(2) + ' ( $ ' + parseFloat(pageTotalsiniva).toFixed(2) + ')'
+            $(api.column(3).footer()).html(
+                parseFloat(pageTotalsiniva).toFixed(2) + ' ( ' + parseFloat(pageTotalsiniva).toFixed(2) + ')'
+                // parseFloat(data).toFixed(2)
+            );
+            $(api.column(4).footer()).html(
+                parseFloat(pageTotaliva).toFixed(2) + ' ( ' + parseFloat(pageTotaliva).toFixed(2) + ')'
+                // parseFloat(data).toFixed(2)
+            );
+            $(api.column(5).footer()).html(
+                parseFloat(pageTotaliva2).toFixed(2) + ' ( ' + parseFloat(pageTotaliva2).toFixed(2) + ')'
+                // parseFloat(data).toFixed(2)
+            );
+            $(api.column(6).footer()).html(
+                parseFloat(pagetotal2).toFixed(2) + ' ( ' + parseFloat(paguetotal2).toFixed(2) + ')'
+                // parseFloat(data).toFixed(2)
+            );
+             $(api.column(2).footer()).html(
+                parseInt(pageCantidad) + ' ( ' + parseInt(Cantidad) + ')'
                 // parseFloat(data).toFixed(2)
             );
         },
     });
+
 });
 
-
+function pad(str, max) {
+    str = str.toString();
+    return str.length < max ? pad("0" + str, max) : str;
+}

@@ -1,0 +1,32 @@
+{% extends 'front-end/list.html' %}
+{% load static from staticfiles %}
+{% block table %}
+    <thead>
+    <tr>
+        <th>Fecha</th>
+        <th>Cliente</th>
+        <th>N° Factura</th>
+        <th>Subtotal</th>
+        <th>Iva</th>
+        <th>Total</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+    <tfoot>
+    <tr>
+         <th></th>
+        <th></th>
+        <th>Totales</th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+
+    </tfoot>
+{% endblock %}
+{% block extra %}
+<script src="{% static 'apps/venta/venta_report.js' %}"></script>
+<script src="{% static 'apps/funtions.js' %}"></script>
+{% endblock %}
