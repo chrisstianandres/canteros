@@ -102,16 +102,31 @@ def check(request):
     try:
         date = datetime.now().date()
         if Periodo.objects.filter(desde__lte=date, hasta__gte=date).exists():
+            print(1)
+            if Periodo.objects.filter(estado=1).exists():
+                print(2)
+                pq = Periodo.objects.get(estado=1)
+                pq.estado = 0
+                pq.save()
             p = Periodo.objects.get(desde__lte=date, hasta__gte=date)
             if p.estado == 1:
+                print(3)
                 pass
             else:
+                print(4)
                 p.estado = 1
                 p.save()
         else:
+            print(5)
             data['error'] = 'Por favor Agregue el periodo ' + str(date.year)
         data['resp'] = True
-
+        if Periodo.objects.filter(desde__year=date.year-1).exists():
+            print(6)
+            pp = Periodo.objects.get(desde__year=date.year-1)
+            if pp.estado == 1:
+                print(7)
+                pp.estado = 0
+                pp.save()
     except Exception as e:
         data['error'] = str(e)
     return JsonResponse(data)

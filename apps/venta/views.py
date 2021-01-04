@@ -305,7 +305,7 @@ def cate():
 def vent():
     year = datetime.now().year
     data = []
-    c = Detalle_venta.objects.filter(venta__fecha_venta__year=year, venta__estado=1).aggregate(
+    c = Detalle_venta.objects.filter(venta__fecha_venta__year=year-1, venta__estado=1).aggregate(
         r=Coalesce(Sum('cantidad'), 0)).get('r')
     data.append(c)
     return data
@@ -314,7 +314,7 @@ def vent():
 def prod():
     year = datetime.now().year
     data = []
-    c = Produccion.objects.filter(fecha__year=year).aggregate(
+    c = Produccion.objects.filter(fecha__year=year-1).aggregate(
         r=Coalesce(Sum('cantidad'), 0)).get('r')
     data.append(c)
     return data
@@ -323,7 +323,7 @@ def prod():
 def perd():
     year = datetime.now().year
     data = []
-    c = Produccion.objects.filter(fecha__year=year).aggregate(
+    c = Produccion.objects.filter(fecha__year=year-1).aggregate(
         r=Coalesce(Sum('perdida'), 0)).get('r')
     data.append(c)
     return data

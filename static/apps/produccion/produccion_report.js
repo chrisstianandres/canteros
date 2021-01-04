@@ -201,6 +201,51 @@ $(function () {
                 targets: [2, 3, 4, 5, 6, 7, 8],
             },
         ],
+        footerCallback: function (row, data, start, end, display) {
+            console.log(data);
+            var api = this.api(), data;
+
+            // Remove the formatting to get integer data for summation
+            var intVal = function (i) {
+                return typeof i === 'string' ?
+                    i.replace(/[\$,]/g, '') * 1 :
+                    typeof i === 'number' ?
+                        i : 0;
+            };
+            // Total over this page
+            pageTotalsiniva = api
+                .column(7, {page: 'current'})
+                .data()
+                .reduce(function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+            // total full table
+            pageTotalsiniva = api.column(7).data().reduce(function (a, b) {
+                return intVal(a) + intVal(b);
+            }, 0);
+
+            // Total over this page
+            pageTotaliva = api
+                .column(8, {page: 'current'})
+                .data()
+                .reduce(function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+            // total full table
+            totaliva = api.column(8).data().reduce(function (a, b) {
+                return intVal(a) + intVal(b);
+            }, 0);
+// Total over this page
+            // Update footer
+            $(api.column(7).footer()).html(
+                 parseFloat(pageTotalsiniva).toFixed(2) + ' ( ' + parseFloat(pageTotalsiniva).toFixed(2) + ')'
+                // parseFloat(data).toFixed(2)
+            );
+             $(api.column(8).footer()).html(
+                 parseFloat(pageTotaliva).toFixed(2) + ' ( ' + parseFloat(pageTotaliva).toFixed(2) + ')'
+                // parseFloat(data).toFixed(2)
+            );
+        },
     });
 });
 
