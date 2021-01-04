@@ -155,7 +155,7 @@ def get_detalle(request):
         id = request.POST['id']
         if id:
             data = []
-            for p in Detalle_asig_insumo.objects.filter(asig_insumo__cantero_id=id):
+            for p in Detalle_asig_insumo.objects.filter(asig_insumo_id=id):
                 data.append(p.toJSON())
         else:
             data['error'] = 'Ha ocurrido un error'

@@ -44,7 +44,7 @@ $(function () {
             destroy: true,
             ajax: {
                 url: '/asig_insumo/get_detalle',
-                type: 'Post',
+                type: 'POST',
                 data: {
                     'id': data['0']
                 },
